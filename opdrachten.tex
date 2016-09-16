@@ -1,6 +1,7 @@
 \chapter{Opdrachten}
 \label{opdrachten}
 
+
 \section{Labo-opdracht}
 \label{labo-opdracht}
 
@@ -155,12 +156,12 @@ Enkele mogelijkheden:
 
   \begin{itemize}
     \item Breid de rol \texttt{bertvv.rh-base}\footnote{\url{https://github.com/bertvv/ansible-role-rh-base}} uit met functionaliteit voor het toepassen van automatische updates. Dit moet werken zowel voor Fedora Server als voor CentOS.
-    \item Breid de rol \texttt{bertvv.rh-base} uit met beveiligingsopties, zoals de configuratie van SSHD~\autocite{stribika2015,Maundalexis2016} of Fail2Ban~\autocite{Sawiyati2014}.
+    \item Breid de rol \texttt{bertvv.rh-base} uit met beveiligingsopties, zoals de configuratie van SSHD~\autocite{stribika2015,Moundalexis2016} of Fail2Ban~\autocite{Sawiyati2014}.
     \item Verbeter de performantie van MariaDB zoals geïnstalleerd via de rol \texttt{bertvv.mariadb} aan de hand van de richtlijnen van \textcite{Aun2016}.
     \item Voeg ondersteuning voor andere platformen (bv. Ubuntu server, Debian, Fedora Server, Alpine, \ldots) toe aan bestaande rollen.
   \end{itemize}
 
-\item Schrijf een Ansible rol (waar nog geen alternatief voor CentOS voor bestaat) en publiceer die op Ansible Galaxy. Dit doe je best in samenwerking met één of meerdere medestudent(en)!
+\item Schrijf een Ansible rol (waar nog geen alternatief voor CentOS voor bestaat) en publiceer die op Ansible Galaxy. Dit doe je best in samenwerking met één of meerdere medestudent(en)! Wanneer je voor de hoofdopdracht een nieuwe Ansible rol schrijft, kan je die algemeen bruikbaar maken en publiceren.
 \item Pas een techniek die beschreven is voor een andere distributie (CentOS 6, Debian, Ubuntu, \ldots{}) toe op CentOS 7. In de vorige sectie vind je een paar concrete voorbeelden.
 \end{itemize}
 
@@ -201,7 +202,20 @@ Bij het begin van de sessie krijg je een virtuele machine waar een netwerkservic
 \section{Rapportering en documentatie}
 \label{rapportering-en-documentatie}
 
-% TODO: richtlijnen labo-verslag
+In de \texttt{doc/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn. Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
+
+\subsubsection{Laboverslagen}
+\label{ssub:laboverslagen}
+
+Er is een sjabloon voorzien voor de laboverslagen. Pas dit sjabloon aan voor jezelf, vul bovenaan je naam in. Voor elke deeltaak maak je een apart verslag, waar je in detail uitlegt wat je precies gedaan hebt. Hoe heb je de taak aangepakt? Welke bronnen heb je gebruikt? Reflecteer ook over je vooruitgang: wat ging goed/niet goed? Wat heb je geleerd? Waar zit je vast, waar heb je nog problemen mee?
+
+Bij elk laboverslag hoort een testplan en -rapport. Het testplan is een opsomming van alle handelingen die nodig zijn om aan te tonen dat het op te zetten systeem zich gedraagt volgens de specificaties.
+
+Het testplan is eigenlijk het scenario van de demo die je geeft aan de lector om aan te tonen dat je alle aspecten van de opdracht correct hebt uitgevoerd. Dit bestaat uit concrete handelingen of commando's die je moet uitvoeren, en een beschrijving van het verwachte resultaat.
+
+Door het lezen van het testrapport moet het duidelijk zijn in hoeverre de opdracht is uitgevoerd, wat het effectieve resultaat van de tests was. Je kan transcripties toevoegen van de terminal (gebruik hiervoor Markdown codeblokken).  Het testrapport zou evenveel informatie moeten bevatten als de demo.
+
+Ook bij de \textbf{troubleshooting-oefeningen} hoort een verslag. Deel je verslag op in secties voor de verschillende fasen in het troubleshooting-proces. Je kan je verslag al voorbereiden door de commando's die je zeker moet uitvoeren er alvast in op te sommen, samen met verwachte resultaten (voor zover dit al op voorhand kan). Sla dit op als een apart sjabloon specifiek voor troubleshooting. Bij het uitvoeren van de oefening kan je dit dan aanvullen met de effectieve resultaten die je krijgt, en de commando's/configuratiewijzigingen die je hebt uitgevoerd om problemen op te lossen.
 
 \subsection{Cheat-sheets en checklists}
 \label{cheat-sheets-en-checklists}
