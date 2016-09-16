@@ -1,9 +1,9 @@
 \chapter{Opdrachten}
-\label{opdrachten}
+\label{ch:opdrachten}
 
 
 \section{Labo-opdracht}
-\label{labo-opdracht}
+\label{sec:labo-opdracht}
 
 De labo-opdracht omvat het opzetten van ict-infrastructuur op basis van Linux. We werken in een gevirtualiseerde omgeving en er is een bijzondere aandacht voor \emph{automatiseren} en \emph{testen}. Je moet dus in staat zijn de systemen ``from scratch'' op te bouwen met een minimum aan manuele handelingen. Daarna moet je kunnen aantonen dat deze systemen voldoen aan de opgelegde specificaties aan de hand van geautomatiseerde tests en een gedetailleerd testplan en -rapport.
 
@@ -18,7 +18,7 @@ Je kiest aan het begin van het semester één van deze drie opdrachten die je de
 Voor het automatiseren van systeembeheertaken maken we altijd gebruik van een configuration management tool, Ansible. Je krijgt een korte uitleg, maar het is de bedoeling dat je ook zelf leert werken met Ansible. De infrastructuur die je bouwt moet telkens volledig ``from scratch'' kunnen worden opgezet zonder manuele tussenkomst.
 
 \subsection{Small/Medium Enterprise infrastructure}
-\label{smallmedium-enterprise-infrastructure}
+\label{subs:smallmedium-enterprise-infrastructure}
 
 De bedoeling is om een volledig (gevirtualiseerd) netwerkdomein op te zetten met de enkele typische netwerkdiensten voor een kantooromgeving (zie Figuur 1).
 
@@ -39,7 +39,7 @@ De opdracht zal in meer detail geformuleerd worden aan de hand van een reeks dee
 \end{itemize}
 
 \subsection{High availability}
-\label{high-availability}
+\label{subs:high-availability}
 
 Hier is het de bedoeling om de infrastructuur op te zetten voor een grote website die veel webtrafiek moet kunnen verwerken. Dat betekent dat de webserver ``uit elkaar getrokken'' moet worden en dat verschillende services op aparte machines moeten komen (zie Figuur 2):
 
@@ -58,7 +58,7 @@ Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht 
 \end{figure}
 
 \subsection{Continuous delivery}
-\label{continuous-delivery}
+\label{subs:continuous-delivery}
 
 In softwarebedrijven of de bedrijven achter de grote websites (type Google, Amazon, Facebook, enz.) is een van de rollen van een systeembeheerder er voor te zorgen dat software-ontwikkelaars zo snel en zo vlot mogelijk nieuwe features in productie kunnen brengen. Deze functie heet ``Release Engineer''. In plaats van grote, ingrijpende releases over langere periodes met veel nieuwe features, streeft men er tegenwoordig naar om kleinere releases te doen aan een hoger tempo (soms zelfs tientallen per dag), met bv. slechts één nieuwe feature of verbetering. Voor deze manier van werken is specifieke infrastructuur nodig en is het nodig een aantal zaken te automatiseren.
 
@@ -83,7 +83,7 @@ Je moet de hele pipeline kunnen demonstreren. Na een wijziging in de code te pus
 De VMs die op de verschillende platformen draaien, worden toch zo identiek mogelijk geconfigureerd. Hier bestaan tools voor, bv. Packer.  Je mag ook containers (bv. Docker) gebruiken om je applicatie in te pakken. De build server kan Jenkins zijn, je kan ook kijken naar Travis CI.
 
 \section{Actualiteit}
-\label{actualiteit}
+\label{sec:actualiteit}
 
 Bij elke rol in de ict-sector is het voortdurend bijwerken van je vakkennis onontbeerlijk om de snelle evolutie in je vakgebied bij te kunnen benen. In Linux systeembeheer is dat niet anders. Wat ons vakgebied kenmerkt is een uitgesproken wil om informatie en kennis te delen. Er is dan ook een schat van informatie te vinden over de meest recente evoluties via blogs, conferenties waarvan de lezingen op Youtube of Vimeo gepubliceerd zijn, enz.
 
@@ -99,7 +99,7 @@ Je mag hier ook tijdens de contacturen aan werken en ook samenwerken met één o
 **Begin zo snel mogelijk hier aan te werken!** Wacht niet tot het einde van het semester om dan snel iets in elkaar te flansen. Dit kan leiden tot een beoordeling ``nog niet bekwaam,'' met alle gevolgen van dien.
 
 \subsection{Nieuwe technieken uitproberen}
-\label{nieuwe-technieken-uitproberen}
+\label{subs:nieuwe-technieken-uitproberen}
 
 Zoals eerder aangegeven, vormen Linux-systeembeheerders een ``community'' waar er veel informatie uitgewisseld wordt. Sommigen gieten zaken die ze bijleren in een blog-artikel, gaan erover spreken op conferenties, enz.
 
@@ -137,7 +137,7 @@ Vond je andere interessante blogs? Geef maar door aan de lector! Andere bronnen 
 Ben je zelf buiten de opleiding om bezig met Linux? Bespreek met de lector of je je ervaringen, experimenten, \ldots{} eventueel kan inbrengen voor deze opdracht.
 
 \subsection{Bijdrage aan een open source project}
-\label{bijdrage-aan-een-open-source-project}
+\label{subs:bijdrage-aan-een-open-source-project}
 
 Alle tools waar we in de cursus gebruiken zijn open source. Sommige, zoals Ansible, werden door een softwarebedrijf ontwikkeld die daar een businessmodel rond gebouwd hebben. Andere werden door enthousiastelingen in hun vrije tijd ontwikkeld. In elk geval kunnen we gratis gebruik maken van software van hoge kwaliteit, dankzij de inspanningen van velen.
 
@@ -168,7 +168,7 @@ Enkele mogelijkheden:
 Andere ideeën zijn ook welkom, bespreek die met de lector. Ook op Chamilo kan je nog enkele voorstellen vinden.
 
 \subsection{PXEboot image voor klonen pc's}
-\label{sub:pxeboot_image_voor_klonen_pc_s}
+\label{subs:pxeboot_image_voor_klonen_pc_s}
 
 In deze sectie wordt nog een voorstel gepresenteerd dat in aanmerking komt voor de actualiteits-opdracht, maar niet meteen onder de eerder besproken categorieën valt.
 
@@ -193,19 +193,19 @@ Suggesties/overwegingen:
 Meer info over de huidige configuratie van de PXEboot image is te verkrijgen bij de lector.
 
 \section{Troubleshooting}
-\label{troubleshooting}
+\label{sec:troubleshooting}
 
 Tijdens het semester wordt er een aantal keer een troubleshooting-oefening gegeven tijdens de contactmomenten. Aanwezigheid is verplicht, behalve voor TILE-studenten (zie verder).
 
 Bij het begin van de sessie krijg je een virtuele machine waar een netwerkservice op zou moeten draaien. Door fouten in de configuratie werkt die echter niet correct. De bedoeling is om op een systematische en grondige manier de fouten op te sporen en weg te werken en de service opnieuw beschikbaar te maken over het netwerk. Je maakt daar een gedetailleerd verslag van dat aan het einde van de les ingediend moet worden op Chamilo.
 
 \section{Rapportering en documentatie}
-\label{rapportering-en-documentatie}
+\label{sec:rapportering-en-documentatie}
 
 In de \texttt{doc/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn. Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
 
-\subsubsection{Laboverslagen}
-\label{ssub:laboverslagen}
+\subsection{Laboverslagen}
+\label{subs:laboverslagen}
 
 Er is een sjabloon voorzien voor de laboverslagen. Pas dit sjabloon aan voor jezelf, vul bovenaan je naam in. Voor elke deeltaak maak je een apart verslag, waar je in detail uitlegt wat je precies gedaan hebt. Hoe heb je de taak aangepakt? Welke bronnen heb je gebruikt? Reflecteer ook over je vooruitgang: wat ging goed/niet goed? Wat heb je geleerd? Waar zit je vast, waar heb je nog problemen mee?
 
@@ -218,7 +218,7 @@ Door het lezen van het testrapport moet het duidelijk zijn in hoeverre de opdrac
 Ook bij de \textbf{troubleshooting-oefeningen} hoort een verslag. Deel je verslag op in secties voor de verschillende fasen in het troubleshooting-proces. Je kan je verslag al voorbereiden door de commando's die je zeker moet uitvoeren er alvast in op te sommen, samen met verwachte resultaten (voor zover dit al op voorhand kan). Sla dit op als een apart sjabloon specifiek voor troubleshooting. Bij het uitvoeren van de oefening kan je dit dan aanvullen met de effectieve resultaten die je krijgt, en de commando's/configuratiewijzigingen die je hebt uitgevoerd om problemen op te lossen.
 
 \subsection{Cheat-sheets en checklists}
-\label{cheat-sheets-en-checklists}
+\label{subs:cheat-sheets-en-checklists}
 
 Wanneer je niet gewend bent om met Linux te werken, dan is het niet evident om op te zoeken en te onthouden welke commando's je nodig hebt voor welke taak. Via Google vind je wel vaak een oplossing, maar dat ligt niet altijd voor de hand. Er zijn bijvoorbeeld recentelijk substantiële wijzigingen doorgevoerd in de architectuur van de belangrijkste Linux-distributies waardoor bepaalde commando's (die je erg vaak tegenkomt bij Googlen) niet meer werken.
 
@@ -231,7 +231,7 @@ In je repository vind je onder \texttt{doc/} een bestand \texttt{cheat-sheet.md}
 Bij de evaluatie wordt er rekening mee gehouden hoe je deze documenten hebt bijgehouden in de loop van het jaar (aan de hand van de commit log).
 
 \subsection{Bloggen}
-\label{bloggen}
+\label{subs:bloggen}
 
 Technische blogs zoals deze die eerder aangehaald werden zijn een meer en meer voorkomende manier om ervaringen en informatie uit te wisselen binnen ons vakgebied. Studenten die gaan solliciteren (en ook wie al in het vak staat) kunnen met een eigen blog aan potentiële werkgevers aantonen dat ze gepassioneerd zijn door hun vak, bezig zijn met de laatste technologieën en open staan voor het delen van kennis. Je kan een eigen blog opstarten en schrijven over wat je in deze cursus (en ook andere!) leert, zaken die je zelf opgezocht en ondervonden hebt, \ldots
 
