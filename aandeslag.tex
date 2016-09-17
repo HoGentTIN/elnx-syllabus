@@ -398,4 +398,25 @@ Jammer genoeg ontslaat dit ons niet van de verantwoordelijkheid om de systemen d
 
 Een systematische en grondige aanpak is van levensbelang. De impact van de onbeschikbaarheid van netwerkservices is meestal bijzonder zwaar. In het beste geval heb je boze gebruikers, maar in het slechtste geval verliest je bedrijf tienduizenden euro's per uur aan verloren productiviteit en potentiële inkomsten. Op zo'n moment gaat met googlen naar een oplossing kostbare tijd verloren (als je al \emph{kan} googlen), en als je op dat moment nog moet beginnen handleidingen lezen, wordt het zeker nachtwerk.
 
-% TODO: aanvullen, verwijzen naar network troubleshooting guide
+De beste manier om het troubleshooten van netwerkservices systematiseren is om de TCP/IP-stack als model te nemen. Test eerst de onderste laag, en pas als daar alle mogelijke problemen zijn opgespoord ga je naar de laag er boven: \emph{bottom-up troubleshooting}.
+
+\begin{enumerate}
+  \item Datalinklaag: kabels, netwerkpoorten op de switch/router, netwerkkaart, enz.;
+  \item Internetlaag: IP adresconfiguratie, default gateway, DNS-server;
+  \item Transportlaag: toestand netwerkservice, open netwerkpoorten, firewall-instellingen;
+  \item Applicatielaag: fouten in configuratiebestanden, logbestanden, bereikbaarheid service vanop het netwerk, enz.
+\end{enumerate}
+
+Deze werkwijze wordt verder uitgediept in \textcite{VanVreckem2015}. \textbf{Lees die grondig}, verwerk wat je er leert in je eigen cheat sheet. Tip: je kan een gelijkaardige checklist maken voor bv.~Windows Server. De werkwijze is net hetzelfde, je moet enkel opzoeken hoe je op Windows deze zaken kan controleren.
+
+Nog enkele tips bij het troubleshooten:
+\begin{itemize}
+  \item Werk je checklist bij wanneer je nieuwe dingen leert.
+  \item Wees \textbf{grondig}. Sla nooit stappen over (een typische: kabels vergeten nakijken).
+  \item Lees de \textbf{foutboodschappen}. Die geven aan wat er precies misloopt. Zoek ze op met Google.
+  \item Werk in \textbf{kleine stappen} en verifieer elke stap.
+  \item Geen veronderstellingen! \textbf{Testen!}
+  \item Maak een \textbf{backup van configuratiebestanden}, in elk geval de \emph{originele} en de laatst gekende werkende versie.
+  \item \textbf{Valideer altijd configuratiebestanden} voordat je de service opstart.
+  \item Werk met verschillende terminals, gebruik er minstens één voor het tonen van de logbestanden (\texttt{journalctl -f})
+\end{itemize}
