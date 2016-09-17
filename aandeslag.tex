@@ -5,10 +5,45 @@ In dit hoofdstuk vind je wat technische achtergrond over een aantal onderwerpen 
 
 De bedoeling is om een minimum aan informatie mee te geven om je in staat te stellen snel aan de slag te gaan en een aantal typische beginnersfouten te vermijden. Voordat je aan de opdracht begint, lees je dus best eerst de informatie hier na en ga je ook best de \textbf{gerefereerde bronnen opzoeken en bestuderen}!
 
-% TODO:
-% Algemene richtlijnen:
-% - als je VM helemaal ``om zeep'' gebracht is, doe eenvoudigweg ``vagrant destroy -f; vagrant up'' om opnieuw te beginnen vanaf de laatste werkende versie.
-% - wanneer je denkt klaar te zijn met een (deel-)opdracht, genereer de VM nog eens (met destroy en up) en voer alle acceptatietests uit.
+\section{Opzetten werkomgeving}
+\label{sec:opzetten_werkomgeving}
+
+Installeer eerst de nodige software, meer bepaald de laatste stabiele versie van de applicaties opgesomd in Sectie~\ref{sec:gebruikte-hard--en-software}. De volledige neerslag van al wat je voor deze cursus doet wordt bijgehouden in het versiebeheersysteem Git. Via Chamilo vind je een link die, als je er op doorklikt, een nieuwe repository creëert waar je in kan werken. Deze is zichtbaar voor jou en de lector. Naast de configuratie van de opgezette systemen zal je er ook je documentatie bijhouden, zoals testrapporten, procedures, cheat sheets en checklists.
+
+Richtlijnen voor het opstarten van je Git project:
+
+\begin{enumerate}
+  \item In principe moet je al een Github account hebben. Als je dit nog niet gedaan hebt, koppel dan zeker je @student.hogent.be adres aan het account. Je kan dan het Github Student Developer Pack\footnote{\url{https://education.github.com/pack}} aanvragen met allerlei interessante aanbiedingen.
+  \item Maak een SSH-sleutelpaar aan om het pushen naar Github te vereenvoudigen. Het commando is \texttt{ssh-keygen}, volg de richtlijnen die het geeft. Geef voor je gemak een lege \emph{passphrase} op (zoniet moet je telkens je de sleutel gebruikt je passphrase intikken). Normaal zou er in de directory \path{~/.ssh}\footnote{Het symbool {\textasciitilde} is natuurlijk de \emph{home directory} van de gebruiker. In Linux komt dit overeen met \path{/home/USER}, onder Windows met \path{C:\Users\USER} of \path{C:\Gebruikers\USER}, onder MacOS met \path{/Users/USER}} twee bestanden aangemaakt moeten zijn: \path{id_rsa} en \path{id_rsa.pub}. Het eerste is je private sleutel (die je geheim moet houden), het tweede de publieke. Die laatste kan je op Github registreren via je profielinstellingen (klik op je avatar rechtsboven, volg \emph{Settings} en dan \emph{SSH and GPG keys}).
+  \item Maak lokaal een directory aan die je voorbehoudt voor al wat met deze cursus te maken heeft. Binnen deze directory kan je je Github-repository klonen. Klik op de Github-pagina van je repository op de groene knop rechts (\emph{Clone or download}), kies voor ``Clone with SSH'' kopieer de link van de vorm \path{git@github.com:HoGentTIN/REPO_NAAM-GEBRUIKERSNAAM.git}.
+
+    \begin{minted}[gobble=6]{console}
+      $ cd Documents/Courses/EnterpriseLinux/
+      $ git clone --config core.autocrlf=input git@github.com:HoGentTIN/REPONAAM-GEBRUIKERSNAAM.git repo
+    \end{minted}
+
+    Dit maakt een lokale kopie van de repository in een subdirectory \path{repo}. Je kan zelf de naam van deze directory kiezen en die achteraf verplaatsen, alles blijft gewoon werken. Merk op dat de instelling \texttt{core.autocrlf} \textbf{op een Windows-pc essentieel is}. Als je deze vergeet zal je het klonen moeten opnieuw doen.
+
+  \item Basisconfiguratie Git, indien je dit nog niet gedaan hebt (kijk na in \path{~/.gitconfig}):
+
+    \begin{minted}[gobble=6]{console}
+      $ git config --global user.name "VOORNAAM NAAM"
+      $ git config --global user.email "VOORNAAM.NAAM@EXAMPLE.COM"
+      $ git config --global push.default simple
+    \end{minted}
+
+    of wanneer je op een publieke pc werkt (de instellingen gelden dan enkel voor jouw repository):
+
+    \begin{minted}[gobble=6]{console}
+      $ cd ~/Documents/Courses/EnterpriseLinux/repo
+      $ git config user.name "VOORNAAM NAAM"
+      $ git config user.email "VOORNAAM.NAAM@student.hogent.be"
+    \end{minted}
+
+    De instelling voor \texttt{push.default} kan wel globaal gemaakt worden. Het is aan te raden om je repository \emph{niet} op de klaspc's te laten staan op het einde van de les. Werk eventueel vanop een USB-stick.
+
+  \item Bekijk de bestanden in de \path{doc/} directory. Hier vind je de opgave van deelopdrachten en sjablonen voor verslagen en cheat sheets in Markdown-formaat~\autocite{Gruber2004}. Pas alvast het sjabloon aan, vul er je eigen naam in.
+\end{enumerate}
 
 \section{Algemene richtlijnen}
 \label{sec:algemene_richtlijnen}
@@ -28,6 +63,7 @@ In deze sectie vind je enkele algemene richtlijnen die je helpen vlotter en effi
   \item Probeer \textbf{elke commit te beperken tot één enkele ``reden''} om wijzigingen aan te brengen aan de bestaande code. Dit maakt de ``geschiedenis'' van je project transparanter en maakt ook dat je makkelijker kan terugkeren naar een bepaalde stap wanneer je de mist in gaat.
   \item \textbf{Maak backups} van de originele, ongewijzigde configuratiebestanden zodat je er op kan terugvallen als er iets misloopt. Soms heb je zodanig zitten ``prutsen'' dat je er niet meer in slaagt de service te laten werken.
   \item \textbf{Gebruik \texttt{vagrant destroy}} (zie Sectie~\ref{sec:vagrant}). Wanneer je veel manuele wijzigingen hebt aangebracht in een VM, ben je op de duur niet meer zeker dat die zich in de verwachte toestand bevindt. Of je kan door experimenteren de VM onbruikbaar gemaakt hebben. Door de VM te verwijderen en opnieuw op te bouwen (met \texttt{vagrant up}) kan je opnieuw beginnen van een werkende versie (als je de vorige richtlijnen opvolgt, tenminste!).
+  \item Ook wanneer je denkt klaar te zijn met een deelopdracht, genereer de VM nog eens helemaal opnieuw en voer alle acceptatietests uit.
 \end{itemize}
 
 \begin{figure}
@@ -73,9 +109,9 @@ $
 
     Er bestaan nog \emph{veel} meer combinaties. Deze kan je vinden in de man-pagina \texttt{bash(1)} in de sectie READLINE (subsectie \emph{Readline Command Names} en volgende).
 
-  \item \textbf{Personaliseer de shell.} Je kan het gedrag van de shell in hoge mate aan je eigen wensen aanpassen door het bestand \path{~/.bashrc}\footnote{Het symbool {\textasciitilde} is natuurlijk de \emph{home directory} van de gebruiker. In Linux komt dit overeen met \path{/home/USER}, onder Windows met \path{C:\Users\USER} of \path{C:\Gebruikers\USER}, onder MacOS met \path{/Users/USER}} aan te passen. Je kan het gedrag van tab-completion of de command history aanpassen, een eigen commandoprompt instellen, aliassen (zie verder) of functies definiëren, enz. Het zou ons te ver leiden om alle mogelijkheden uit te diepen, maar je kan een uitgebreid voorbeeld vinden in \url{https://github.com/bertvv/dotfiles/} (of gelijknamige repositories van andere Github-gebruikers).
+  \item \textbf{Personaliseer de shell.} Je kan het gedrag van de shell in hoge mate aan je eigen wensen aanpassen door het bestand \path{~/.bashrc} aan te passen. Je kan het gedrag van tab-completion of de command history aanpassen, een eigen commandoprompt instellen, aliassen (zie verder) of functies definiëren, enz. Het zou ons te ver leiden om alle mogelijkheden uit te diepen, maar je kan een uitgebreid voorbeeld vinden in \url{https://github.com/bertvv/dotfiles/} (of gelijknamige repositories van andere Github-gebruikers).
 
-  \item \textbf{Aliassen} zijn een soort shortcuts voor commando's die je vaak gebruikt. Dit kan enorm veel typwerk besparen. Je kan ze toevoegen in je \path{~/.bashrc}. Enkele voorbeelden:
+  \item \textbf{Aliassen} zijn een soort shortcuts voor commando's die je vaak gebruikt. Dit kan enorm veel typwerk besparen. Je kan ze toevoegen in je \path{~/.bashrc}. Enkele voorbeelden ter inspiratie:
 
     \begin{minted}{bash}
 alias l='ls -l --si --time-style=long-iso --color'
@@ -85,6 +121,7 @@ alias h='git log --pretty="format:%C(yellow)%h %C(blue)%ad %C(reset)%sC(red)%d %
 alias s='git status'
 alias vu='vagrant up'
 alias vD='vagrant destroy'
+alias elnx='cd /home/bert/Documents/Courses/EnterpriseLinux/16-17'
 \end{minted}
 
     Nog meer voorbeelden vind je in \url{https://github.com/bertvv/dotfiles/blob/master/.bash.d/aliases.sh}.
