@@ -267,11 +267,27 @@ rhbase_firewall_allow_services
 
 Telkens je een wijziging aanbrengt in de Ansible-configuratie, kan je die doorvoeren met \texttt{vagrant\ provision}.
 
+\section{Basiskennis CentOS}
+\label{sec:basiskennis_centos}
 
-% TODO:
-% Sectie over basiskennis CentOS
-% (na Ansible)
+CentOS is een Linux-distributie die afgeleid is van RedHat, maar initieel volledig door de \emph{community} onderhouden werd. RedHat is een commerciële Linux-distributie van het gelijknamige bedrijf. Je kan RedHat Enterprise Linux (RHEL) enkel gebruiken als je er een support contract voor tekent. Nu is RHEL wel volledig open source en is het dus toegelaten om de code te hergebruiken en te wijzigen. Dat is precies wat in het CentOS-project gebeurd is. Alles wat onder het merkenrecht valt (de naam RHEL, logo's, enz.) is verwijderd en vervangen. CentOS is dus volledig compatibel met RHEL, maar gratis. RedHat heeft goede relaties met het CentOS-project, zelfs in die mate dat ze sinds 2014 het project beginnen sponsoren zijn en de belangrijkste medewerkers van het project in dienst genomen hebben. In deze cursus gebruiken we CentOS omdat de RedHat-familie in het Vlaamse bedrijfsleven de meest gebruikte Linux-distributie is.
 
+Om je te helpen bij het leren kennen van deze distributie vind je hieronder enkele suggesties.
+
+\begin{itemize}
+  \item \textbf{Lees eerst de RHEL 7-documentatie}~\autocite{SvistunovEtAl2016,JahodaEtAl2016,JahodaEtAl2016a}, ga niet in het wilde weg Googlen naar commando's. Recent zijn er redelijk wat ingrijpende wijzigingen gebeurd in het Linux-landschap waardoor vele commando's die nog altijd in blog-artikels en HOWTO's staan niet meer werken of verouderd zijn. De delen van de handleidingen die bij uitstek relevant zijn, worden opgesomd in Sectie~\ref{subs:documentatie-gebruiken}.
+  \item Maak voor jezelf een \textbf{cheat sheet} met de belangrijkste commando's, in het bijzonder voor:
+    \begin{itemize}
+      \item netwerkinstellingen opvragen met \texttt{ip};
+      \item de werking van \texttt{sudo};
+      \item installatie van software beheren met \texttt{yum};
+      \item services beheren met \texttt{systemctl};
+      \item de firewall beheren met \texttt{firewall-cmd};
+      \item de juiste commando's voor het valideren van configuratiebestanden (bv. \texttt{testparm} voor Samba, \texttt{apachectl configtest} voor Apache, \texttt{named-checkconf} voor BIND, enz.)
+    \end{itemize}
+
+    Je kan je laten inspireren door deze cheat sheet: \url{https://github.com/bertvv/cheat-sheets/blob/master/src/EL7.md} Kopieer deze niet blind! Je moet je eigen cheat sheet zelf opstellen, zo zal je de commando's beter onthouden.
+\end{itemize}
 
 \section{DNS en BIND}
 \label{sec:dns-en-bind}
