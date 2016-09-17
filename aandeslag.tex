@@ -176,6 +176,15 @@ De belangrijkste Vagrant commando's worden opgesomd in Tabel~\ref{tab:vagrant-co
 \label{tab:vagrant-commandos}
 \end{longtable}
 
+Alle VMs in de opstelling krijgen twee netwerkinterfaces:
+
+\begin{itemize}
+  \item Adapter 1: NAT-interface (de ``management interface'' voor Vagrant, Internetverbinding voor de VM)
+  \item Adapter 2: Host-only interface (gebruikt om vanop het hostsysteem de netwerkservices op de VM aan te spreken)
+\end{itemize}
+
+Zorg dat je goed begrijpt hoe deze interfaces werken, zoniet wordt troubleshooten erg moeilijk~\autocite{VanVreckem2015a}.
+
 \section{Ansible}
 \label{sec:ansible}
 
