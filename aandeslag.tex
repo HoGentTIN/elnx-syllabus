@@ -110,7 +110,7 @@ $
 
     Er bestaan nog \emph{veel} meer combinaties. Deze kan je vinden in de man-pagina \texttt{bash(1)} in de sectie READLINE (subsectie \emph{Readline Command Names} en volgende).
 
-  \item \textbf{Personaliseer de shell.} Je kan het gedrag van de shell in hoge mate aan je eigen wensen aanpassen door het bestand \path{~/.bashrc} aan te passen. Je kan het gedrag van tab-completion of de command history aanpassen, een eigen commandoprompt instellen, aliassen (zie verder) of functies definiëren, enz. Het zou ons te ver leiden om alle mogelijkheden uit te diepen, maar je kan een uitgebreid voorbeeld vinden in \url{https://github.com/bertvv/dotfiles/} (of gelijknamige repositories van andere Github-gebruikers).
+  \item \textbf{Personaliseer de shell.} Je kan het gedrag van de shell in hoge mate aan je eigen wensen aanpassen door het bestand \path{~/.bashrc} aan te passen. Je kan het gedrag van tab-completion of de command history aanpassen, een eigen commandoprompt instellen, aliassen (zie verder) of functies definiëren, enz. Het zou ons te ver leiden om alle mogelijkheden uit te diepen, maar je kan een relatief eenvoudig voorbeeld vinden in \url{https://github.com/bertvv/server-dotfiles/} (installatie-instructies te vinden in de README), en een meer uitgebreid voorbeeld in \url{https://github.com/bertvv/dotfiles/} (of gelijknamige repositories van andere Github-gebruikers).
 
   \item \textbf{Aliassen} zijn een soort shortcuts voor commando's die je vaak gebruikt. Dit kan enorm veel typwerk besparen. Je kan ze toevoegen in je \path{~/.bashrc}. Enkele voorbeelden ter inspiratie:
 
@@ -380,7 +380,7 @@ De meest gebruikte manier om met Linux een fileserver op te zetten die voor alle
 
 De laatste versie van Samba laat zelfs toe als een Active Directory Domain Controller op te treden, maar dat valt buiten het bestek van deze cursus.
 
-Het opzetten van een Samba fileserver is soms een uitdaging, vooral wat betreft het juist instellen van de toegangsrechten. Als je bepaalde gebruikers wil lees- of schrijftoegang geven tot een share, dan moet dit op drie verschillende niveaus correct ingesteld zijn:
+Het opzetten van een Samba fileserver \autocite{VanVreckem2014,VernooijEtAl2010} is soms een uitdaging, vooral wat betreft het juist instellen van de toegangsrechten. Als je bepaalde gebruikers wil lees- of schrijftoegang geven tot een share, dan moet dit op drie verschillende niveaus correct ingesteld zijn:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -394,6 +394,8 @@ Als ook maar één van deze drie elementen te streng is ingesteld, hebben de geb
 Samba voorziet een commando voor het controleren of het configuratiebestand \path{/etc/samba/smb.conf} correct is: \texttt{testparm}. Het drukt ook de inhoud van het configuratiebestand af in de meest eenvoudige en compacte vorm. Dit kan ook van pas komen om de configuratie die je zelf hebt opgebouwd te ``optimaliseren''. Samba voorziet namelijk standaardinstellingen die je niet moet expliciet schrijven (bijvoorbeeld \texttt{guest\ ok\ =\ no}) en er zijn ook vaak verschillende manieren om hetzelfde te schrijven (bijvoorbeeld \texttt{guest\ ok\ =\ no} is het zelfde als \texttt{public\ =\ yes}). Sommige opties worden zelfs genegeerd afhankelijk van de waarde van andere (bijvoorbeeld \texttt{guest\ only} heeft geen effect als \texttt{guest\ ok} niet is ingesteld). Geef de optie \texttt{-s} of \texttt{-\/-suppress-prompt} mee, om te vermijden dat er gevraagd wordt om ``ENTER'' in te drukken voordat je het overzicht van de configuratie te zien krijgt.
 
 Om te testen of de share toegankelijk is van buitenaf, kan je vanop het hostsysteem in de file explorer werken, maar dit is niet zo interessant.  De foutboodschappen geven weinig of geen informatie die helpt bij het vinden van de oorzaak van het probleem. Gebruik liever \texttt{smbclient}, daarmee krijg je alvast iets duidelijker foutboodschappen. Enkele voorbeelden van het gebruik:
+
+Voor gedetailleerde richtlijnen naar het troubleshooten van Samba, zie~\textcite{TrigdellEtAl2010,CarterEtAl2010}
 
 \begin{verbatim}
 ## Geef een overzicht van de shares op server FILES
