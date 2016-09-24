@@ -42,7 +42,41 @@ Richtlijnen voor het opstarten van je Git project:
 
     De instelling voor \texttt{push.default} kan wel globaal gemaakt worden. Het is aan te raden om je repository \emph{niet} op de klaspc's te laten staan op het einde van de les. Werk eventueel vanop een USB-stick.
 
+  \item Creëer een nieuwe *branch* om je eigen code en documentatie bij te houden. Verderop wordt duidelijk waarom dit belangrijk is. Kies bijvoorbeeld je eigen naam:
+
+    \begin{minted}[gobble=6]{console}
+      $ git checkout -b bertvv
+    \end{minted}
+
   \item Bekijk de bestanden in de \path{doc/} directory. Hier vind je de opgave van deelopdrachten en sjablonen voor verslagen en cheat sheets in Markdown-formaat~\autocite{Gruber2004}. Pas alvast het sjabloon aan, vul er je eigen naam in.
+\end{enumerate}
+
+Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudig binnen halen, maar enkel als je een eigen branch aangemaakt hebt.
+
+\begin{enumerate}
+  \item Eerst moet je zorgen dat je updates kan binnenhalen van de repository met de opdracht. Het volgende commando zorgt dat je kan synchroniseren met die repository. Dit moet slechts één keer gebeuren.
+
+    \begin{minted}[gobble=6]{console}
+      $ git remote add upstream https://github.com/HoGentTIN/elnx-sme.git
+    \end{minted}
+
+  \item Wanneer er nieuwe commits gebeurd zijn in de opgave, kan je de wijzigingen telkens zo ophalen:
+
+    \begin{minted}[gobble=6]{console}
+      $ git checkout master
+      $ git pull upstream master
+      $ git checkout bertvv
+      $ git rebase master
+    \end{minted}
+
+    \begin{itemize}
+      \item De eerste twee regels zorgen er voor dat jouw versie van de master-branch up-to-date gebracht wordt met de nieuwe commits.
+      \item In de derde regel ga je opnieuw naar je eigen branch. Voorlopig is er daar nog niets gewijzigd
+      \item In de vierde regel, tenslotte, ga je de wijzigingen in de opgave op jouw eigen versie toepassen. Mogelijks komen er hier conflicten naar boven tussen bepaalde bestanden in de opgave en jouw wijzigingen. Lees goed de instructies die Git hier geeft om deze conflicten op te lossen.
+    \end{itemize}
+
+Deze procedure werkt niet als je geen branch voor je eigen oplossing gemaakt hebt. In dat geval wordt het erg moeilijk om dit via Git te doen en maak je de nodige wijzigingen best manueel.
+
 \end{enumerate}
 
 \section{Algemene richtlijnen}
