@@ -3,25 +3,29 @@
 
 In dit hoofdstuk worden de verschillende taken en opdrachten toegelicht waaruit deze cursus bestaat. De \emph{bedoeling} van deze opdrachten is dat je die gebruikt als aanzet om een \emph{dieper inzicht} te krijgen in de werking van Linux, Ansible, virtualisatie, enz. Probeer a.u.b.~\emph{``voodoo programming''} te vermijden, het intikken van code of uitvoeren van commando's zonder ze te begrijpen, totdat het er op lijkt dat ``het werkt''. Ook al gebruik je een tool om het configureren van servers te automatiseren, toch blijft het nodig om de onderliggende werking te begrijpen: de structuur en syntax van configuratiebestanden, de belangrijkste commando's voor systeembeheertaken, enz.
 
-\section{Labo-opdracht}
-\label{sec:labo-opdracht}
+\section{Hoofdopdracht}
+\label{sec:hoofdopdracht}
 
-De labo-opdracht omvat het opzetten van ict-infrastructuur op basis van Linux. We werken in een gevirtualiseerde omgeving en er is een bijzondere aandacht voor \emph{automatiseren} en \emph{testen}. Je moet dus in staat zijn de systemen ``from scratch'' op te bouwen met een minimum aan manuele handelingen. Daarna moet je kunnen aantonen dat deze systemen voldoen aan de opgelegde specificaties aan de hand van geautomatiseerde tests en een gedetailleerd testplan en -rapport.
+De hoofdopdracht omvat het opzetten van ict-infrastructuur op basis van Linux. We werken in een gevirtualiseerde omgeving en er is een bijzondere aandacht voor \emph{automatiseren} en \emph{testen}. Je moet dus in staat zijn de systemen ``from scratch'' op te bouwen met een minimum aan manuele handelingen. Daarna moet je kunnen aantonen dat deze systemen voldoen aan de opgelegde specificaties aan de hand van geautomatiseerde tests en een gedetailleerd testplan en -rapport.
+
+De infrastructuur die je bouwt moet telkens volledig ``from scratch'' kunnen worden opgezet zonder manuele tussenkomst. Voor het automatiseren van systeembeheertaken maken we altijd gebruik van een configuration management tool, Ansible. Je krijgt hier wat uitleg over, maar het is de bedoeling dat je ook zelfstandig leert werken met Ansible.
 
 Je kiest aan het begin van het semester één van deze drie opdrachten die je de komende maanden verder uitwerkt.
 
 \begin{itemize}
-\item \emph{Small/Medium Enterprise infrastructure:} het opzetten van een bedrijfsnetwerk voor een KMO
+\item \emph{Small/Medium Enterprise infrastructure:} het opzetten van een bedrijfsnetwerk voor een KMO.
 \item \emph{High availability:} het opzetten van een robuust webserverplatform
 \item \emph{Release Engineering:} het opzetten van een ``build pipeline'' voor de ontwikkeling van webapplicaties
 \end{itemize}
 
-Voor het automatiseren van systeembeheertaken maken we altijd gebruik van een configuration management tool, Ansible. Je krijgt een korte uitleg, maar het is de bedoeling dat je ook zelf leert werken met Ansible. De infrastructuur die je bouwt moet telkens volledig ``from scratch'' kunnen worden opgezet zonder manuele tussenkomst.
+De eerste opdracht is in detail uitgewerkt met geautomatiseerde functionele tests voor (bija) elke component van het netwerk. Studenten die zich minder zeker voelen in Linux hebben hier een concreet houvast aan. Bovendien leer je op deze manier verschillende typische netwerkservices kennen.
+
+Langs de andere kant zijn de twee andere opdrachten meer representatief voor de manier waarop Linux tegenwoordig in de praktijk wordt toegepast. Studenten die er naar streven (of overwegen) om als Linux system engineer aan de slag te gaan, kunnen met deze opdrachten relevante ervaring op doen.
 
 \subsection{Small/Medium Enterprise infrastructure}
 \label{subs:smallmedium-enterprise-infrastructure}
 
-De bedoeling is om een volledig (gevirtualiseerd) netwerkdomein op te zetten met de enkele typische netwerkdiensten voor een kantooromgeving (zie Figuur 1).
+In deze opdracht zet je een volledig (gevirtualiseerd) netwerkdomein op met de enkele typische netwerkdiensten voor een kantooromgeving (zie Figuur 1).
 
 \begin{figure}[htbp]
 \centering
@@ -29,7 +33,7 @@ De bedoeling is om een volledig (gevirtualiseerd) netwerkdomein op te zetten met
 \caption{Diagram van het op te zetten kantoornetwerk.}
 \end{figure}
 
-De opdracht zal in meer detail geformuleerd worden aan de hand van een reeks deeltaken.
+Deze opdracht bestaat uit een aantal deeltaken:
 
 \begin{itemize}
 \item LAMP webserver
@@ -45,9 +49,9 @@ De opdracht zal in meer detail geformuleerd worden aan de hand van een reeks dee
 Hier is het de bedoeling om de infrastructuur op te zetten voor een grote website die veel webtrafiek moet kunnen verwerken. Dat betekent dat de webserver ``uit elkaar getrokken'' moet worden en dat verschillende services op aparte machines moeten komen (zie Figuur 2):
 
 \begin{itemize}
-\item Een load-balancer verdeelt netwerktrafiek over verschillende webservers
-\item Een cache-systeem zorgt dat niet alle requests leiden tot het opnieuw genereren van een pagina
-\item De database-backend komt op een aparte server
+\item Een load-balancer verdeelt netwerktrafiek over verschillende webservers;
+\item Een cache-systeem zorgt dat niet alle requests leiden tot het opnieuw genereren van een pagina;
+\item De database-backend komt op een aparte server.
 \end{itemize}
 
 Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht heeft van de correcte werking van alle componenten. Om dit te realiseren moet je een monitoring-systeem implementeren met een dashboard dat een overzicht geeft van het platform.
@@ -61,43 +65,47 @@ Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht 
 \subsection{Continuous delivery}
 \label{subs:continuous-delivery}
 
-In softwarebedrijven of de bedrijven achter de grote websites (type Google, Amazon, Facebook, enz.) is een van de rollen van een systeembeheerder er voor te zorgen dat software-ontwikkelaars zo snel en zo vlot mogelijk nieuwe features in productie kunnen brengen. Deze functie heet ``Release Engineer''. In plaats van grote, ingrijpende releases over langere periodes met veel nieuwe features, streeft men er tegenwoordig naar om kleinere releases te doen aan een hoger tempo (soms zelfs tientallen per dag), met bv. slechts één nieuwe feature of verbetering. Voor deze manier van werken is specifieke infrastructuur nodig en is het nodig een aantal zaken te automatiseren.
+In softwarebedrijven of de bedrijven achter de grote websites (type Google, Amazon, Facebook, enz.) is één van de rollen van een systeembeheerder die van ``Release Engineer,'' er voor te zorgen dat software-ontwikkelaars zo snel en zo vlot mogelijk nieuwe features in productie kunnen brengen. In plaats van grote, ingrijpende releases over langere periodes met veel nieuwe features, streeft men er tegenwoordig naar om kleinere releases te doen aan een hoger tempo (soms zelfs tientallen per dag), met bv.~slechts één nieuwe feature of verbetering. Voor deze manier van werken is specifieke infrastructuur nodig en is het nodig een aantal zaken te automatiseren.
 
-De bedoeling van deze opdracht is om een Continuous Delivery ``build pipeline'' te bouwen voor het ontwikkelen van een webapplicatie (je kan zelf een case zoeken, bv. een open source project).
+De bedoeling van deze opdracht is om een Continuous Delivery ``build pipeline'' te bouwen voor het ontwikkelen van een webapplicatie. Je kan zelf een casus zoeken, bv.~een open source project. Zoniet is een suggestie om het ontwikkelen van Drupal plugins of thema's als casus te nemen.
 
 \begin{itemize}
 \item De ontwikkelaar werkt op een ``development environment'' in de vorm van een virtuele machine aangestuurd door Vagrant
-\item Wanneer de ontwikkelaar code publiceert op de ``master'' branch van een Git repository (bv. op Github) wordt het buildproces opgestart, bestaande uit:
+\item Wanneer de ontwikkelaar code publiceert op de ``master'' branch van een Git repository wordt het buildproces opgestart, bestaande uit:
 
   \begin{itemize}
-  \item code-analyse, linting
-  \item compilatie
-  \item packaging (RPM, .deb)
+  \item code-analyse, linting;
+  \item compilatie (indien van toepassing);
+  \item uitvoeren van unit tests;
+  \item packaging (bv.~RPM, .deb);
+  \item deployment in QA-omgeving;
+  \item uitvoeren van functionele tests;
+  \item deployment in productie-omgeving.
   \end{itemize}
 
-\item De package wordt uitgerold op een ``QA environment'', een VM op een zelf te kiezen virtualisatieplatform (bv. KVM, OpenNebula) en alle tests (unit, integratie, acceptatie, \ldots{}) worden uitgevoerd
-\item Wanneer alle tests slagen, wordt de nieuwe code automatisch uitgerold in de ``productie-omgeving'' op een cloud-platform (bv. Amazon AWS of DigitalOcean).
+\item De ``QA environment'' is een VM op een zelf te kiezen virtualisatieplatform (bv. KVM, OpenNebula, Docker)
+\item Wanneer alle tests slagen, wordt de nieuwe code automatisch gepromoveerd naar de volgende stap, in het beste geval tot en met de ``productie-omgeving'' op een cloud-platform (bv. Amazon AWS of DigitalOcean).
 \end{itemize}
 
 Je moet de hele pipeline kunnen demonstreren. Na een wijziging in de code te pushen moet je (na verloop van tijd) de wijziging op de productieserver kunnen zien.
 
-De VMs die op de verschillende platformen draaien, worden toch zo identiek mogelijk geconfigureerd. Hier bestaan tools voor, bv. Packer.  Je mag ook containers (bv. Docker) gebruiken om je applicatie in te pakken. De build server kan Jenkins zijn, je kan ook kijken naar Travis CI.
+De VMs die op de verschillende platformen draaien, worden toch zo identiek mogelijk geconfigureerd. Hier bestaan tools voor, bv.~Packer.  Je mag ook containers (bv. Docker) gebruiken om je applicatie in te pakken. De build server kan Jenkins zijn, je kan ook kijken naar Travis CI.
 
 \section{Actualiteit}
 \label{sec:actualiteit}
 
-Bij elke rol in de ict-sector is het voortdurend bijwerken van je vakkennis onontbeerlijk om de snelle evolutie in je vakgebied bij te kunnen benen. In Linux systeembeheer is dat niet anders. Wat ons vakgebied kenmerkt is een uitgesproken wil om informatie en kennis te delen. Er is dan ook een schat van informatie te vinden over de meest recente evoluties via blogs, conferenties waarvan de lezingen op Youtube of Vimeo gepubliceerd zijn, enz.
+Bij elke rol in de ict-sector is het voortdurend bijwerken van je vakkennis onontbeerlijk om de snelle evolutie in je vakgebied bij te kunnen benen. In Linux systeembeheer is dat niet anders. Wat ons vakgebied kenmerkt is een uitgesproken wil om informatie en kennis te delen. \emph{Sharing is caring!} Er is dan ook een schat van informatie te vinden over de meest recente evoluties via blogs, conferenties waarvan de lezingen op Youtube of Vimeo gepubliceerd zijn, enz.
 
 De bedoeling van deze taak is aan te tonen dat je deze evoluties ook opvolgt en probeert toe te passen in de praktijk. Je kan kiezen uit twee manieren om dit aan te tonen:
 
 \begin{itemize}
-\item Pas een recentelijk gepubliceerde techniek, tool, \ldots{} uit in het kader van de labo-opdracht
-\item Doe een bijdrage aan een open source project gerelateerd aan de cursus
+\item Pas een recentelijk gepubliceerde techniek, tool, \ldots{} toe op de opstelling van je hoofdopdracht;
+\item Doe een bijdrage aan een open source project gerelateerd aan de cursus (incl.~tools en projecten die door de lector onderhouden worden\footnote{\url{https://github.com/bertvv/}}).
 \end{itemize}
 
-Je mag hier ook tijdens de contacturen aan werken en ook samenwerken met één of enkele medestudenten is toegelaten. In dat geval moet elke student individueel de eigen bijdrage kunnen aantonen.
+Samenwerken met één of enkele medestudenten is toegelaten. In dat geval moet elke student individueel de eigen bijdrage kunnen aantonen.
 
-**Begin zo snel mogelijk hier aan te werken!** Wacht niet tot het einde van het semester om dan snel iets in elkaar te flansen. Dit kan leiden tot een beoordeling ``nog niet bekwaam,'' met alle gevolgen van dien.
+\textbf{Begin zo snel mogelijk hier aan te werken!} Wacht niet tot het einde van het semester om dan snel iets in elkaar te flansen. Dit kan leiden tot een beoordeling ``nog niet bekwaam,'' met als gevolg dat je niet kan slagen.
 
 \subsection{Nieuwe technieken uitproberen}
 \label{subs:nieuwe-technieken-uitproberen}
@@ -107,7 +115,7 @@ Zoals eerder aangegeven, vormen Linux-systeembeheerders een ``community'' waar e
 De bedoeling hier is om zo'n artikel of lezing toe te passen op de labo-opdracht. Een paar voorbeelden als inspiratie:
 
 \begin{itemize}
-  \item \textcite{Hayden2015} en \textcite{Davila2015} beschrijven een manier om RHEL/CentOS-systemen te testen op vlak van beveiliging, gebaseerd op Ansible. Is het mogelijk dat toe te passen op onze systemen? In het artikel gaat het over versie 6, terwijl wij op versie 7.2 zitten. In hoeverre kan dit aangepast worden?
+  \item \textcite{Hayden2015} en \textcite{Davila2015} beschrijven een manier om RHEL/CentOS-systemen te testen op vlak van beveiliging, gebaseerd op Ansible. Is het mogelijk dat toe te passen op onze systemen? In het artikel gaat het over versie 6, terwijl wij op versie 7 zitten. In hoeverre kan dit aangepast worden?
   \item Fail2ban is een Intrusion Prevention System dat een server kan beschermen tegen brute-force of denial of service-aanvallen \autocite{Sawiyati2014}. Kan je dit toepassen op onze servers? Het is uiteraard wel de bedoeling dit via Ansible te doen. Dat kan hetzij via een bestaande rol (zie Ansible Galaxy), die je zo nodig aanpast, hetzij één die je zelf schrijft.
   \item Secure Shell is de standaard manier om Linux-servers op een veilige manier van over het netwerk te beheren. Maar volgens \textcite{stribika2015} is het mogelijk om \texttt{sshd} nog beter te beveiligen. Kan je dit toepassen op onze servers?
   \item Zoals onze opstelling nu is, zullen wachtwoorden in de \texttt{host\_vars} of \texttt{group\_vars} bestanden opgeslagen worden. Dit is niet ideaal: we steken onze code in een versiebeheersysteem, maar wachtwoorden horen daar met het oog op beveiliging helemaal niet in thuis. Ansible heeft hiervoor een oplossing: Ansible Vault\footnote{\url{https://docs.ansible.com/ansible/playbooks_vault.html}}. \textcite{Blanc2015} beschrijft een methode om het gebruik van Ansible Vault zo transparant mogelijk te maken. Kan je het toepassen in onze opstelling?
@@ -168,53 +176,21 @@ Enkele mogelijkheden:
 
 Andere ideeën zijn ook welkom, bespreek die met de lector. Ook op Chamilo kan je nog enkele voorstellen vinden.
 
-\subsection{PXEboot image voor klonen pc's}
-\label{subs:pxeboot_image_voor_klonen_pc_s}
-
-In deze sectie wordt nog een voorstel gepresenteerd dat in aanmerking komt voor de actualiteits-opdracht, maar niet meteen onder de eerder besproken categorieën valt.
-
-De installatie van de pc's in lokaal B.4.037/8 (campus Schoonmeersen) gebeurt niet zoals de andere pc-lokalen op HoGent. De klaspc's zijn uitgerust met een dual-bootsysteem Linux/Windows Server en de tools voor het beheer van de andere lokalen zijn niet geschikt om dit soort installaties te ondersteunen.
-
-In plaats daarvan wordt gebruik gemaakt van een tool, UDPcast\footnote{\url{https://www.udpcast.linux.lu/}} die harde schijven kan klonen over een lokaal netwerk door de schijf van één machine byte per byte uit te lezen, te comprimeren met een snel algoritme (lzop) en via UDP multicast over het netwerk te sturen. Op alle andere pc's draait ook UDPcast, maar dan in ``ontvangstmodus'': daar worden de ontvangen data uitgepakt en naar de harde schijf weggeschreven.
-
-Het opstarten van de UDPcast tool kan niet vanop de harde schijf zelf, want die wordt immers overschreven. Je zou een bootable USB-stick of CD-ROM kunnen samenstellen met een minimale installatie en de UDPcast-tool (met specifieke configuratie voor het lokaal). Manuele handelingen zoals het insteken van een CD zijn echter heel tijdrovend, daarom is gekozen voor een andere oplossing: een OS booten over het netwerk met PXEboot. De server van het lokaal (server4038) is geconfigureerd als een PXEboot server. Als je bij een klaspc na het booten F12 (boot options) ingedrukt houdt, kan je kiezen voor ``network boot''. Je zal dan een menu te zien krijgen met ``UDPcast'' dat automatisch gestart wordt. Na booten krijg je de keuze om de pc als ``sender'' in te stellen of als ``receiver''.
-
-PXEboot is nu ingesteld dat de kernel over het netwerk in het geheugen geladen wordt, en dat het root-bestandssysteem (directory '/') gemount wordt als een NFS-share over het netwerk die zich op server4038 bevindt. Het probleem is nu dat na vier uur de link met de NFS share verloren raakt en vaak is het klonen dan nog niet klaar. Gevolg is dat de harde schijf niet volledig is weggeschreven en we een klas vol met onbruikbare pc's overhouden.
-
-De bedoeling is nu om deze oplossing te verbeteren door een PXEboot image te creëren die volledig in het geheugen blijft zodat een NFS share niet meer nodig is. Deze image moet zo klein mogelijk zijn, maar toch alle nodige drivers bevatten (o.a. voor de netwerkkaart) om bruikbaar te zijn op de klaspc's en ook meteen de UDPcast tool opstarten met alle instellingen die van toepassing zijn voor het lokaal. Het opzetten wordt uiteraard volledig geautomatiseerd, waar mogelijk met Ansible.
-
-Suggesties/overwegingen:
-
-\begin{itemize}
-\item Alpine Linux\footnote{\url{https://alpinelinux.org/}} is een Linux distributie met een heel kleine footprint, misschien nuttig als basis voor de PXEboot image\footnote{\url{https://wiki.alpinelinux.org/wiki/PXE_boot}}
-\item Yaird\footnote{\url{http://www.makelinux.com/man/8/Y/yaird}} kan een tool zijn die bruikbaar is voor het creëren van de images
-\item De deliverable is niet enkel de PXEboot image, maar ook alle code die nodig is om die volledig automatisch opnieuw te bouwen.
-\end{itemize}
-
-Meer info over de huidige configuratie van de PXEboot image is te verkrijgen bij de lector.
-
-\section{Troubleshooting}
-\label{sec:troubleshooting}
-
-Tijdens het semester wordt er een aantal keer een troubleshooting-oefening gegeven tijdens de contactmomenten. Aanwezigheid is verplicht, behalve voor TILE-studenten (zie verder).
-
-Bij het begin van de sessie krijg je een virtuele machine waar een netwerkservice op zou moeten draaien. Door fouten in de configuratie werkt die echter niet correct. De bedoeling is om op een systematische en grondige manier de fouten op te sporen en weg te werken en de service opnieuw beschikbaar te maken over het netwerk. Je maakt daar een gedetailleerd verslag van dat aan het einde van de les ingediend moet worden op Chamilo.
-
 \section{Rapportering en documentatie}
 \label{sec:rapportering-en-documentatie}
 
-In de \texttt{doc/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn. Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
+In de \texttt{doc/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn (op Github of reeds lokaal met een editor met Markdown-ondersteuning). Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
 
 \subsection{Laboverslagen}
 \label{subs:laboverslagen}
 
-Er is een sjabloon voorzien voor de laboverslagen. Pas dit sjabloon aan voor jezelf, vul bovenaan je naam in. Voor elke deeltaak maak je een apart verslag, waar je in detail uitlegt wat je precies gedaan hebt. Hoe heb je de taak aangepakt? Welke bronnen heb je gebruikt? Reflecteer ook over je vooruitgang: wat ging goed/niet goed? Wat heb je geleerd? Waar zit je vast, waar heb je nog problemen mee?
+Er is een sjabloon voorzien voor de laboverslagen. Pas dit sjabloon aan voor jezelf, vul bovenaan je naam in. Voor elke deeltaak maak je een apart verslag, waar je in detail uitlegt wat je precies gedaan hebt. Hoe heb je de taak aangepakt? Welke bronnen heb je gebruikt? Reflecteer ook over je vooruitgang: wat ging goed/niet goed? Wat heb je geleerd? Waar zit je vast, waar heb je nog problemen mee? Let wel: het is niet de bedoeling om code te gaan knippen en plakken in je laboverslag!
 
 Bij elk laboverslag hoort een testplan en -rapport. Het testplan is een opsomming van alle handelingen die nodig zijn om aan te tonen dat het op te zetten systeem zich gedraagt volgens de specificaties.
 
 Het testplan is eigenlijk het scenario van de demo die je geeft aan de lector om aan te tonen dat je alle aspecten van de opdracht correct hebt uitgevoerd. Dit bestaat uit concrete handelingen of commando's die je moet uitvoeren, en een beschrijving van het verwachte resultaat.
 
-Door het lezen van het testrapport moet het duidelijk zijn in hoeverre de opdracht is uitgevoerd, wat het effectieve resultaat van de tests was. Je kan transcripties toevoegen van de terminal (gebruik hiervoor Markdown codeblokken).  Het testrapport zou evenveel informatie moeten bevatten als de demo.
+Door het lezen van het testrapport moet het duidelijk zijn in hoeverre de opdracht is uitgevoerd, wat het effectieve resultaat van de tests was. Je kan transcripties toevoegen van de terminal (gebruik hiervoor Markdown codeblokken). Het testrapport zou evenveel informatie moeten bevatten als de demo.
 
 Ook bij de \textbf{troubleshooting-oefeningen} hoort een verslag. Deel je verslag op in secties voor de verschillende fasen in het troubleshooting-proces. Je kan je verslag al voorbereiden door de commando's die je zeker moet uitvoeren er alvast in op te sommen, samen met verwachte resultaten (voor zover dit al op voorhand kan). Sla dit op als een apart sjabloon specifiek voor troubleshooting. Bij het uitvoeren van de oefening kan je dit dan aanvullen met de effectieve resultaten die je krijgt, en de commando's/configuratiewijzigingen die je hebt uitgevoerd om problemen op te lossen.
 
@@ -241,7 +217,7 @@ Voorbeeldjes:
 \begin{itemize}
 \item Jürgen Van Meerhaeghe: \url{https://jurgenvm.blogspot.be/}
 \item Stijn Spanhove: \url{http://www.spanhove.com/blog.htm}
-\item Thomax Clauwaert: \url{https://ciberth.blogspot.be/}
+\item Thomas Clauwaert: \url{https://ciberth.blogspot.be/}
 \item Toon Lamberigts en Tomas Vercautter: \url{https://t0t0.github.io/}
 \end{itemize}
 

@@ -1,0 +1,324 @@
+\chapter{Studiewijzer}
+\label{ch:studiewijzer}
+
+De inhoud van deze studiewijzer geldt zowel voor de \textbf{reguliere} studenten als de studenten \textbf{afstandsleren (TILE)}. Waar nodig wordt duidelijk onderscheid gemaakt tussen zaken die enkel voor één van deze twee groepen gelden.
+
+Wat betreft praktische afspraken, regelingen, verwachtingen, enz. in
+verband met deze cursus zijn dit de enige geldige bronnen van
+informatie:
+
+\begin{itemize}
+  \item De studiefichefiche van het opleidingsonderdeel:
+  \begin{itemize}
+    \item Regulier: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=87198&b=5&c=1}
+    \item TILE: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=87197&b=5&c=1}
+  \end{itemize}
+  \item Deze studiewijzer
+  \item Aankondigingen en documenten op Chamilo
+\end{itemize}
+
+Indien er ergens twijfel over bestaat, of er is iets niet duidelijk, neem dan zo snel mogelijk contact op met de vaktitularis, Bert Van Vreckem. De aangewezen manieren worden opgesomd in Sectie~\ref{sec:studiebegeleiding-en-planning}. Indien nuttig of nodig wordt het antwoord als aankondiging op Chamilo doorgegeven aan alle studenten.
+
+De ervaring leert dat de onderlinge communicatie tussen studenten via Facebook leidt tot verwarring, foute informatie en overbodige discussie. Gebruik dus a.u.b.~de officiële kanalen zodat we tot een open en correcte communicatie rond deze cursus kunnen komen.
+
+Jullie zijn zelf verantwoordelijk voor het opvolgen en lezen van alle aankondigingen.
+
+\section{Doel en plaats van de cursus in het curriculum}
+\label{sec:doel-en-plaats}
+
+De bedoeling van deze cursus is om je in staat te stellen om op een betrouwbare, reproduceerbare en schaalbare manier netwerkdiensten in productie te brengen op Linux aan de hand van een Configuration Management System.
+
+Wanneer je als systeembeheerder een serverpark van tientallen, honderden of zelfs duizenden machines (hetzij fysiek, hetzij virtueel) moet beheren, dan is het manueel opzetten, of zelfs scripten van de configuratie niet meer voldoende. In dit soort omgevingen wordt steevast gebruik gemaakt van Configuration Management Systems om de taaklast beheersbaar te houden. In deze cursus maken we gebruik van Ansible, omdat dit een voor beginners toegankelijk systeem is dat qua filosofie en logica aansluit bij klassieke shell scripts. In het werkveld is de kans groot dat je met andere Configuration Management Systems in aanraking komt, bijvoorbeeld Chef of Puppet.
+
+Kennis over Linux wordt meer en meer gevraagd op de arbeidsmarkt en wie een goed resultaat haalt voor deze cursus kan overal aan de slag als Linux system engineer.
+
+\section{Leerdoelen en competenties}
+\label{sec:leerdoelen}
+
+De belangrijkste doelstellingen van deze cursus (die je ook vindt in de studiefiche) zijn:
+
+\begin{enumerate}
+  \item Kan het opzetten van netwerkdiensten automatiseren met een configuratiebeheersysteem (configuration management system).
+  \item Kan configuratieproblemen bij netwerkdiensten opsporen aan de hand van een systematische en grondige methodologie.
+  \item Kan de meest geschikte documentatie voor een specifieke situatie (meer bepaald de Linux-distributie, softwareversies, enz.) opzoeken en gebruiken.
+\end{enumerate}
+
+Om deze doelstellingen te behalen, dien je de hieronder opgesomde competenties te verwerven.
+
+\subsection{Configuration Management}
+\label{ssec:config-mgmt}
+
+\begin{itemize}
+  \item Je moet in staat zijn om Vagrant te gebruiken om nieuwe VMs op te starten en die te configureren.
+  
+  \begin{itemize}
+    \item De inhoud een \texttt{Vagrantfile} kunnen interpreteren en aanpassen
+    \item Base boxes beheren (commando \texttt{vagrant\ box})
+    \item VMs beheren (\texttt{vagrant\ status}, \texttt{vagrant\ up}, \texttt{vagrant\ halt}, \texttt{vagrant\ reload}, \texttt{vagrant\ destroy}, enz.)
+    \item Inloggen op een Vagrant VM (\texttt{vagrant\ ssh})
+  \end{itemize}
+
+  \item Je moet in staat zijn bestaande Ansible-playbooks en rollen te interpreteren en aan te passen voor je eigen doeleinden
+  \item Je moet in staat zijn Ansible-rollen te schrijven voor RHEL/CentOS 7, meer bepaald
+  
+  \begin{itemize}
+    \item De directorystructuur voor een rol aanmaken
+    \item Een \emph{playbook} schrijven voor de uit te voeren taken (\texttt{tasks/main.yml}) en daarbij gebruik maken van Ansible modules
+    \item Bestanden van het hostsysteem naar de VM kopiëren
+    \item Templates definiëren en gebruiken
+    \item Handlers definiëren
+    \item Variabelen declareren en toekennen
+  \end{itemize}
+  
+  \item Verder moet je die rollen kunnen toekennen aan hosts:
+  
+  \begin{itemize}
+    \item Een directorystructuur volgens de Ansible Best Practices\footnote{\url{http://docs.ansible.com/playbooks_best_practices.html}} aanhouden
+    \item \texttt{site.yml} aanmaken
+    \item De inventory-file aanmaken en groepen kunnen definiëren
+    \item Variabelen voor individuele hosts (\texttt{host\_vars}) en groepen (\texttt{group\_vars}) initialiseren
+  \end{itemize}
+\end{itemize}
+
+\subsection{Troubleshooting}
+\label{ssec:troubleshooting}
+
+Je moet de juiste commando's kennen om RHEL/Centos \textbf{7} hosts te
+beheren en te troubleshooten.
+
+\begin{itemize}
+  \item Basiskennis uit Besturingssystemen (gebruikers, groepen, bestandspermissies, directorystructuur, package management, enz.)
+  \item Services beheren met \texttt{systemctl}
+  \item Firewalld beheren met \texttt{firewalld-cmd}
+  \item Secure Shell gebruiken (\texttt{ssh}, \texttt{scp}), inloggen ahv een SSH-sleutel
+  \item SELinux begrijpen en toepassen (Ančincová, 2014), meer bepaald:
+  
+  \begin{itemize}
+    \item Status opvragen en wijzigen (\texttt{getenforce}, \texttt{setenforce})
+    \item De verschillende modi begrijpen (\texttt{enforcing}, \texttt{permissive}, \texttt{disabled} )
+    \item SELinux context van bestanden opvragen (\texttt{ls\ -Z}) en aanpassen (\texttt{chcon})
+    \item Logs kunnen bekijken (\texttt{/var/log/audit/audit.log})
+    \item Booleans kunnen opvragen en wijzigen (\texttt{getsebool}, \texttt{setsebool})
+  \end{itemize}
+\end{itemize}
+
+Te kennen uit de RedHat manuals:
+
+\begin{itemize}
+  \item System Administration Guide~\autocite{SvistunovEtAl2016}
+  
+  \begin{itemize}
+    \item Basic system configuration (hst 1-4)
+    \item Package Management (hst 5)
+    \item Infrastructure Services (hst 6-7)
+    \item Opzetten van netwerkservices: web (hst 9), mail (hst 10) , file/print (hst 12; \emph{NIET} 12.3)
+    \item Monitoring and automation (hst 16, 18, 19)
+  \end{itemize}
+  
+  \item Networking Guide~\autocite{JahodaEtAl2016}
+  
+  \begin{itemize}
+    \item Inleiding (hst 1, i.h.b. secties 1.3-4, 1.7-8-9)
+    \item Command line (sectie 2.4)
+    \item Hostnamen (hst 3)
+    \item DHCP servers (hst 10)
+    \item BIND DNS (hst 11)
+  \end{itemize}
+  \item
+  SELinux User's and Administrator's Guide~\autocite{JahodaEtAl2016a}
+  
+  \begin{itemize}
+    \item Inleiding (hst 1)
+    \item SELinux contexts (hst 2)
+    \item Working with SELinux (hst 4, secties 1-6, 9)
+    \item Troubleshooting (hst 10)
+  \end{itemize}
+\end{itemize}
+
+\subsection{Documentatie gebruiken}
+\label{ssec:documentatie-gebruiken}
+
+Je moet in staat zijn de juiste documentatie op te zoeken en te gebruiken, die relevant is voor het systeem waar je mee werkt, i.h.b.~RHEL/CentOS 7.
+
+\begin{itemize}
+  \item RHEL/CentOS7 handleidingen, i.h.b.~de System Administrator's Guide~\autocite{SvistunovEtAl2016}, Networking Guide~\autocite{JahodaEtAl2016} en SELinux User's and Administrator's Guide~\autocite{JahodaEtAl2016a}.
+  \item Ansible documentatie~\autocite{Ansible2016}, in het bijzonder
+  
+  \begin{itemize}
+    \item Ansible Best Practices: \url{http://docs.ansible.com/playbooks_best_practices.html}
+    \item Ansible Module Index: \url{http://docs.ansible.com/modules_by_category.html}
+  \end{itemize}
+  \item Vagrant documentatie~\autocite{Hashicorp}.
+\end{itemize}
+
+\section{Leerinhoud}
+\label{sec:leerinhoud}
+
+De cursus bestaat uit drie onderdelen:
+
+\begin{enumerate}
+  \item Realiseren van een labo-opdracht die het opzetten van infrastructuur a.h.v.~Ansible inhoudt (wordt elders in deze studiewijzer de \emph{hoofdopdracht} genoemd). Je kan daarbij als student vrij kiezen uit drie concrete opdrachten (zie Hoofdstuk~\ref{ch:opdrachten}).
+  \item Volgen van de actualiteit in het vakgebied en dit toepassen op je hoofdopdracht (wordt verder de \emph{actualiteitsopdracht} genoemd)
+  \item Een aantal \emph{troubleshooting}-labo's.
+\end{enumerate}
+
+\section{Leermateriaal}
+\label{sec:leermateriaal}
+
+\subsection{Handboeken, handleidingen, enz.}
+\label{ssec:handboeken}
+
+Zoals eerder vermeld, gebruiken we als leermateriaal in de eerste plaats de handleidingen van de software die we gebruiken in de cursus. Al deze leermaterialen zijn gratis on-line raadpleegbaar.
+
+\begin{itemize}
+  \item RHEL 7 System Administrator's Guide~\autocite{SvistunovEtAl2016}
+  \item RHEL 7 Networking Guide~\autocite{JahodaEtAl2016}
+  \item RHEL 7 SELinux User's and Administrator's Guide~\autocite{JahodaEtAl2016a}
+  \item Ansible documentatie~\autocite{Ansible2016}
+  \item Vagrant documentatie~\autocite{Hashicorp}
+\end{itemize}
+
+Verderop in deze syllabus vind je nog aanvullende informatie die je ook verder op weg kan helpen.
+
+Als herhaling van je Linux-kennis uit Besturingssystemen kan je opnieuw het boek van~\textcite{Cobbaut2015} raadplegen.
+
+Optioneel is het boek ``Ansible for Devops'' van~\textcite{Geerling2016} warm aanbevolen. Je koopt dit best als e-boek, want op die manier krijg je ook toegang krijgt tot nieuwe edities die regelmatig verschijnen (b.v.~bij de release van een nieuwe versie van Ansible).
+
+\subsection{Video}
+\label{ssec:video}
+
+Screencasts en presentaties:
+
+\begin{itemize}
+  \item Crash Course on Vagrant~\autocite{Weissig2014}
+  \item 19 Minutes with Ansible~\autocite{Weissig2015}
+  \item Ansible: Python-Powered Radically Simple IT Automation~\autocite{DeHaan2014}
+  \item SELinux for mere mortals~\autocite{Cameron2012}
+  \item Een fileserver opzetten met Samba~\autocite{VanVreckem2014}
+  \item Linux Troubleshooting~\autocite{VanVreckem2015b}
+\end{itemize}
+
+\subsection{Hardware}
+\label{ssec:hardware}
+
+De aard van deze cursus maakt dat het essentieel is dat je beschikt over voldoende krachtige hardware. Op campus Schoonmeersen kan je gebruik maken van de klaspc's, maar blijft het belangrijk om ook thuis of op kot te kunnen verder werken. Aanbevolen is minstens:
+
+\begin{itemize}
+  \item Processor: Intel i5 of equivalent/beter
+  \item Geheugen: 8 GiB RAM
+  \item Harde schijf: 40 GB vrije schijfruimte
+\end{itemize}
+
+Verder komt het volgende nog van pas:
+
+\begin{itemize}
+  \item Een USB-stick of externe USB-schijf met voldoende ruimte (voor het bijhouden van VMs en broncode)
+  \item Een netwerkkabel en RJ-45 koppelstuk (netwerklokaal c.Schoonmeersen)
+  \item Oortjes voor het beluisteren/bekijken van videolessen, screencasts of videopresentaties zonder de rest te storen
+\end{itemize}
+
+\subsection{Software}
+\label{ssec:software}
+
+Voor het uitwerken van de labo-taken maak je gebruik van de hieronder opgesomde software, in principe de laatste stabiele versies bij aanvang van het semester. Als je sommige van de opgesomde applicaties al geïnstalleerd hebt, werk die dan bij tot de laatste versie.
+
+\begin{itemize}
+  \item Een \textbf{goede} teksteditor: Sublime Text, Notepad++, Atom, Vim, enz. \textbf{Geen} Notepad, Wordpad of Word!
+  \begin{itemize}
+    \item Let op! Stel je editor zo in dat tekst inspringt met \textbf{spaties} i.p.v. tabs en zet tabbreedte in op 2 karakters.
+    \item In Linux hoef je niet specifiek iets extra te installeren. De default teksteditor, Gedit, heeft syntax-colouring. Je kan eventueel ook werken met Vim, installeer dan de package \texttt{vim-enhanced}. Vim is niet eenvoudig om mee aan de slag te gaan, maar eens je de vele commando's leert kennen, wordt het een bijzonder krachtige en productieve werkomgeving!
+  \end{itemize}
+  \item VirtualBox 5.x\footnote{\url{https://www.virtualbox.org/wiki/Downloads}} (installeer ook het ``Extension Pack'').
+  \item Vagrant\footnote{\url{http://vagrantup.com/}} \textgreater{}= 2.0.0
+  \item Git\footnote{\url{https://git-scm.com/downloads}}
+  \item Bash shell. Onder Windows, kan je de Bash shell die meegeleverd wordt met Git gebruiken. Mac-gebruikers wordt aangeraden om een recente versie van Bash te installeren, bijvoorbeeld via HomeBrew\footnote{\url{https://brew.sh/}}.
+  \item Ansible\footnote{\url{https://docs.ansible.com/ansible/intro_installation.html}} \textgreater{}= 2.3 (enkel voor wie werkt met een Mac of Linux-laptop, Windows-gebruikers kunnen dit niet installeren maar voor hen is een workaround voorzien)
+  \item Optioneel: Een teksteditor met ondersteuning voor Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}, bijvoorbeeld Atom\footnote{\url{http://atom.io/}}, MarkdownPad\footnote{\url{http://markdownpad.com/}}, Texts\footnote{\url{http://www.texts.io/}}, enz.
+\end{itemize}
+
+\section{Werkvormen}
+\label{sec:werkvormen}
+
+In dit opleidingsonderdeel wordt hoofdzakelijk gewerkt aan de hand van labo-opdrachten. De ondersteunende studiematerialen (zie Sectie~\ref{sec:leermateriaal}) en deze syllabus moeten je in staat stellen die met succes af te werken.
+
+\textbf{In de reguliere lessen} wordt waar nodig klassikaal uitleg en demo's gegeven over bepaalde onderwerpen.
+
+Studenten \textbf{afstandsleren} kunnen vragen stellen tijdens de contactmomenten waarop de lector aanwezig is, of via e-mail.
+
+\section{Werk- en leeraanwijzingen}
+\label{sec:werk-en-leeraanwijzingen}
+
+Het werken met labo-opdrachten vergt een zekere mate van zelfstandigheid van jou als student, maar dat is precies ook een attitude die verwacht wordt van een systeembeheerder. Je neemt dus zelf initiatief om de nodige kennis te vergaren en zoekt naar oplossingen voor de problemen die je ongetwijfeld zal tegenkomen. Help elkaar daarin: samenwerken en kennis delen wordt van harte aangemoedigd. De lector is uiteraard ook beschikbaar om je bij te staan als je toch vast komt te zitten en kan je tips geven of verwijzen naar geschikte aanvullende studiematerialen.
+
+\textbf{Reguliere studenten} moeten minstens eens in de drie weken persoonlijk bij de lector langs komen om deelresultaten te tonen. Als je ergens vast zit, en je raakt niet verder, kom dan ook zeker langs zodat de lector je terug op weg kan helpen!
+
+\section{Studiebegeleiding en planning}
+\label{sec:studiebegeleiding-en-planning}
+
+Vragen over de cursus kan je in de eerste plaats stellen via het forum. Ken je het antwoord op een vraag van een andere student? Aarzel niet te antwoorden, en alvast bedankt dat je je medestudenten wilt helpen!
+
+\textbf{Reguliere studenten} kunnen vragen ook stellen tijdens de wekelijkse contactmomenten.
+
+\textbf{Studenten afstandsleren} kunnen vragen ook stellen tijdens de voorziene contactmomenten waarop de lector aanwezig is, of via e-mail. Gelieve het onderwerp van je bericht te laten voorafgaan door de vermelding ``[ELNX]''.
+
+
+Omdat je tot op zekere hoogte zelf kan bepalen hoe je je tijd indeelt, en welke hoofdopdracht je zal uitwerken, is het niet mogelijk om een weekplanning over het gehele semester op te stellen. Volgende activiteiten liggen wel vast:
+
+\begin{itemize}
+  \item Week 5: Eerste troubleshooting-labo (Zie Sectie~\ref{sec:troubleshooting-1});
+  \item Week 11: Tweede troubleshooting-labo;
+  \item Week 12: Laatste kans voor het tonen van tussentijdse resultaten.
+\end{itemize}
+
+Voor \textbf{reguliere studenten} is aanwezigheid op de troubleshooting-labo's verplicht, aangezien dit evaluatiemomenten zijn. Bij het begin van de sessie krijg je een opstelling (typisch een virtuele machine) met configuratiefouten voorgeschoteld, het is jouw taak die zo snel mogelijk op te sporen en op te lossen, en daar een verslag over te schrijven en in te dienen op Chamilo.
+
+\textbf{Studenten afstandsleren} kunnen met de lector tijdens die week een moment afspreken waarop je tijd hebt om hier aan te werken. Op het afgesproken tijdstip krijg je een downloadlink naar de opgave en dien je vóór de afgesproken deadline (in principe 3 uur na ontvangst van de opgave) je verslag in op Chamilo.
+
+
+\section{Evaluatie}
+\label{sec:evaluatie}
+
+De evaluatie van dit vak is volledig op basis van niet-periodegebonden evaluatie. Je wordt beoordeeld op de volgende opdrachten:
+
+\begin{itemize}
+  \item Labo-opdracht opzetten infrastructuur met een configuration management system
+  \item Taak rond actualiteit in het vakgebied
+  \item Troubleshooting van netwerkservices
+  \item Rapportering en documentatie
+\end{itemize}
+
+In Hoofdstuk~\ref{ch:opdrachten} wordt in meer detail uitgelegd wat precies verwacht wordt.
+
+De toekenning van het examencijfer gebeurt op basis van ``rubrics''~\autocite{Andrade2000}. In een tabel worden een aantal criteria opgesomd, waar je aan moet voldoen. Je kan ``voldoen'' op verschillende niveaus, meer bepaald ``bekwaam'', ``gevorderd'', ``deskundig'', of in het slechtste geval ``nog niet bekwaam''. Voor elk niveau wordt beschreven wat dat precies inhoudt. Het volledige evaluatieschema wordt tijdig op Chamilo gepubliceerd.
+
+Om te slagen voor dit vak moet je aantonen dat je voor \textbf{alle} technische criteria minstens ``bekwaam'' bent. Met andere woorden, als je voor slechts één criterium ``nog niet bekwaam'' bevonden wordt, kan je niet slagen. De niet-technische criteria (bv. rapportering) tellen niet mee voor een vastgelegd percentage, maar kunnen het examencijfer afhankelijk van het behaalde niveau nog positief of negatief beïnvloeden.
+
+Je bekwaamheid aantonen gebeurt aan de hand van volgende deliverables:
+
+\begin{itemize}
+  \item De broncode, door elke student bijgehouden in een toegewezen Git repository
+  \item Gedetailleerde labo-verslagen, eveneens bijgehouden in Git
+  \item Demonstratie van deelresultaten aan de lector tijdens het semester
+  \item Demonstratie van het eindresultaat aan de lector tijdens de examenperiode
+\end{itemize}
+
+\textbf{Merk op} dat je zowel een werkend product moet opleveren (= broncode) als de verslagen indienen én demo's geven. Als één van de deliverables ontbreekt, wordt de opdracht beschouwd als niet gerealiseerd.
+
+Wat betreft het respecteren van deadlines is art. 38 van het FOER van kracht. Niet tijdig deelresultaten demonstreren wordt in termen van dat artikel beschouwd als het niet respecteren van tussentijdse deadlines en wordt als dusdanig gesanctioneerd. Eén van de opdrachten (zoals hierboven opgesomd) niet realiseren leidt tot een afwezigheid voor die opdracht en bijgevolg ook voor het gehele opleidingsonderdeel, conform het examenreglement.
+
+\textbf{Reguliere studenten} moeten \emph{minstens elke drie weken} deelresulaten opleveren en persoonlijk demonstreren aan de lector. Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een teken dat je ergens vast zit, de lector kan je dan opnieuw op weg helpen.
+
+\textbf{Studenten afstandsleren} kunnen op verschillende manieren deelresultaten opleveren:
+
+\begin{itemize}
+  \item aan de hand van een screencast (bv. publiceren op Youtube, link doorsturen naar de lector),
+  \item via videoconferencing (Google Hangouts of Skype, na afspraak),
+  \item tijdens de contactmomenten voor TILE-studenten, als de lector daar aanwezig is (en enkel na afspraak),
+\end{itemize}
+
+\subsection{Tweede examenkans}
+\label{subs:tweede-examenkans}
+
+Wie niet slaagt, krijgt een tweede examenkans in de vorm van een individuele opdracht. De precieze opdracht hangt af van je evaluatie. Meer bepaald zal je moet kunnen aantonen dat je voor alle technische criteria minstens ``bekwaam'' bent. Deze opdracht kan meteen worden vastgelegd op het finale evaluatiemoment, of ten laatste op de feedback.
+
+\textbf{Wie na afloop van de feedback nog geen afspraak gemaakt heeft voor een individuele opdracht, geeft daarmee te kennen niet te willen deelnemen aan de 2e examenkans.}

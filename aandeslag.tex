@@ -8,7 +8,7 @@ De bedoeling is om een minimum aan informatie mee te geven om je in staat te ste
 \section{Opzetten werkomgeving}
 \label{sec:opzetten_werkomgeving}
 
-Installeer eerst de nodige software, meer bepaald de laatste stabiele versie van de applicaties opgesomd in Sectie~\ref{sec:gebruikte-hard--en-software}. De volledige neerslag van al wat je voor deze cursus doet wordt bijgehouden in het versiebeheersysteem Git. Via Chamilo vind je een link die, als je er op doorklikt, een nieuwe repository creëert waar je in kan werken. Deze is zichtbaar voor jou en de lector. Naast de configuratie van de opgezette systemen zal je er ook je documentatie bijhouden, zoals testrapporten, procedures, cheat sheets en checklists.
+Installeer eerst de nodige software, meer bepaald de laatste stabiele versie van de applicaties opgesomd in Sectie~\ref{ssec:software}. De volledige neerslag van al wat je voor deze cursus doet wordt bijgehouden in het versiebeheersysteem Git. Via Chamilo vind je een link die, als je er op doorklikt, een nieuwe repository creëert waar je in kan werken. Deze is zichtbaar voor jou en de lector. Naast de configuratie van de opgezette systemen zal je er ook je documentatie bijhouden, zoals testrapporten, procedures, cheat sheets en checklists.
 
 Richtlijnen voor het opstarten van je Git project:
 
@@ -42,10 +42,10 @@ Richtlijnen voor het opstarten van je Git project:
 
     De instelling voor \texttt{push.default} kan wel globaal gemaakt worden. Het is aan te raden om je repository \emph{niet} op de klaspc's te laten staan op het einde van de les. Werk eventueel vanop een USB-stick.
 
-  \item Creëer een nieuwe *branch* om je eigen code en documentatie bij te houden. Verderop wordt duidelijk waarom dit belangrijk is. Kies bijvoorbeeld je eigen naam:
+  \item Creëer een nieuwe \emph{branch} met de naam \texttt{solution} om je eigen code en documentatie bij te houden. Verderop wordt duidelijk waarom dit belangrijk is.
 
     \begin{minted}[gobble=6]{console}
-      $ git checkout -b bertvv
+      $ git checkout -b solution
     \end{minted}
 
   \item Bekijk de bestanden in de \path{doc/} directory. Hier vind je de opgave van deelopdrachten en sjablonen voor verslagen en cheat sheets in Markdown-formaat~\autocite{Gruber2004}. Pas alvast het sjabloon aan, vul er je eigen naam in.
@@ -97,7 +97,7 @@ In deze sectie vind je enkele algemene richtlijnen die je helpen vlotter en effi
   \item Suggestie: \textbf{gebruik Git op de command-line.} Bij de meeste Git commando's krijg je gedetailleerde uitleg over hoe je een stap verder moet gaan en ook hoe je de laatste stap kan ongedaan maken. Dit geeft op de duur een beter inzicht in hoe Git precies werkt.
   \item Probeer \textbf{elke commit te beperken tot één enkele ``reden''} om wijzigingen aan te brengen aan de bestaande code. Dit maakt de ``geschiedenis'' van je project transparanter en maakt ook dat je makkelijker kan terugkeren naar een bepaalde stap wanneer je de mist in gaat.
   \item \textbf{Maak backups} van de originele, ongewijzigde configuratiebestanden zodat je er op kan terugvallen als er iets misloopt. Soms heb je zodanig zitten ``prutsen'' dat je er niet meer in slaagt de service te laten werken.
-  \item \textbf{Gebruik \texttt{vagrant destroy}} (zie Sectie~\ref{sec:vagrant}). Wanneer je veel manuele wijzigingen hebt aangebracht in een VM, ben je op de duur niet meer zeker dat die zich in de verwachte toestand bevindt. Of je kan door experimenteren de VM onbruikbaar gemaakt hebben. Door de VM te verwijderen en opnieuw op te bouwen (met \texttt{vagrant up}) kan je opnieuw beginnen van een werkende versie (als je de vorige richtlijnen opvolgt, tenminste!).
+  \item \textbf{Gebruik \texttt{vagrant destroy}} (zie Sectie~\ref{sec:vagrant}). Wanneer je veel manuele wijzigingen hebt aangebracht in een VM, ben je op de duur niet meer zeker dat die zich in de gewenste toestand bevindt. Of je kan door experimenteren de VM onbruikbaar gemaakt hebben. Door de VM te verwijderen en opnieuw op te bouwen (met \texttt{vagrant up}) kan je opnieuw beginnen van een werkende versie (als je de vorige richtlijnen opvolgt, tenminste!).
   \item Ook wanneer je denkt klaar te zijn met een deelopdracht, genereer de VM nog eens helemaal opnieuw en voer alle acceptatietests uit.
 \end{itemize}
 
@@ -305,12 +305,12 @@ Telkens je een wijziging aanbrengt in de Ansible-configuratie, kan je die doorvo
 \section{Basiskennis CentOS}
 \label{sec:basiskennis_centos}
 
-CentOS is een Linux-distributie die afgeleid is van RedHat, maar initieel volledig door de \emph{community} onderhouden werd. RedHat is een commerciële Linux-distributie van het gelijknamige bedrijf. Je kan RedHat Enterprise Linux (RHEL) enkel gebruiken als je er een support contract voor tekent. Nu is RHEL wel volledig open source en is het dus toegelaten om de code te hergebruiken en te wijzigen. Dat is precies wat in het CentOS-project gebeurd is. Alles wat onder het merkenrecht valt (de naam RHEL, logo's, enz.) is verwijderd en vervangen. CentOS is dus volledig compatibel met RHEL, maar gratis. RedHat heeft goede relaties met het CentOS-project, zelfs in die mate dat ze sinds 2014 het project beginnen sponsoren zijn en de belangrijkste medewerkers van het project in dienst genomen hebben. In deze cursus gebruiken we CentOS omdat de RedHat-familie in het Vlaamse bedrijfsleven de meest gebruikte Linux-distributie is.
+CentOS is een Linux-distributie die afgeleid is van RedHat, maar initieel volledig door de \emph{community} onderhouden werd. RedHat is een commerciële Linux-distributie van het gelijknamige bedrijf. Je kan RedHat Enterprise Linux (RHEL) enkel gebruiken als je er een support contract voor tekent. Nu is RHEL wel volledig open source en is het dus toegelaten om de code te hergebruiken en te wijzigen. Dat is precies wat in het CentOS-project gebeurd is. Alles wat onder het merkenrecht valt (de naam RHEL, logo's, enz.) is verwijderd en vervangen. CentOS is dus volledig compatibel met RHEL, maar gratis, en zonder support vanuit RedHat. RedHat heeft echter wel goede relaties met het CentOS-project, zelfs in die mate dat ze sinds 2014 het project beginnen sponsoren zijn en de belangrijkste medewerkers van het project in dienst genomen hebben. In deze cursus gebruiken we CentOS omdat de RedHat-familie in het Vlaamse bedrijfsleven de meest gebruikte Linux-distributie is.
 
 Om je te helpen bij het leren kennen van deze distributie vind je hieronder enkele suggesties.
 
 \begin{itemize}
-  \item \textbf{Lees eerst de RHEL 7-documentatie}~\autocite{SvistunovEtAl2016,JahodaEtAl2016,JahodaEtAl2016a}, ga niet in het wilde weg Googlen naar commando's. Recent zijn er redelijk wat ingrijpende wijzigingen gebeurd in het Linux-landschap waardoor vele commando's die nog altijd in blog-artikels en HOWTO's staan niet meer werken of verouderd zijn. De delen van de handleidingen die bij uitstek relevant zijn, worden opgesomd in Sectie~\ref{subs:documentatie-gebruiken}.
+  \item \textbf{Lees eerst de RHEL 7-documentatie}~\autocite{SvistunovEtAl2016,JahodaEtAl2016,JahodaEtAl2016a}, ga niet in het wilde weg Googlen naar commando's. Recent zijn er redelijk wat ingrijpende wijzigingen gebeurd in het Linux-landschap waardoor vele commando's die nog altijd in blog-artikels en HOWTO's staan niet meer werken of verouderd zijn. De delen van de handleidingen die bij uitstek relevant zijn, worden opgesomd in Sectie~\ref{sec:leerdoelen}.
   \item Maak voor jezelf een \textbf{cheat sheet} met de belangrijkste commando's, in het bijzonder voor:
     \begin{itemize}
       \item netwerkinstellingen opvragen met \texttt{ip};
@@ -330,6 +330,9 @@ Om je te helpen bij het leren kennen van deze distributie vind je hieronder enke
 % TODO: verwijs naar het rocket scientists boek
 
 DNS is essentieel voor de correcte werking van een domein, en redelijk wat (volgens sommigen \emph{alle}\footnote{\url{http://www.krisbuytaert.be/blog/}}) netwerkproblemen zijn terug te leiden tot fouten in DNS. Er zijn verschillende implementaties van DNS, maar veruit de meest gebruikte (en dus essentieel voor de werking van het Internet als geheel) is BIND\footnote{\url{https://www.isc.org/downloads/bind/}}.
+
+\subsection{Zonebestanden}
+\label{ssec:zonebestanden}
 
 DNS is op zich geen complexe netwerkservice. Het komt neer op een databank met enkele tabellen (= zonebestanden) die in (een strak) tekstformaat zijn opgemaakt. Er zijn verschillende types van records, o.a.
 
@@ -379,9 +382,12 @@ $TTL 1W
 De syntax van deze \emph{zone files} is heel strak en het is makkelijk om fouten te maken. De meest voorkomende fouten zijn de volgende:
 
 \begin{itemize}
-  \item Hostnamen die volledig uitgeschreven zijn (\emph{ully qualified domain name} of FQDN) moeten in een zonebestand altijd afgesloten worden met een punt, bv. ``\texttt{pu001.linuxlab.net.}''. Namen die niet op een punt eindigen, worden aangevuld met de waarde van \texttt{\$ORIGIN} die aan het begin van een zonebestand gegeven wordt (d.i. de domeinnaam, in ons geval ``\texttt{linuxlab.net.}''). Bv.  \texttt{pu002} wordt dan ``\texttt{pu002.linuxlab.net.}''. Als je een hostnaam volledig uitschrijft en je vergeet de punt, dan zal de domeinnaam dus verkeerd geïnterpreteerd worden. ``\texttt{pu002.linuxlab.net}'' wordt immers omgezet naar ``\path{pu002.linuxlab.net.linuxlab.net.}''.
+  \item Hostnamen die volledig uitgeschreven zijn (\emph{fully qualified domain name} of FQDN) moeten in een zonebestand altijd afgesloten worden met een punt, bv. ``\texttt{pu001.linuxlab.net.}''. Namen die niet op een punt eindigen, worden aangevuld met de waarde van \texttt{\$ORIGIN} die aan het begin van een zonebestand gegeven wordt (d.i. de domeinnaam, in ons geval ``\texttt{linuxlab.net.}''). Bv.  \texttt{pu002} wordt dan ``\texttt{pu002.linuxlab.net.}''. Als je een hostnaam volledig uitschrijft en je vergeet de punt, dan zal de domeinnaam dus verkeerd geïnterpreteerd worden. ``\texttt{pu002.linuxlab.net}'' wordt immers omgezet naar ``\path{pu002.linuxlab.net.linuxlab.net.}''.
 \item IP-adressen worden op een eigenaardige manier genoteerd. Ten eerste wordt het host-deel van het netwerkadres niet geschreven, de getallen in de ``dotted quad''-notatie worden omgekeerd en je moet er ``\texttt{in-addr.arpa.}'' achter schrijven. Met andere woorden, \texttt{192.0.2.0/24} wordt als ``\texttt{2.0.192.in-addr-arpa."} geschreven.
 \end{itemize}
+
+\subsection{DNS troubleshooting}
+\label{ssec:dns-troubleshooting}
 
 Het is niet altijd evident om fouten op te sporen in de configuratie van een BIND DNS-server. Daarom deze tips:
 
@@ -401,11 +407,112 @@ $ sudo named-checkzone 15.168.192.in-addr.arpa \
 \item Je kan foutboodschappen van de service bekijken met \texttt{journalctl}. Het handigste is om een aparte console te openen, in te loggen op je server en dan het volgende commando uit te voeren:
 
     \begin{verbatim}
+$ sudo rndc querylog on
 $ sudo journalctl -l -f -u named.service
     \end{verbatim}
 
+  Het eerste commando zorgt dat DNS-queries van clients in de logs verschijnen (wat standaard uit staat). Het tweede commando toont de logs van BIND.
+
   Open een andere console om commando's uit te voeren (bv. de service herstarten). Je ziet dan meteen relevante info- en foutboodschappen verschijnen.
 \end{itemize}
+
+Naast het valideren van de configuratiebestanden, is het ook belangrijk om te testen of de DNS-server ook correct antwoordt op aanvragen van clients. Installeer de package \texttt{bind-tools} om een aantal nuttige tools ter beschikking te krijgen. Het commando \texttt{nslookup} zal je misschien herkennen vanuit Windows. Het werkt hier op dezelfde manier:
+
+\begin{verbatim}
+$ nslookup www.hogent.be
+Server:		195.130.131.1
+Address:	195.130.131.1\#53
+
+Non-authoritative answer:
+Name:	www.hogent.be
+Address: 178.62.144.90
+\end{verbatim}
+
+Hier wordt gevraagd wat het IP-adres is voor hostnaam ``www.hogent.be''. Als antwoord krijgen we 178.62.144.90. Het antwoord werd gegeven door een DNS-server met IP-adres 195.130.131.1. Er wordt aangegeven dat het antwoord \emph{non-authoritative} is, wat wil zeggen dat de DNS-server die het antwoord gaf niet de DNS-server is die ook de eindverantwoordelijke is voor het hogent.be-domein.
+
+Je kan een query met \texttt{nslookup} ook richten naar een specifieke DNS-server door die ook mee te geven op de command line:
+
+\begin{verbatim}
+$ nslookup www.hogent.be 8.8.8.8
+Server:		8.8.8.8
+Address:	8.8.8.8#53
+
+Non-authoritative answer:
+Name:	www.hogent.be
+Address: 178.62.144.90
+\end{verbatim}
+
+Merk op dat als je de DNS-server niet expliciet vermeldt, de DNS-server ondervraagd wordt die door DHCP werd toegewezen en die vermeld wordt in \texttt{/etc/resolv.conf}.
+
+Naast \texttt{nslookup}, bevat de \texttt{bind-utils} een nog veelzijdiger commando om DNS-servers te ondervragen: \texttt{dig}.
+
+\begin{verbatim}
+$ dig www.hogent.be
+
+; <<>> DiG 9.10.5-P2-RedHat-9.10.5-2.P2.fc25 <<>> www.hogent.be
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 23001
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;www.hogent.be.			IN	A
+
+;; ANSWER SECTION:
+www.hogent.be.		2796	IN	A	178.62.144.90
+
+;; Query time: 11 msec
+;; SERVER: 195.130.131.1#53(195.130.131.1)
+;; WHEN: Tue Sep 26 00:45:51 CEST 2017
+;; MSG SIZE  rcvd: 58
+\end{verbatim}
+
+De syntax van de uitvoer is compatibel met die van zonebestanden. We zien hier dus dat er voor www.hogent.be een A-record bestaat dat verwijst naar IP-adres 178.62.144.90. Alle regels die beginnen met een kommapunt zijn commentaar.
+
+Je kan vragen enkel de relevante info af te drukken, zonder de commentaren:
+
+\begin{verbatim}
+$ dig +short www.hogent.be
+178.62.144.90
+\end{verbatim}
+
+Een specifieke DNS-server ondervragen gebeurt door die op de command-line mee te geven, voorafgegaan door een ``@'':
+
+\begin{verbatim}
+$ dig +short @8.8.8.8 www.hogent.be
+178.62.144.90
+\end{verbatim}
+
+Tenslotte kan je ook verschillende soorten records opvragen. Bijvoorbeeld, wie is de ``authoritative name server'' voor het domein hogent.be?
+
+\begin{verbatim}
+$ dig +short NS hogent.be
+ns2.belnet.be.
+ens2.hogent.be.
+ns1.belnet.be.
+ens1.hogent.be.
+\end{verbatim}
+
+Wat is het IPv6 adres voor download.fedoraproject.org?
+
+\begin{verbatim}
+$ dig +short AAAA download.fedoraproject.org
+wildcard.fedoraproject.org.
+2001:4178:2:1269::fed2
+2610:28:3090:3001:dead:beef:cafe:fed3
+2605:bc80:3010:600:dead:beef:cafe:fed9
+\end{verbatim}
+
+Zo doe je een ``reverse lookup'':
+
+\begin{verbatim}
+$ dig +short -x 195.130.131.1
+asse.dnscache02.telenet-ops.be.
+\end{verbatim}
+
+Hier krijg je enkel antwoord voor als de ondervraagde DNS-server ook effectief een PTR-record heeft voor het opgegeven IP-adres.
 
 \section{Fileservers en Samba}
 \label{sec:fileservers-en-samba}
@@ -449,7 +556,7 @@ Het gebruik maken van een configuration management system laat een systeembeheer
 
 Jammer genoeg ontslaat dit ons niet van de verantwoordelijkheid om de systemen die we beheren van binnen en van buiten te kennen en de interne werking te begrijpen. Wanneer er toch fouten de kop op steken en onze systemen zijn niet beschikbaar voor onze gebruikers, brengt het configuration managementsysteem niet altijd soelaas. Integendeel, op dat moment is het niet meer dan een extra laag complexiteit.
 
-Een systematische en grondige aanpak is van levensbelang. De impact van de onbeschikbaarheid van netwerkservices is meestal bijzonder zwaar. In het beste geval heb je boze gebruikers, maar in het slechtste geval verliest je bedrijf tienduizenden euro's per uur aan verloren productiviteit en potentiële inkomsten. Op zo'n moment gaat met googlen naar een oplossing kostbare tijd verloren (als je al \emph{kan} googlen), en als je op dat moment nog moet beginnen handleidingen lezen, wordt het zeker nachtwerk.
+Een systematische en grondige aanpak kan uren werk uitsparen. De impact van de onbeschikbaarheid van netwerkservices is meestal bijzonder zwaar. In het beste geval heb je boze gebruikers, maar in het slechtste geval kan je bedrijf tienduizenden euro's per uur verliezen aan verloren productiviteit en potentiële inkomsten. Op zo'n moment gaat met googlen naar een oplossing kostbare tijd verloren (als je al \emph{kan} googlen), en als je op dat moment nog moet beginnen handleidingen lezen, wordt het zeker nachtwerk.
 
 De beste manier om het troubleshooten van netwerkservices systematiseren is om de TCP/IP-stack als model te nemen. Test eerst de onderste laag, en pas als daar alle mogelijke problemen zijn opgespoord ga je naar de laag er boven: \emph{bottom-up troubleshooting}.
 
