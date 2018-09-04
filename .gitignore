@@ -1,3 +1,7 @@
+##
+## LaTeX-related
+##
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
@@ -174,3 +178,10 @@ TSWLatexianTemp*
 
 # Vim-LaTeX
 *.latexmain
+
+##
+## Vagrant
+##
+
+# Vagrant directory
+.vagrant
