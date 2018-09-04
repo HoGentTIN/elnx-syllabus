@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Bert Van Vreckem">
+  <title>Troubleshooting Network Services (on EL7)</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/hogent.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Troubleshooting Network Services (on EL7)</h1>
+  <p class="author">Bert Van Vreckem</p>
+  <p class="date">LOADays, 2018-04-20</p>
+</section>
+
+<section><section id="preparation" class="title-slide slide level1"><h1>Preparation</h1></section><section id="before-we-begin" class="slide level2">
+<h2>Before we begin</h2>
+<ul>
+<li>Software prerequisites:
+<ul>
+<li>Git</li>
+<li>VirtualBox</li>
+<li>Vagrant</li>
+</ul></li>
+<li>Get the code from <a href="https://github.com/bertvv/presentation-network-troubleshooting.git" class="uri">https://github.com/bertvv/presentation-network-troubleshooting.git</a></li>
+<li>Set up the test environment: <code>vagrant up</code></li>
+</ul>
+</section></section>
+<section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section><section id="whoami" class="slide level2">
+<h2><code>whoami</code></h2>
+<ul>
+<li>Bert Van Vreckem</li>
+<li><em>Lector ICT</em> at University College Ghent (HoGent)
+<ul>
+<li>BS programme Applied Informatics</li>
+<li>Mainly Linux, research techniques</li>
+</ul></li>
+<li><em>Open source</em> contributor: <a href="https://github.com/bertvv/" class="uri">https://github.com/bertvv/</a>
+<ul>
+<li>Ansible roles</li>
+<li>Scripts</li>
+<li>Learning resources</li>
+</ul></li>
+</ul>
+</section><section id="this-talk-is-for-you-if" class="slide level2">
+<h2>This talk is for you if</h2>
+<ul>
+<li>Linux/CentOS novice</li>
+<li>Unfamiliar with EL7/systemd</li>
+<li>Struggle with network services and/or SELinux</li>
+</ul>
+</section><section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li>Bottom-up approach</li>
+<li>Network access (Link) layer</li>
+<li>Internet layer</li>
+<li>Transport</li>
+<li>Application Layer</li>
+<li>SELinux</li>
+</ul>
+<p><strong>Interrupt me if you have remarks/questions!</strong></p>
+</section><section id="terminology" class="slide level2">
+<h2>Terminology</h2>
+<ul>
+<li><em>host system</em> = the physical machine running virtualisation software (my laptop)</li>
+<li><em>network host</em> = any machine with an IP address</li>
+</ul>
+</section><section id="case-web-db-server" class="slide level2">
+<h2>Case: web + db server</h2>
+<p>Two VirtualBox VMs, set up with Vagrant</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Host</th>
+<th style="text-align: left;">IP</th>
+<th style="text-align: left;">Service</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>web</code></td>
+<td style="text-align: left;">192.168.56.72</td>
+<td style="text-align: left;">http, https (Apache)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>db</code></td>
+<td style="text-align: left;">192.168.56.73</td>
+<td style="text-align: left;">mysql (MariaDB)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>On <code>web</code>, a PHP app runs a query on the <code>db</code></li>
+<li><code>db</code> is set up correctly, <code>web</code> is not</li>
+</ul>
+</section><section id="objective" class="slide level2">
+<h2>Objective</h2>
+<figure>
+<img data-src="img/result.png" alt="The PHP application" /><figcaption>The PHP application</figcaption>
+</figure>
+</section><section id="running-the-demo-environment" class="slide level2">
+<h2>Running the demo environment</h2>
+<pre class="console"><code>$ git clone https://github.com/bertvv/presentation-network-troubleshooting.git
+[...]
+$ cd presentation-network-troubleshooting/
+$ vagrant status
+Current machine states:
+
+db                        not created (virtualbox)
+web                       not created (virtualbox)
+
+This environment represents multiple VMs. The VMs are all listed
+above with their current state. For more information about a specific
+VM, run `vagrant status NAME`.
+$ vagrant up
+[...]</code></pre>
+</section><section id="test-the-database-server" class="slide level2">
+<h2>Test the database server</h2>
+<pre class="shell"><code>$ ./query_db.sh 
++ mysql --host=192.168.56.73 --user=demo_user \
++   --password=ArfovWap_OwkUfeaf4 demo \
++   &#39;--execute=SELECT * FROM demo_tbl;&#39;
++----+-------------------+
+| id | name              |
++----+-------------------+
+| 1  | Tuxedo T. Penguin |
+| 2  | Bobby Tables      |
++----+-------------------+
++ set +x</code></pre>
+</section><section id="use-a-bottom-up-approach" class="slide level2">
+<h2>Use a bottom-up approach</h2>
+<p>TCP/IP protocol stack</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Layer</th>
+<th style="text-align: left;">Protocols</th>
+<th style="text-align: left;">Keywords</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Application</td>
+<td style="text-align: left;">HTTP, DNS, SMB, FTP, …</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Transport</td>
+<td style="text-align: left;">TCP, UDP</td>
+<td style="text-align: left;">sockets, port numbers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Internet</td>
+<td style="text-align: left;">IP, ICMP</td>
+<td style="text-align: left;">routing, IP address</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Network access</td>
+<td style="text-align: left;">Ethernet</td>
+<td style="text-align: left;">switch, MAC address</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Physical</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">cables</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section><section id="network-access-layer" class="title-slide slide level1"><h1>Network Access Layer</h1></section><section id="network-access-layer-1" class="slide level2">
+<h2>Network Access Layer</h2>
+<ul>
+<li>bare metal:
+<ul>
+<li>test the cable(s)</li>
+<li>check switch/NIC LEDs</li>
+</ul></li>
+<li>VM (e.g. VirtualBox):
+<ul>
+<li>check virtual network adapter type &amp; settings</li>
+</ul></li>
+<li><code>ip link</code></li>
+</ul>
+</section><section id="virtualbox-networking-nat" class="slide level2">
+<h2>VirtualBox networking: NAT</h2>
+<figure>
+<img data-src="img/VirtualBox-networking-NAT.png" alt="VirtualBox NAT Adapter" /><figcaption>VirtualBox NAT Adapter</figcaption>
+</figure>
+</section><section id="virtualbox-networking-nat-1" class="slide level2">
+<h2>VirtualBox networking: NAT</h2>
+<ul>
+<li>Reliable <em>Internet access</em></li>
+<li><strong>Not routable</strong> from host system</li>
+</ul>
+</section><section id="virtualbox-networking-bridged" class="slide level2">
+<h2>VirtualBox networking: bridged</h2>
+<figure>
+<img data-src="img/VirtualBox-networking-bridged.png" alt="VirtualBox Bridged Adapter" /><figcaption>VirtualBox Bridged Adapter</figcaption>
+</figure>
+</section><section id="virtualbox-networking-bridged-1" class="slide level2">
+<h2>VirtualBox networking: bridged</h2>
+<ul>
+<li><em>Routable</em> from host system</li>
+<li><em>Internet access</em></li>
+<li><strong>Inconsistent</strong> IP settings
+<ul>
+<li>Different subnet / IP</li>
+<li>May not receive IP settings from DHCP</li>
+</ul></li>
+</ul>
+</section><section id="virtualbox-networking-host-only" class="slide level2">
+<h2>Virtualbox networking: host-only</h2>
+<figure>
+<img data-src="img/VirtualBox-networking-HO.png" alt="VirtualBox Host-only Adapter" /><figcaption>VirtualBox Host-only Adapter</figcaption>
+</figure>
+</section><section id="virtualbox-networking-host-only-1" class="slide level2">
+<h2>VirtualBox networking: host-only</h2>
+<ul>
+<li><em>Routable</em> from host system</li>
+<li><em>Consistent</em> IP settings</li>
+<li><strong>No Internet</strong> access</li>
+</ul>
+</section><section id="recommendation" class="slide level2">
+<h2>Recommendation</h2>
+<ul>
+<li>Adapter 1: NAT</li>
+<li>Adapter 2: Host-only</li>
+</ul>
+<p>Best of both worlds!</p>
+</section></section>
+<section><section id="internet-layer" class="title-slide slide level1"><h1>Internet Layer</h1></section><section id="checklist-internet-layer" class="slide level2">
+<h2>Checklist: Internet Layer</h2>
+<ol type="1">
+<li><em>Local</em> network configuration</li>
+<li>Routing within the <em>LAN</em></li>
+</ol>
+<p><strong>Know the expected values!</strong></p>
+</section><section id="virtualbox-networking-nat-2" class="slide level2">
+<h2>VirtualBox networking: NAT</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Host</th>
+<th style="text-align: left;">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">VM</td>
+<td style="text-align: left;">10.0.2.15/24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gateway</td>
+<td style="text-align: left;">10.0.2.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DNS</td>
+<td style="text-align: left;">10.0.2.3</td>
+</tr>
+</tbody>
+</table>
+</section><section id="virtualbox-networking-host-only-2" class="slide level2">
+<h2>VirtualBox networking: host-only</h2>
+<p>The “default” host-only network:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Host system</td>
+<td style="text-align: left;">192.168.56.1/24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Virtual DHCP</td>
+<td style="text-align: left;">192.168.56.100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Range from</td>
+<td style="text-align: left;">192.168.56.101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Range to</td>
+<td style="text-align: left;">192.168.56.254</td>
+</tr>
+</tbody>
+</table>
+</section><section id="checklist-internet-layer-1" class="slide level2">
+<h2>Checklist: Internet Layer</h2>
+<p>Checking <em>Local network configuration:</em></p>
+<ol type="1">
+<li>IP address: <code>ip a</code></li>
+<li>Default gateway: <code>ip r</code></li>
+<li>DNS service: <code>/etc/resolv.conf</code></li>
+</ol>
+</section><section id="local-configuration-ip-address" class="slide level2">
+<h2>Local configuration: <code>ip address</code></h2>
+<ul>
+<li>IP address?</li>
+<li>In correct subnet?</li>
+<li>DHCP or fixed IP?</li>
+<li>Check configuration: <code>/etc/sysconfig/network-scripts/ifcfg-*</code></li>
+</ul>
+</section><section class="slide level2">
+
+<p>Example: DHCP</p>
+<pre class="console"><code>[vagrant@db ~]$ cat /etc/sysconfig/network-scripts/ifcfg-enp0s3 
+TYPE=Ethernet
+BOOTPROTO=dhcp
+NAME=enp0s3
+DEVICE=enp0s3
+ONBOOT=yes
+[...]</code></pre>
+</section><section class="slide level2">
+
+<p>Example: Static IP</p>
+<pre class="console"><code>$ cat /etc/sysconfig/network-scripts/ifcfg-enp0s8
+BOOTPROTO=none
+ONBOOT=yes
+IPADDR=192.168.56.73
+NETMASK=255.255.255.0
+DEVICE=enp0s8
+[...]</code></pre>
+</section><section id="common-causes-dhcp" class="slide level2">
+<h2>Common causes (DHCP)</h2>
+<ul>
+<li>No IP
+<ul>
+<li>DHCP unreachable</li>
+<li>DHCP won’t give an IP</li>
+</ul></li>
+<li>169.254.x.x
+<ul>
+<li>No DHCP offer, “link-local” address</li>
+</ul></li>
+<li>Unexpected subnet
+<ul>
+<li>Bad config (fixed IP set?)</li>
+</ul></li>
+</ul>
+<p>Watch the logs: <code>sudo journalctl -f</code></p>
+</section><section id="common-causes-fixed-ip" class="slide level2">
+<h2>Common causes (Fixed IP)</h2>
+<ul>
+<li>Unexpected subnet
+<ul>
+<li>Check config</li>
+</ul></li>
+<li>Correct IP, “network unreachable”
+<ul>
+<li>Check network mask</li>
+</ul></li>
+</ul>
+</section><section id="local-configuration-ip-route" class="slide level2">
+<h2>Local configuration: <code>ip route</code></h2>
+<ul>
+<li>Default GW present?</li>
+<li>In correct subnet?</li>
+<li>Check network configuration</li>
+</ul>
+</section><section id="dns-server-etcresolv.conf" class="slide level2">
+<h2>DNS server: <code>/etc/resolv.conf</code></h2>
+<ul>
+<li><code>nameserver</code> option present?</li>
+<li>Expected IP?</li>
+</ul>
+</section><section id="checklist-internet-layer-2" class="slide level2">
+<h2>Checklist: Internet Layer</h2>
+<p>Checking routing within the <em>LAN</em>:</p>
+<ul>
+<li>Ping between hosts</li>
+<li>Ping default GW/DNS</li>
+<li>Query DNS (<code>dig</code>, <code>nslookup</code>, <code>getent</code>)</li>
+</ul>
+</section><section id="lan-connectivity-ping" class="slide level2">
+<h2>LAN connectivity: <code>ping</code></h2>
+<ul>
+<li>host -&gt; VM: <code>ping 192.168.56.72</code></li>
+<li>VM -&gt; host: <code>ping 192.168.56.1</code></li>
+<li>VM -&gt; GW: <code>ping 10.0.2.2</code></li>
+<li>VM -&gt; DNS: <code>ping 10.0.2.3</code></li>
+</ul>
+<p>Remark: some routers <strong>block</strong> ICMP!</p>
+</section><section id="lan-connectivity-dns" class="slide level2">
+<h2>LAN connectivity: DNS</h2>
+<ul>
+<li><code>dig icanhazip.com</code></li>
+<li><code>nslookup icanhazip.com</code></li>
+<li><code>getent ahosts icanhazip.com</code></li>
+</ul>
+</section><section id="lan-connectivity" class="slide level2">
+<h2>LAN connectivity</h2>
+<p>Next step: routing beyond GW</p>
+</section></section>
+<section><section id="transport-layer" class="title-slide slide level1"><h1>Transport Layer</h1></section><section id="checklist-transport-layer" class="slide level2">
+<h2>Checklist: Transport Layer</h2>
+<ol type="1">
+<li>Service running? <code>sudo systemctl status SERVICE</code></li>
+<li>Correct port/inteface? <code>sudo ss -tulpn</code></li>
+<li>Firewall settings: <code>sudo firewall-cmd --list-all</code></li>
+</ol>
+</section><section id="is-the-service-running" class="slide level2">
+<h2>Is the service running?</h2>
+<p><code>systemctl status httpd.service</code></p>
+<ul>
+<li><code>active (running)</code> vs. <code>inactive (dead)</code>
+<ul>
+<li><code>systemctl start httpd</code></li>
+<li>Fail? See below (Application layer)</li>
+</ul></li>
+<li>Start at boot: <code>enabled</code> vs. <code>disabled</code>
+<ul>
+<li><code>systemctl enable httpd</code></li>
+</ul></li>
+</ul>
+</section><section id="correct-portsinterfaces" class="slide level2">
+<h2>Correct ports/interfaces?</h2>
+<ul>
+<li>Use <code>ss</code> (not <code>netstat</code>)
+<ul>
+<li>TCP service: <code>sudo ss -tlnp</code></li>
+<li>UDP service: <code>sudo ss -ulnp</code></li>
+</ul></li>
+<li>Correct port number?
+<ul>
+<li>See <code>/etc/services</code></li>
+</ul></li>
+<li>Correct interface?
+<ul>
+<li>Only loopback?</li>
+</ul></li>
+</ul>
+</section><section id="firewall-settings" class="slide level2">
+<h2>Firewall settings</h2>
+<p><code>sudo firewall-cmd --list-all</code></p>
+<ul>
+<li>Is the service or port listed?</li>
+<li>Use <code>--add-service</code> if possible
+<ul>
+<li>Supported: <code>--get-services</code></li>
+</ul></li>
+<li>Don’t use both <code>--add-service</code> and <code>--add-port</code></li>
+<li>Add <code>--permanent</code></li>
+<li><code>--reload</code> firewall rules</li>
+</ul>
+</section><section class="slide level2">
+
+<pre class="console"><code>$ sudo firewall-cmd --add-service=http --permanent
+$ sudo firewall-cmd --add-service=https --permanent
+$ sudo firewall-cmd --reload</code></pre>
+</section></section>
+<section><section id="application-layer" class="title-slide slide level1"><h1>Application Layer</h1></section><section id="checklist-application-layer" class="slide level2">
+<h2>Checklist: Application Layer</h2>
+<ul>
+<li>Check the <em>logs</em>: <code>journalctl</code></li>
+<li>Validate config file <em>syntax</em></li>
+<li>Use (command line) <em>client</em> tools
+<ul>
+<li>e.g. <code>curl</code>, <code>smbclient</code> (Samba), <code>dig</code> (DNS), etc.</li>
+</ul></li>
+<li>Other checks are application dependent
+<ul>
+<li>Read the reference manuals!</li>
+</ul></li>
+</ul>
+</section><section id="check-the-log-files" class="slide level2">
+<h2>Check the log files</h2>
+<ul>
+<li>Either <code>journalctl</code>: <code>journalctl -f -u httpd.service</code></li>
+<li>Or <code>/var/log/</code>:
+<ul>
+<li><code>tail -f /var/log/httpd/error_log</code></li>
+</ul></li>
+</ul>
+</section><section id="check-config-file-syntax" class="slide level2">
+<h2>Check config file syntax</h2>
+<ul>
+<li>Application dependent, for Apache: <code>apachectl configtest</code></li>
+</ul>
+</section><section id="read-the-fine-manual" class="slide level2">
+<h2>Read the fine manual!</h2>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/">RedHat Manuals</a>:
+<ul>
+<li>System Administrator’s Guide</li>
+<li>Networking guide</li>
+<li>SELinux guide</li>
+</ul></li>
+<li>Reference manuals, e.g.:
+<ul>
+<li><a href="https://httpd.apache.org/docs/2.4/configuring.html" class="uri">https://httpd.apache.org/docs/2.4/configuring.html</a></li>
+</ul></li>
+<li>Man pages
+<ul>
+<li>smb.conf(5), dhcpd.conf(5), named.conf(5), …</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="selinux-troubleshooting" class="title-slide slide level1"><h1>SELinux troubleshooting</h1></section><section id="selinux" class="slide level2">
+<h2>SELinux</h2>
+<ul>
+<li>SELinux is Mandatory Access Control in the Linux kernel</li>
+<li>Settings:
+<ul>
+<li>Booleans: <code>getsebool</code>, <code>setsebool</code></li>
+<li>Contexts, labels: <code>ls -Z</code>, <code>chcon</code>, <code>restorecon</code></li>
+<li>Policy modules: <code>sepolicy</code></li>
+</ul></li>
+</ul>
+</section><section id="do-not-disable-selinux" class="slide level2">
+<h2>Do not disable SELinux</h2>
+<p><a href="https://stopdisablingselinux.com/" class="uri">https://stopdisablingselinux.com/</a></p>
+</section><section id="check-file-context" class="slide level2">
+<h2>Check file context</h2>
+<ul>
+<li>Is the file context as expected?
+<ul>
+<li><code>ls -Z /var/www/html</code></li>
+</ul></li>
+<li>Set file context to default value
+<ul>
+<li><code>sudo restorecon -R /var/www/</code></li>
+</ul></li>
+<li>Set file context to specified value
+<ul>
+<li><code>sudo chcon -t httpd_sys_content_t test.php</code></li>
+</ul></li>
+</ul>
+</section><section id="check-booleans" class="slide level2">
+<h2>Check booleans</h2>
+<p><code>getsebool -a | grep http</code></p>
+<ul>
+<li>Know the relevant booleans! (RedHat manuals)</li>
+<li>Enable boolean:
+<ul>
+<li><code>sudo setsebool -P httpd_can_network_connect_db on</code></li>
+</ul></li>
+</ul>
+</section><section id="creating-a-policy" class="slide level2">
+<h2>Creating a policy</h2>
+<p>Let’s try to set <code>DocumentRoot &quot;/vagrant/www&quot;</code></p>
+<pre><code>$ sudo vi /etc/httpd/conf/httpd.conf
+$ ls -Z /vagrant/www/
+-rw-rw-r--. vagrant vagrant system_u:object_r:vmblock_t:s0   test.php
+$ sudo chcon -R -t httpd_sys_content_t /vagrant/www/
+chcon: failed to change context of ‘test.php’ to ‘system_u:object_r:httpd_sys_content_t:s0’: Operation not supported
+chcon: failed to change context of ‘/vagrant/www/’ to ‘system_u:object_r:httpd_sys_content_t:s0’: Operation not supported</code></pre>
+</section><section id="creating-a-policy-1" class="slide level2">
+<h2>Creating a policy</h2>
+<p>Instead of setting the files to the expected context, allow httpd to access files with <code>vmblock_t</code> context</p>
+<ol type="1">
+<li><p>Allow Apache to run in “permissive” mode:</p>
+<pre><code>$ sudo semanage permissive -a httpd_t</code></pre></li>
+<li><p>Generate “Type Enforcement” file (.te)</p>
+<pre><code>$ sudo audit2allow -a -m httpd-vboxsf &gt; httpd-vboxsf.te</code></pre></li>
+<li><p>If necessary, edit the policy</p>
+<pre><code>$ sudo vi httpd-vboxsf.te</code></pre></li>
+</ol>
+</section><section class="slide level2">
+
+<ol type="1">
+<li><p>Convert to policy module (.pp)</p>
+<pre><code>$ checkmodule -M -m -o httpd-vboxsf.mod httpd-vboxsf.te
+$ semodule_package -o httpd-vboxsf.pp -m httpd-vboxsf.mod</code></pre></li>
+<li><p>Install module</p>
+<pre><code>$ sudo semodule -i httpd-vboxsf.pp</code></pre></li>
+<li><p>Remove permissive domain exception</p>
+<pre><code>$ sudo semanage permissive -d httpd_t</code></pre></li>
+</ol>
+<p>Tip: automate this!</p>
+</section></section>
+<section><section id="bind-troubleshooting" class="title-slide slide level1"><h1>BIND troubleshooting</h1></section><section id="bind-setup" class="slide level2">
+<h2>BIND setup</h2>
+<p>Authoritative name server for domain <em>example.com</em></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Host</th>
+<th style="text-align: left;">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ns1</td>
+<td style="text-align: left;">192.168.56.10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ns2</td>
+<td style="text-align: left;">192.168.56.11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dc</td>
+<td style="text-align: left;">192.168.56.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">web</td>
+<td style="text-align: left;">192.168.56.72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">db</td>
+<td style="text-align: left;">192.168.56.73</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">priv0001</td>
+<td style="text-align: left;">172.16.0.10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">priv0002</td>
+<td style="text-align: left;">172.16.0.11</td>
+</tr>
+</tbody>
+</table>
+<p>The host <code>web</code> has an alias, <code>www</code>.</p>
+</section><section id="goal-make-the-tests-succeed" class="slide level2">
+<h2>Goal: make the tests succeed!</h2>
+<pre class="console"><code>$ ./tests/runtests.sh 
+Testing 192.168.56.10
+ ✓ The dig command should be installed
+ ✓ It should return the NS record(s)
+ ✓ It should be able to resolve host names
+ ✓ It should be able to do reverse lookups
+ ✓ It should be able to resolve aliases
+ ✓ It should return the SRV record(s)
+
+6 tests, 0 failures
+Testing 192.168.56.11
+ ✓ The dig command should be installed
+ ✓ It should return the NS record(s)
+ ✓ It should be able to resolve host names
+ ✓ It should be able to do reverse lookups
+ ✓ It should be able to resolve aliases
+ ✓ It should return the SRV record(s)
+
+6 tests, 0 failures</code></pre>
+</section><section id="useful-commands" class="slide level2">
+<h2>Useful commands</h2>
+<ul>
+<li>Check the logs: <code>journalctl -u named</code></li>
+<li>Validate config files:
+<ul>
+<li>main: <code>named-checkconf /etc/named.conf</code></li>
+<li>zone files: <code>named-checkzone ZONE FILE</code></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="general-guidelines" class="title-slide slide level1"><h1>General guidelines</h1></section><section id="back-up-config-files-before-changing" class="slide level2">
+<h2>Back up config files before changing</h2>
+</section><section id="be-systematic-bottom-up" class="slide level2">
+<h2>Be systematic, bottom-up</h2>
+</section><section id="be-thorough-dont-skip-steps" class="slide level2">
+<h2>Be thorough, don’t skip steps</h2>
+</section><section id="do-not-assume-test" class="slide level2">
+<h2>Do not assume: test</h2>
+</section><section id="know-your-environment" class="slide level2">
+<h2>Know your environment</h2>
+</section><section id="know-your-log-files" class="slide level2">
+<h2>Know your log files</h2>
+<figure>
+<img data-src="img/reading-errorlog-files-small.jpg" alt="Credit: @KrisBuytaert" /><figcaption>Credit: <span class="citation" data-cites="KrisBuytaert">@KrisBuytaert</span></figcaption>
+</figure>
+</section><section id="read-the-f-error-message" class="slide level2">
+<h2>Read The F*** Error Message!</h2>
+</section><section id="open-logs-in-separate-terminal" class="slide level2">
+<h2>Open logs in separate terminal</h2>
+</section><section id="small-steps" class="slide level2">
+<h2>Small steps</h2>
+</section><section id="validate-the-syntax-of-config-files" class="slide level2">
+<h2>Validate the syntax of config files</h2>
+</section><section id="reload-service-after-config-change" class="slide level2">
+<h2>Reload service after config change</h2>
+</section><section id="verify-each-change" class="slide level2">
+<h2>Verify each change</h2>
+</section><section id="keep-a-cheat-sheetchecklist" class="slide level2">
+<h2>Keep a cheat sheet/checklist</h2>
+<p>E.g. <a href="https://github.com/bertvv/cheat-sheets" class="uri">https://github.com/bertvv/cheat-sheets</a></p>
+</section><section id="use-a-configuration-management-system" class="slide level2">
+<h2>Use a configuration management system</h2>
+</section><section id="automate-tests" class="slide level2">
+<h2>Automate tests</h2>
+<p>E.g. <a href="https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu004/lamp.bats" class="uri">https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu004/lamp.bats</a></p>
+</section><section id="never-ping-google" class="slide level2">
+<h2>Never ping Google!</h2>
+</section></section>
+<section><section id="thats-it" class="title-slide slide level1"><h1>That’s it!</h1></section><section id="thank-you" class="slide level2">
+<h2>Thank you!</h2>
+<p>How did I do? Tell me!</p>
+<p><a href="https://twitter.com/bertvanvreckem/">@bertvanvreckem</a></p>
+<p><a href="https://github.com/bertvv/" class="uri">https://github.com/bertvv/</a></p>
+<p><a href="https://bertvv.github.io/linux-network-troubleshooting/" class="uri">https://bertvv.github.io/linux-network-troubleshooting/</a></p>
+<p><a href="https://github.com/bertvv/cheat-sheets/" class="uri">https://github.com/bertvv/cheat-sheets/</a></p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
