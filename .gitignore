@@ -185,3 +185,8 @@ TSWLatexianTemp*
 
 # Vagrant directory
 .vagrant
+
+##
+## Git-worktree directory for published slide decks
+##
+slides/publish/
