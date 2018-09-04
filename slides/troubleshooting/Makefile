@@ -15,14 +15,13 @@
 SOURCE_FILE := troubleshooting-network-services.md
 
 # Target directory for the reveal.js presentation
-# `docs/' is the standard directory for Github pages
-OUTPUT := docs
+OUTPUT := ../publish/troubleshooting
 
 # Directory for reveal.js
 REVEAL_JS_DIR := $(OUTPUT)/reveal.js
 
 # File name of the reveal.js tarball
-REVEAL_JS_TAR := 3.6.0.tar.gz
+REVEAL_JS_TAR := 3.7.0.tar.gz
 
 # Download URL
 REVEAL_JS_URL := https://github.com/hakimel/reveal.js/archive/$(REVEAL_JS_TAR)
@@ -70,7 +69,7 @@ $(OUTPUT)/handouts.pdf: $(SOURCE_FILE)
 		-o $@
 
 ## Ensure the style file is put into the right place
-$(STYLE_FILE): $(STYLE).css
+$(STYLE_FILE): $(STYLE).css $(REVEAL_JS_DIR)
 	cp $(STYLE).css $(STYLE_FILE)
 
 ## Download and install reveal.js locally
