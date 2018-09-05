@@ -14,7 +14,7 @@ test_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 bats_repo_url="https://github.com/bats-core/bats-core.git"
 bats_install_dir="${test_dir}/bats"
-bats="${bats_install_dir}/libexec/bats"
+bats="${bats_install_dir}/bin/bats"
 
 ns_ips=${*:-"192.168.56.10 192.168.56.11"}
 
