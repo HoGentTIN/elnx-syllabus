@@ -77,21 +77,21 @@ readonly yellow='\e[0;33m'
 #
 # Prints all arguments on the standard output stream
 info() {
-  printf "${yellow}>>> %s${reset}\n" "${*}"
+  printf "${yellow}>>> %s${reset}\\n" "${*}"
 }
 
 # Usage: debug [ARG]...
 #
 # Prints all arguments on the standard output stream
 debug() {
-  printf "${cyan}### %s${reset}\n" "${*}"
+  printf "${cyan}### %s${reset}\\n" "${*}"
 }
 
 # Usage: error [ARG]...
 #
 # Prints all arguments on the standard error stream
 error() {
-  printf "${red}!!! %s${reset}\n" "${*}" 1>&2
+  printf "${red}!!! %s${reset}\\n" "${*}" 1>&2
 }
 #}}}
 
