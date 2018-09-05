@@ -5,10 +5,13 @@ In deze repository vind je het lesmateriaal voor de cursus Enterprise Linux (3e 
 - Syllabus (LaTeX broncode)
 - Slides van de lessen:
     - Basiscommando's Enterprise Linux 7
+    - VirtualBox netwerkconfiguratie
     - Troubleshooting
 - Vagrant testomgeving die hoort bij de lesonderwerpen
 
 Een PDF van de laatste versie van de syllabus is te vinden onder "Releases". Kijk na of je de meest recente versie hebt! 
+
+Je kan de slides bekijken via <https://hogenttin.github.io/elnx-syllabus/>
 
 ## Bijdragen
 
