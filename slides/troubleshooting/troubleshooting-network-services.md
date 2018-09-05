@@ -1,36 +1,20 @@
 % Troubleshooting Network Services (on EL7)
-% Bert Van Vreckem
-% LOADays, 2018-04-20
+% Enterprise Linux
+% HOGENT applied computer science
 
 # Preparation
 
 ## Before we begin
 
-- Software prerequisites:
-    - Git
-    - VirtualBox
-    - Vagrant
-- Get the code from <https://github.com/bertvv/presentation-network-troubleshooting.git>
-- Set up the test environment: `vagrant up`
+Set up the test environment
+
+```console
+$ cd elnx-syllabus/demo
+$ vagrant up web db
+[...]
+```
 
 # Introduction
-
-## `whoami`
-
-- Bert Van Vreckem
-- *Lector ICT* at University College Ghent (HoGent)
-    - BS programme Applied Informatics
-    - Mainly Linux, research techniques
-- *Open source* contributor: <https://github.com/bertvv/>
-    - Ansible roles
-    - Scripts
-    - Learning resources
-
-## This talk is for you if
-
-- Linux/CentOS novice
-- Unfamiliar with EL7/systemd
-- Struggle with network services and/or SELinux
 
 ## Agenda
 
@@ -63,25 +47,6 @@ Two VirtualBox VMs, set up with Vagrant
 ## Objective
 
 ![The PHP application](img/result.png)
-
-## Running the demo environment
-
-```console
-$ git clone https://github.com/bertvv/presentation-network-troubleshooting.git
-[...]
-$ cd presentation-network-troubleshooting/
-$ vagrant status
-Current machine states:
-
-db                        not created (virtualbox)
-web                       not created (virtualbox)
-
-This environment represents multiple VMs. The VMs are all listed
-above with their current state. For more information about a specific
-VM, run `vagrant status NAME`.
-$ vagrant up
-[...]
-```
 
 ## Test the database server
 
@@ -122,44 +87,6 @@ TCP/IP protocol stack
     - check virtual network adapter type & settings
 - `ip link`
 
-## VirtualBox networking: NAT
-
-![VirtualBox NAT Adapter](img/VirtualBox-networking-NAT.png)
-
-## VirtualBox networking: NAT
-
-- Reliable *Internet access*
-- **Not routable** from host system
-
-## VirtualBox networking: bridged
-
-![VirtualBox Bridged Adapter](img/VirtualBox-networking-bridged.png)
-
-## VirtualBox networking: bridged
-
-- *Routable* from host system
-- *Internet access*
-- **Inconsistent** IP settings
-    - Different subnet / IP
-    - May not receive IP settings from DHCP
-
-## Virtualbox networking: host-only
-
-![VirtualBox Host-only Adapter](img/VirtualBox-networking-HO.png)
-
-## VirtualBox networking: host-only
-
-- *Routable* from host system
-- *Consistent* IP settings
-- **No Internet** access
-
-## Recommendation
-
-- Adapter 1: NAT
-- Adapter 2: Host-only
-
-Best of both worlds!
-
 # Internet Layer
 
 ## Checklist: Internet Layer
@@ -168,25 +95,6 @@ Best of both worlds!
 2. Routing within the *LAN*
 
 **Know the expected values!**
-
-## VirtualBox networking: NAT
-
-| Host    | IP           |
-| :---    | :---         |
-| VM      | 10.0.2.15/24 |
-| Gateway | 10.0.2.2     |
-| DNS     | 10.0.2.3     |
-
-## VirtualBox networking: host-only
-
-The "default" host-only network:
-
-|              | IP              |
-| :---         | :---            |
-| Host system  | 192.168.56.1/24 |
-| Virtual DHCP | 192.168.56.100  |
-| Range from   | 192.168.56.101  |
-| Range to     | 192.168.56.254  |
 
 ## Checklist: Internet Layer
 
