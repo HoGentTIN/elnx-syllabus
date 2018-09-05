@@ -364,55 +364,6 @@ Instead of setting the files to the expected context, allow httpd to access file
 
 Tip: automate this!
 
-# BIND troubleshooting
-
-## BIND setup
-
-Authoritative name server for domain *example.com*
-
-| Host     | IP            |
-| :---     | :---          |
-| ns1      | 192.168.56.10 |
-| ns2      | 192.168.56.11 |
-| dc       | 192.168.56.40 |
-| web      | 192.168.56.72 |
-| db       | 192.168.56.73 |
-| priv0001 | 172.16.0.10   |
-| priv0002 | 172.16.0.11   |
-
-The host `web` has an alias, `www`.
-
-## Goal: make the tests succeed!
-
-```console
-$ ./tests/runtests.sh 
-Testing 192.168.56.10
- ✓ The dig command should be installed
- ✓ It should return the NS record(s)
- ✓ It should be able to resolve host names
- ✓ It should be able to do reverse lookups
- ✓ It should be able to resolve aliases
- ✓ It should return the SRV record(s)
-
-6 tests, 0 failures
-Testing 192.168.56.11
- ✓ The dig command should be installed
- ✓ It should return the NS record(s)
- ✓ It should be able to resolve host names
- ✓ It should be able to do reverse lookups
- ✓ It should be able to resolve aliases
- ✓ It should return the SRV record(s)
-
-6 tests, 0 failures
-```
-
-## Useful commands
-
-- Check the logs: `journalctl -u named`
-- Validate config files:
-    - main: `named-checkconf /etc/named.conf`
-    - zone files: `named-checkzone ZONE FILE`
-
 # General guidelines
 
 ## Back up config files before changing
@@ -454,17 +405,3 @@ E.g. <https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu004/lamp.bats>
 ## Never ping Google!
 
 # That's it!
-
-## Thank you!
-
-How did I do? Tell me!
-
-[&#64;bertvanvreckem](https://twitter.com/bertvanvreckem/)
-
-<https://github.com/bertvv/>
-
-<https://bertvv.github.io/linux-network-troubleshooting/>
-
-<https://github.com/bertvv/cheat-sheets/>
-
-
