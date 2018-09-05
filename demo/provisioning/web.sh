@@ -54,7 +54,10 @@ install_packages() {
   setenforce 1
   sed -i "s/^SELINUX=.*$/SELINUX=enforcing/" /etc/selinux/config
 
-  ifdown enp0s8
+  # the name of the last network interface when calling `ip l`
+  last_interface=$(ip l | grep '^[0-9]' | awk '{ print $2; }' | tail -1 | tr -d ':')
+
+  ifdown "${last_interface}"
 }
 
 configure_webserver() {
@@ -77,21 +80,21 @@ readonly yellow='\e[0;33m'
 #
 # Prints all arguments on the standard output stream
 info() {
-  printf "${yellow}>>> %s${reset}\n" "${*}"
+  printf "${yellow}>>> %s${reset}\\n" "${*}"
 }
 
 # Usage: debug [ARG]...
 #
 # Prints all arguments on the standard output stream
 debug() {
-  printf "${cyan}### %s${reset}\n" "${*}"
+  printf "${cyan}### %s${reset}\\n" "${*}"
 }
 
 # Usage: error [ARG]...
 #
 # Prints all arguments on the standard error stream
 error() {
-  printf "${red}!!! %s${reset}\n" "${*}" 1>&2
+  printf "${red}!!! %s${reset}\\n" "${*}" 1>&2
 }
 #}}}
 
