@@ -180,11 +180,14 @@ TSWLatexianTemp*
 *.latexmain
 
 ##
-## Vagrant
+## Vagrant test environment
 ##
 
 # Vagrant directory
 .vagrant
+
+# Ignore BATS installation directory
+*/tests/bats/
 
 ##
 ## Git-worktree directory for published slide decks
