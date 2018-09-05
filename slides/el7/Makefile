@@ -15,7 +15,7 @@
 SOURCE_FILE := basic-commands-el7.md
 
 # Target directory for the reveal.js presentation
-OUTPUT := ../publish/troubleshooting
+OUTPUT := ../publish/el7
 
 # Directory for reveal.js
 REVEAL_JS_DIR := $(OUTPUT)/reveal.js
