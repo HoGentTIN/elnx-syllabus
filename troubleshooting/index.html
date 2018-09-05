@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="author" content="Bert Van Vreckem">
+  <meta name="author" content="Enterprise Linux">
   <title>Troubleshooting Network Services (on EL7)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -34,47 +34,18 @@
 
 <section id="title-slide">
   <h1 class="title">Troubleshooting Network Services (on EL7)</h1>
-  <p class="author">Bert Van Vreckem</p>
-  <p class="date">LOADays, 2018-04-20</p>
+  <p class="author">Enterprise Linux</p>
+  <p class="date">HOGENT applied computer science</p>
 </section>
 
 <section><section id="preparation" class="title-slide slide level1"><h1>Preparation</h1></section><section id="before-we-begin" class="slide level2">
 <h2>Before we begin</h2>
-<ul>
-<li>Software prerequisites:
-<ul>
-<li>Git</li>
-<li>VirtualBox</li>
-<li>Vagrant</li>
-</ul></li>
-<li>Get the code from <a href="https://github.com/bertvv/presentation-network-troubleshooting.git" class="uri">https://github.com/bertvv/presentation-network-troubleshooting.git</a></li>
-<li>Set up the test environment: <code>vagrant up</code></li>
-</ul>
+<p>Set up the test environment</p>
+<pre class="console"><code>$ cd elnx-syllabus/demo
+$ vagrant up web db
+[...]</code></pre>
 </section></section>
-<section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section><section id="whoami" class="slide level2">
-<h2><code>whoami</code></h2>
-<ul>
-<li>Bert Van Vreckem</li>
-<li><em>Lector ICT</em> at University College Ghent (HoGent)
-<ul>
-<li>BS programme Applied Informatics</li>
-<li>Mainly Linux, research techniques</li>
-</ul></li>
-<li><em>Open source</em> contributor: <a href="https://github.com/bertvv/" class="uri">https://github.com/bertvv/</a>
-<ul>
-<li>Ansible roles</li>
-<li>Scripts</li>
-<li>Learning resources</li>
-</ul></li>
-</ul>
-</section><section id="this-talk-is-for-you-if" class="slide level2">
-<h2>This talk is for you if</h2>
-<ul>
-<li>Linux/CentOS novice</li>
-<li>Unfamiliar with EL7/systemd</li>
-<li>Struggle with network services and/or SELinux</li>
-</ul>
-</section><section id="agenda" class="slide level2">
+<section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section><section id="agenda" class="slide level2">
 <h2>Agenda</h2>
 <ul>
 <li>Bottom-up approach</li>
@@ -124,22 +95,6 @@
 <figure>
 <img data-src="img/result.png" alt="The PHP application" /><figcaption>The PHP application</figcaption>
 </figure>
-</section><section id="running-the-demo-environment" class="slide level2">
-<h2>Running the demo environment</h2>
-<pre class="console"><code>$ git clone https://github.com/bertvv/presentation-network-troubleshooting.git
-[...]
-$ cd presentation-network-troubleshooting/
-$ vagrant status
-Current machine states:
-
-db                        not created (virtualbox)
-web                       not created (virtualbox)
-
-This environment represents multiple VMs. The VMs are all listed
-above with their current state. For more information about a specific
-VM, run `vagrant status NAME`.
-$ vagrant up
-[...]</code></pre>
 </section><section id="test-the-database-server" class="slide level2">
 <h2>Test the database server</h2>
 <pre class="shell"><code>$ ./query_db.sh 
@@ -207,52 +162,6 @@ $ vagrant up
 </ul></li>
 <li><code>ip link</code></li>
 </ul>
-</section><section id="virtualbox-networking-nat" class="slide level2">
-<h2>VirtualBox networking: NAT</h2>
-<figure>
-<img data-src="img/VirtualBox-networking-NAT.png" alt="VirtualBox NAT Adapter" /><figcaption>VirtualBox NAT Adapter</figcaption>
-</figure>
-</section><section id="virtualbox-networking-nat-1" class="slide level2">
-<h2>VirtualBox networking: NAT</h2>
-<ul>
-<li>Reliable <em>Internet access</em></li>
-<li><strong>Not routable</strong> from host system</li>
-</ul>
-</section><section id="virtualbox-networking-bridged" class="slide level2">
-<h2>VirtualBox networking: bridged</h2>
-<figure>
-<img data-src="img/VirtualBox-networking-bridged.png" alt="VirtualBox Bridged Adapter" /><figcaption>VirtualBox Bridged Adapter</figcaption>
-</figure>
-</section><section id="virtualbox-networking-bridged-1" class="slide level2">
-<h2>VirtualBox networking: bridged</h2>
-<ul>
-<li><em>Routable</em> from host system</li>
-<li><em>Internet access</em></li>
-<li><strong>Inconsistent</strong> IP settings
-<ul>
-<li>Different subnet / IP</li>
-<li>May not receive IP settings from DHCP</li>
-</ul></li>
-</ul>
-</section><section id="virtualbox-networking-host-only" class="slide level2">
-<h2>Virtualbox networking: host-only</h2>
-<figure>
-<img data-src="img/VirtualBox-networking-HO.png" alt="VirtualBox Host-only Adapter" /><figcaption>VirtualBox Host-only Adapter</figcaption>
-</figure>
-</section><section id="virtualbox-networking-host-only-1" class="slide level2">
-<h2>VirtualBox networking: host-only</h2>
-<ul>
-<li><em>Routable</em> from host system</li>
-<li><em>Consistent</em> IP settings</li>
-<li><strong>No Internet</strong> access</li>
-</ul>
-</section><section id="recommendation" class="slide level2">
-<h2>Recommendation</h2>
-<ul>
-<li>Adapter 1: NAT</li>
-<li>Adapter 2: Host-only</li>
-</ul>
-<p>Best of both worlds!</p>
 </section></section>
 <section><section id="internet-layer" class="title-slide slide level1"><h1>Internet Layer</h1></section><section id="checklist-internet-layer" class="slide level2">
 <h2>Checklist: Internet Layer</h2>
@@ -261,59 +170,6 @@ $ vagrant up
 <li>Routing within the <em>LAN</em></li>
 </ol>
 <p><strong>Know the expected values!</strong></p>
-</section><section id="virtualbox-networking-nat-2" class="slide level2">
-<h2>VirtualBox networking: NAT</h2>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Host</th>
-<th style="text-align: left;">IP</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">VM</td>
-<td style="text-align: left;">10.0.2.15/24</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Gateway</td>
-<td style="text-align: left;">10.0.2.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">DNS</td>
-<td style="text-align: left;">10.0.2.3</td>
-</tr>
-</tbody>
-</table>
-</section><section id="virtualbox-networking-host-only-2" class="slide level2">
-<h2>VirtualBox networking: host-only</h2>
-<p>The “default” host-only network:</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">IP</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Host system</td>
-<td style="text-align: left;">192.168.56.1/24</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Virtual DHCP</td>
-<td style="text-align: left;">192.168.56.100</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Range from</td>
-<td style="text-align: left;">192.168.56.101</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Range to</td>
-<td style="text-align: left;">192.168.56.254</td>
-</tr>
-</tbody>
-</table>
 </section><section id="checklist-internet-layer-1" class="slide level2">
 <h2>Checklist: Internet Layer</h2>
 <p>Checking <em>Local network configuration:</em></p>
@@ -598,80 +454,6 @@ $ semodule_package -o httpd-vboxsf.pp -m httpd-vboxsf.mod</code></pre></li>
 </ol>
 <p>Tip: automate this!</p>
 </section></section>
-<section><section id="bind-troubleshooting" class="title-slide slide level1"><h1>BIND troubleshooting</h1></section><section id="bind-setup" class="slide level2">
-<h2>BIND setup</h2>
-<p>Authoritative name server for domain <em>example.com</em></p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Host</th>
-<th style="text-align: left;">IP</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">ns1</td>
-<td style="text-align: left;">192.168.56.10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ns2</td>
-<td style="text-align: left;">192.168.56.11</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">dc</td>
-<td style="text-align: left;">192.168.56.40</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">web</td>
-<td style="text-align: left;">192.168.56.72</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">db</td>
-<td style="text-align: left;">192.168.56.73</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">priv0001</td>
-<td style="text-align: left;">172.16.0.10</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">priv0002</td>
-<td style="text-align: left;">172.16.0.11</td>
-</tr>
-</tbody>
-</table>
-<p>The host <code>web</code> has an alias, <code>www</code>.</p>
-</section><section id="goal-make-the-tests-succeed" class="slide level2">
-<h2>Goal: make the tests succeed!</h2>
-<pre class="console"><code>$ ./tests/runtests.sh 
-Testing 192.168.56.10
- ✓ The dig command should be installed
- ✓ It should return the NS record(s)
- ✓ It should be able to resolve host names
- ✓ It should be able to do reverse lookups
- ✓ It should be able to resolve aliases
- ✓ It should return the SRV record(s)
-
-6 tests, 0 failures
-Testing 192.168.56.11
- ✓ The dig command should be installed
- ✓ It should return the NS record(s)
- ✓ It should be able to resolve host names
- ✓ It should be able to do reverse lookups
- ✓ It should be able to resolve aliases
- ✓ It should return the SRV record(s)
-
-6 tests, 0 failures</code></pre>
-</section><section id="useful-commands" class="slide level2">
-<h2>Useful commands</h2>
-<ul>
-<li>Check the logs: <code>journalctl -u named</code></li>
-<li>Validate config files:
-<ul>
-<li>main: <code>named-checkconf /etc/named.conf</code></li>
-<li>zone files: <code>named-checkzone ZONE FILE</code></li>
-</ul></li>
-</ul>
-</section></section>
 <section><section id="general-guidelines" class="title-slide slide level1"><h1>General guidelines</h1></section><section id="back-up-config-files-before-changing" class="slide level2">
 <h2>Back up config files before changing</h2>
 </section><section id="be-systematic-bottom-up" class="slide level2">
@@ -710,14 +492,7 @@ Testing 192.168.56.11
 </section><section id="never-ping-google" class="slide level2">
 <h2>Never ping Google!</h2>
 </section></section>
-<section><section id="thats-it" class="title-slide slide level1"><h1>That’s it!</h1></section><section id="thank-you" class="slide level2">
-<h2>Thank you!</h2>
-<p>How did I do? Tell me!</p>
-<p><a href="https://twitter.com/bertvanvreckem/">@bertvanvreckem</a></p>
-<p><a href="https://github.com/bertvv/" class="uri">https://github.com/bertvv/</a></p>
-<p><a href="https://bertvv.github.io/linux-network-troubleshooting/" class="uri">https://bertvv.github.io/linux-network-troubleshooting/</a></p>
-<p><a href="https://github.com/bertvv/cheat-sheets/" class="uri">https://github.com/bertvv/cheat-sheets/</a></p>
-</section></section>
+<section><section id="thats-it" class="title-slide slide level1"><h1>That’s it!</h1></section></section>
     </div>
   </div>
 

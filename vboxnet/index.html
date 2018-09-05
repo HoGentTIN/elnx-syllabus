@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Enterprise Linux">
+  <title>VirtualBox Networking Overview</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/hogent.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">VirtualBox Networking Overview</h1>
+  <p class="author">Enterprise Linux</p>
+  <p class="date">HOGENT applied computer science</p>
+</section>
+
+<section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section><section id="before-we-begin" class="slide level2">
+<h2>Before we begin</h2>
+<p>Set up the test environment</p>
+<pre class="console"><code>$ cd elnx-syllabus/demo
+$ vagrant up db
+[...]
+$ vagrant ssh db</code></pre>
+</section><section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li>Network interface types
+<ul>
+<li>NAT</li>
+<li>Host-only</li>
+<li>Bridged</li>
+<li>Internal</li>
+</ul></li>
+<li>Recommendations</li>
+</ul>
+</section></section>
+<section><section id="nat-adapter" class="title-slide slide level1"><h1>NAT adapter</h1></section><section id="nat-adapter-1" class="slide level2">
+<h2>NAT adapter</h2>
+<p>NAT = Network Address Translation</p>
+<figure>
+<img data-src="img/VirtualBox-networking-NAT.png" alt="VirtualBox NAT Adapter" /><figcaption>VirtualBox NAT Adapter</figcaption>
+</figure>
+</section><section id="procon" class="slide level2">
+<h2>Pro/con</h2>
+<ul>
+<li>Reliable <em>Internet access</em></li>
+<li><strong>Not routable</strong> from host system</li>
+</ul>
+</section><section id="ip-settings" class="slide level2">
+<h2>IP settings</h2>
+<p>Expected values:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Host</th>
+<th style="text-align: left;">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">VM</td>
+<td style="text-align: left;">10.0.2.15/24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gateway</td>
+<td style="text-align: left;">10.0.2.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DNS</td>
+<td style="text-align: left;">10.0.2.3</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section><section id="bridged-adapter" class="title-slide slide level1"><h1>Bridged adapter</h1></section><section id="bridged-adapter-1" class="slide level2">
+<h2>Bridged adapter</h2>
+<figure>
+<img data-src="img/VirtualBox-networking-bridged.png" alt="VirtualBox Bridged Adapter" /><figcaption>VirtualBox Bridged Adapter</figcaption>
+</figure>
+</section><section id="procon-1" class="slide level2">
+<h2>Pro/con</h2>
+<ul>
+<li><em>Routable</em> from host system
+<ul>
+<li>and even other hosts on the LAN!</li>
+</ul></li>
+<li><em>Internet access</em></li>
+<li><strong>Inconsistent</strong> IP settings
+<ul>
+<li>Different subnet / IP</li>
+<li>May not receive IP settings from DHCP</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="host-only-adapter" class="title-slide slide level1"><h1>Host-only adapter</h1></section><section id="host-only-adapter-1" class="slide level2">
+<h2>Host-only adapter</h2>
+<figure>
+<img data-src="img/VirtualBox-networking-HO.png" alt="VirtualBox Host-only Adapter" /><figcaption>VirtualBox Host-only Adapter</figcaption>
+</figure>
+</section><section id="procon-2" class="slide level2">
+<h2>Pro/con</h2>
+<ul>
+<li><em>Routable</em> from host system</li>
+<li><em>Consistent</em> IP settings</li>
+<li><strong>No Internet</strong> access</li>
+</ul>
+</section><section id="ip-settings-1" class="slide level2">
+<h2>IP settings</h2>
+<p>The “default” host-only network:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">IP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Host system</td>
+<td style="text-align: left;">192.168.56.1/24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Virtual DHCP</td>
+<td style="text-align: left;">192.168.56.100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Range from</td>
+<td style="text-align: left;">192.168.56.101</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Range to</td>
+<td style="text-align: left;">192.168.56.254</td>
+</tr>
+</tbody>
+</table>
+<p>Range 2-99 can be assigned as static IP addresses</p>
+</section></section>
+<section><section id="internal-network-adapter" class="title-slide slide level1"><h1>Internal network adapter</h1></section><section id="internal-adapter" class="slide level2">
+<h2>Internal adapter</h2>
+<ul>
+<li>Like Host-Only, but
+<ul>
+<li><strong>not</strong> routable from host system</li>
+<li>no DHCP</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="recommendation" class="title-slide slide level1"><h1>Recommendation</h1></section><section id="recommendation-1" class="slide level2">
+<h2>Recommendation</h2>
+<p>Give your VMs two adapters:</p>
+<ul>
+<li>Adapter 1: <em>NAT</em>
+<ul>
+<li>for reliable internet access</li>
+</ul></li>
+<li>Adapter 2: <em>Host-only</em>
+<ul>
+<li>to access VM as server over the network</li>
+<li>on a predictable IP address</li>
+</ul></li>
+</ul>
+<p>Best of both worlds!</p>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
