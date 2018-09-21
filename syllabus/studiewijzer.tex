@@ -10,14 +10,14 @@ informatie:
 \begin{itemize}
   \item De studiefichefiche van het opleidingsonderdeel:
   \begin{itemize}
-    \item Regulier: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=87198&b=5&c=1}
-    \item TILE: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=87197&b=5&c=1}
+    \item Regulier: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=98508&b=5&c=1}
+    \item TILE: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=98507&b=5&c=1}
   \end{itemize}
   \item Deze studiewijzer
   \item Aankondigingen en documenten op Chamilo
 \end{itemize}
 
-Indien er ergens twijfel over bestaat, of er is iets niet duidelijk, neem dan zo snel mogelijk contact op met de vaktitularis, Bert Van Vreckem. De aangewezen manieren worden opgesomd in Sectie~\ref{sec:studiebegeleiding-en-planning}. Indien nuttig of nodig wordt het antwoord als aankondiging op Chamilo doorgegeven aan alle studenten.
+Indien er ergens twijfel over bestaat, of er is iets niet duidelijk, neem dan zo snel mogelijk contact op met je lector. De aangewezen manieren worden opgesomd in Sectie~\ref{sec:studiebegeleiding-en-planning}. Indien nuttig of nodig wordt het antwoord als aankondiging op Chamilo doorgegeven aan alle studenten.
 
 De ervaring leert dat de onderlinge communicatie tussen studenten via Facebook leidt tot verwarring, foute informatie en overbodige discussie. Gebruik dus a.u.b.~de officiële kanalen zodat we tot een open en correcte communicatie rond deze cursus kunnen komen.
 
@@ -157,7 +157,7 @@ Je moet in staat zijn de juiste documentatie op te zoeken en te gebruiken, die r
 De cursus bestaat uit drie onderdelen:
 
 \begin{enumerate}
-  \item Realiseren van een labo-opdracht die het opzetten van infrastructuur a.h.v.~Ansible inhoudt (wordt elders in deze studiewijzer de \emph{hoofdopdracht} genoemd). Je kan daarbij als student vrij kiezen uit drie concrete opdrachten (zie Hoofdstuk~\ref{ch:opdrachten}).
+  \item Realiseren van een labo-opdracht die het opzetten van infrastructuur a.h.v.~Ansible inhoudt (wordt verderop in deze studiewijzer de \emph{hoofdopdracht} genoemd). Je kan daarbij als student vrij kiezen uit drie concrete opdrachten (zie Hoofdstuk~\ref{ch:opdrachten}).
   \item Volgen van de actualiteit in het vakgebied en dit toepassen op je hoofdopdracht (wordt verder de \emph{actualiteitsopdracht} genoemd)
   \item Een aantal \emph{troubleshooting}-labo's.
 \end{enumerate}
@@ -201,10 +201,10 @@ Screencasts en presentaties:
 \subsection{Hardware}
 \label{ssec:hardware}
 
-De aard van deze cursus maakt dat het essentieel is dat je beschikt over voldoende krachtige hardware. Op campus Schoonmeersen kan je gebruik maken van de klaspc's, maar blijft het belangrijk om ook thuis of op kot te kunnen verder werken. Aanbevolen is minstens:
+De aard van deze cursus maakt dat het essentieel is dat je beschikt over voldoende krachtige hardware. Aanbevolen is minstens:
 
 \begin{itemize}
-  \item Processor: Intel i5 of equivalent/beter
+  \item Processor: Intel i5 7e/8 generatie of equivalent/beter
   \item Geheugen: 8 GiB RAM
   \item Harde schijf: 40 GB vrije schijfruimte
 \end{itemize}
@@ -213,7 +213,7 @@ Verder komt het volgende nog van pas:
 
 \begin{itemize}
   \item Een USB-stick of externe USB-schijf met voldoende ruimte (voor het bijhouden van VMs en broncode)
-  \item Een netwerkkabel en RJ-45 koppelstuk (netwerklokaal c.Schoonmeersen)
+  \item Een netwerkkabel (netwerklokaal c.Schoonmeersen)
   \item Oortjes voor het beluisteren/bekijken van videolessen, screencasts of videopresentaties zonder de rest te storen
 \end{itemize}
 
@@ -223,17 +223,17 @@ Verder komt het volgende nog van pas:
 Voor het uitwerken van de labo-taken maak je gebruik van de hieronder opgesomde software, in principe de laatste stabiele versies bij aanvang van het semester. Als je sommige van de opgesomde applicaties al geïnstalleerd hebt, werk die dan bij tot de laatste versie.
 
 \begin{itemize}
-  \item Een \textbf{goede} teksteditor: Sublime Text, Notepad++, Atom, Vim, enz. \textbf{Geen} Notepad, Wordpad of Word!
+  \item Een \textbf{goede} teksteditor: Sublime Text, Notepad++, Atom, Vim, Visual Studio Code, Brackets, enz. \textbf{Geen} Notepad, Wordpad of Word!
   \begin{itemize}
     \item Let op! Stel je editor zo in dat tekst inspringt met \textbf{spaties} i.p.v. tabs en zet tabbreedte in op 2 karakters.
     \item In Linux hoef je niet specifiek iets extra te installeren. De default teksteditor, Gedit, heeft syntax-colouring. Je kan eventueel ook werken met Vim, installeer dan de package \texttt{vim-enhanced}. Vim is niet eenvoudig om mee aan de slag te gaan, maar eens je de vele commando's leert kennen, wordt het een bijzonder krachtige en productieve werkomgeving!
   \end{itemize}
-  \item VirtualBox 5.x\footnote{\url{https://www.virtualbox.org/wiki/Downloads}} (installeer ook het ``Extension Pack'').
-  \item Vagrant\footnote{\url{http://vagrantup.com/}} \textgreater{}= 2.0.0
+  \item VirtualBox \footnote{\url{https://www.virtualbox.org/wiki/Downloads}} (installeer ook het ``Extension Pack'').
+  \item Vagrant\footnote{\url{http://vagrantup.com/}}
   \item Git\footnote{\url{https://git-scm.com/downloads}}
   \item Bash shell. Onder Windows, kan je de Bash shell die meegeleverd wordt met Git gebruiken. Mac-gebruikers wordt aangeraden om een recente versie van Bash te installeren, bijvoorbeeld via HomeBrew\footnote{\url{https://brew.sh/}}.
-  \item Ansible\footnote{\url{https://docs.ansible.com/ansible/intro_installation.html}} \textgreater{}= 2.3 (enkel voor wie werkt met een Mac of Linux-laptop, Windows-gebruikers kunnen dit niet installeren maar voor hen is een workaround voorzien)
-  \item Optioneel: Een teksteditor met ondersteuning voor Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}, bijvoorbeeld Atom\footnote{\url{http://atom.io/}}, MarkdownPad\footnote{\url{http://markdownpad.com/}}, Texts\footnote{\url{http://www.texts.io/}}, enz.
+  \item Ansible\footnote{\url{https://docs.ansible.com/ansible/intro_installation.html}} (enkel voor wie werkt met een Mac of Linux-laptop, Windows-gebruikers kunnen dit niet installeren maar voor hen is een workaround voorzien)
+  \item Optioneel: Een teksteditor met ondersteuning voor Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}, bijvoorbeeld Visual Studio Code, Atom, MarkdownPad, Texts, enz.
 \end{itemize}
 
 \section{Werkvormen}
@@ -255,56 +255,80 @@ Het werken met labo-opdrachten vergt een zekere mate van zelfstandigheid van jou
 \section{Studiebegeleiding en planning}
 \label{sec:studiebegeleiding-en-planning}
 
-Vragen over de cursus kan je in de eerste plaats stellen via het forum. Ken je het antwoord op een vraag van een andere student? Aarzel niet te antwoorden, en alvast bedankt dat je je medestudenten wilt helpen!
+\textbf{Reguliere studenten} stellen vragen over de cursus bij voorkeur tijdens de contactmomenten.
 
-\textbf{Reguliere studenten} kunnen vragen ook stellen tijdens de wekelijkse contactmomenten.
+\textbf{Studenten afstandsleren} kunnen eveneens vragen stellen tijdens de voorziene contactmomenten waarop de lector aanwezig is, of via e-mail. Gelieve het onderwerp van je bericht te laten voorafgaan door de vermelding ``[ELNX]''.
 
-\textbf{Studenten afstandsleren} kunnen vragen ook stellen tijdens de voorziene contactmomenten waarop de lector aanwezig is, of via e-mail. Gelieve het onderwerp van je bericht te laten voorafgaan door de vermelding ``[ELNX]''.
+Alle studenten kunnen ook vragen stellen op het Chamilo-forum van de cursus. Als je het antwoord kent op gestelde vragen mag je ook zelf antwoorden. Alvast bedankt in dat geval!
+
+Tabel~\ref{tab:weekplanning} geeft een overzicht van de weekplanning voor de reguliere studenten. Studenten afstandsleren kunnen dit ook gebruiken als een leidraad bij het bewaken van de voortgang van hun studie.
+
+\begin{table}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    \textbf{Lesweek} & \textbf{Onderwerp}                                             \\
+    \midrule
+    1  & Inleiding, uitleg opdrachten                                   \\
+       & Les + demo basiscommando's EL7, VirtualBox netwerkconfiguratie \\
+    2  & Finale keuze hoofdopdracht                                     \\
+       & Les + demo Ansible                                             \\
+    3  & Individuele opvolging                                          \\
+    4  & Presentatie/demo troubleshooting                               \\
+    5  & Eerste troubleshooting-opdracht                                \\
+    6  & Individuele opvolging                                          \\
+    7  & Les + Demo BIND, Samba                                         \\
+    8  & Individuele opvolging                                          \\
+    9  & Individuele opvolging                                          \\
+    10 & Individuele opvolging                                          \\
+    11 & Tweede troubleshooting-opdracht                                \\
+    12 & Individuele opvolging                                          \\
+    13 & Inhaalsessie (Indien ingericht door je lector)
+  \end{tabular}
+  \label{tab:weekplanning}
+  \caption{Weekplanning over het semester. Merk op dat er nog verschuivingen kunnen gebeuren naargelang er lessen wegvallen door verlofdagen, enz.}
+\end{table}
 
 
-Omdat je tot op zekere hoogte zelf kan bepalen hoe je je tijd indeelt, en welke hoofdopdracht je zal uitwerken, is het niet mogelijk om een weekplanning over het gehele semester op te stellen. Volgende activiteiten liggen wel vast:
+Voor \textbf{reguliere studenten} is aanwezigheid op de troubleshooting-labo's verplicht, aangezien dit evaluatiemomenten zijn. Bij ziekte volg je de normale procedure voor het wettigen van je afwezigheid. Contacteer ook zo snel mogelijk je lector voor een inhaalopdracht.
 
-\begin{itemize}
-  \item Week 5: Eerste troubleshooting-labo (Zie Sectie~\ref{sec:troubleshooting-1});
-  \item Week 11: Tweede troubleshooting-labo;
-  \item Week 12: Laatste kans voor het tonen van tussentijdse resultaten.
-\end{itemize}
+Bij het begin van een troubleshooting-opdracht krijg je een opstelling voorgeschoteld (typisch een virtuele machine) met configuratiefouten. Het is jouw taak die zo snel mogelijk systematisch op te sporen en op te lossen \textbf{volgens de methode die je aangeleerd krijgt}. Over dit proces en je resultaten schrijf je een laboverslag dat je indient op Chamilo.
 
-Voor \textbf{reguliere studenten} is aanwezigheid op de troubleshooting-labo's verplicht, aangezien dit evaluatiemomenten zijn. Bij het begin van de sessie krijg je een opstelling (typisch een virtuele machine) met configuratiefouten voorgeschoteld, het is jouw taak die zo snel mogelijk op te sporen en op te lossen, en daar een verslag over te schrijven en in te dienen op Chamilo.
-
-\textbf{Studenten afstandsleren} kunnen met de lector tijdens die week een moment afspreken waarop je tijd hebt om hier aan te werken. Op het afgesproken tijdstip krijg je een downloadlink naar de opgave en dien je vóór de afgesproken deadline (in principe 3 uur na ontvangst van de opgave) je verslag in op Chamilo.
-
+\textbf{Studenten afstandsleren} kunnen met de lector tijdens die week een moment afspreken waarop je tijd hebt om hier aan te werken. Op het afgesproken tijdstip krijg je een downloadlink naar de opgave en dien je vóór de afgesproken deadline (in principe 4 uur na ontvangst van de opgave) je verslag in op Chamilo.
 
 \section{Evaluatie}
 \label{sec:evaluatie}
 
-De evaluatie van dit vak is volledig op basis van niet-periodegebonden evaluatie. Je wordt beoordeeld op de volgende opdrachten:
+In dit vak word je beoordeeld op de manier waarop je volgende taken hebt uitgevoerd:
 
 \begin{itemize}
-  \item Labo-opdracht opzetten infrastructuur met een configuration management system
+  \item Hoofdopdracht: opzetten infrastructuur met een configuration management system
   \item Taak rond actualiteit in het vakgebied
   \item Troubleshooting van netwerkservices
   \item Rapportering en documentatie
 \end{itemize}
 
-In Hoofdstuk~\ref{ch:opdrachten} wordt in meer detail uitgelegd wat precies verwacht wordt.
-
-De toekenning van het examencijfer gebeurt op basis van ``rubrics''~\autocite{Andrade2000}. In een tabel worden een aantal criteria opgesomd, waar je aan moet voldoen. Je kan ``voldoen'' op verschillende niveaus, meer bepaald ``bekwaam'', ``gevorderd'', ``deskundig'', of in het slechtste geval ``nog niet bekwaam''. Voor elk niveau wordt beschreven wat dat precies inhoudt. Het volledige evaluatieschema wordt tijdig op Chamilo gepubliceerd.
-
-Om te slagen voor dit vak moet je aantonen dat je voor \textbf{alle} technische criteria minstens ``bekwaam'' bent. Met andere woorden, als je voor slechts één criterium ``nog niet bekwaam'' bevonden wordt, kan je niet slagen. De niet-technische criteria (bv. rapportering) tellen niet mee voor een vastgelegd percentage, maar kunnen het examencijfer afhankelijk van het behaalde niveau nog positief of negatief beïnvloeden.
-
-Je bekwaamheid aantonen gebeurt aan de hand van volgende deliverables:
+Troubleshooting wordt geëvalueerd op basis van vaardigheidstests (20\%, niet-periodegebonden evaluatie), de andere taken op basis van een portfolio dat je samenstelt tijdens de loop van het semester en dat je op een evaluatiemoment tijdens de examenperiode komt verdedigen (80\%, periodegebonden evaluatie). Dat portfolio bestaat concreet uit volgende elementen:
 
 \begin{itemize}
   \item De broncode, door elke student bijgehouden in een toegewezen Git repository
-  \item Gedetailleerde labo-verslagen, eveneens bijgehouden in Git
+  \item Gedetailleerde labo-verslagen, eveneens bijgehouden in Git of desgevallend ingediend via Chamilo
   \item Demonstratie van deelresultaten aan de lector tijdens het semester
   \item Demonstratie van het eindresultaat aan de lector tijdens de examenperiode
 \end{itemize}
 
+In Hoofdstuk~\ref{ch:opdrachten} wordt in meer detail uitgelegd wat precies verwacht wordt.
+
+De toekenning van het examencijfer gebeurt op basis van ``rubrics''~\autocite{Andrade2000} die beschreven worden in de evaluatiekaart.
+
+In een tabel worden een aantal criteria opgesomd, waar je aan moet voldoen. Je kan ``voldoen'' op verschillende niveaus, meer bepaald ``bekwaam'', ``gevorderd'', ``deskundig'', of in het slechtste geval ``nog niet bekwaam''. Voor elk niveau wordt beschreven wat dat precies inhoudt. De volledige evaluatiekaart is gepubliceerd op Chamilo.
+
+Om te slagen voor dit vak moet je aantonen dat je voor \textbf{alle} technische criteria minstens ``bekwaam'' bent. Met andere woorden, als je voor slechts één criterium ``nog niet bekwaam'' bevonden wordt, kan je niet slagen. De niet-technische criteria (bv. rapportering) kunnen het examencijfer afhankelijk van het behaalde niveau nog positief of negatief beïnvloeden.
+
+
 \textbf{Merk op} dat je zowel een werkend product moet opleveren (= broncode) als de verslagen indienen én demo's geven. Als één van de deliverables ontbreekt, wordt de opdracht beschouwd als niet gerealiseerd.
 
-Wat betreft het respecteren van deadlines is art. 38 van het FOER van kracht. Niet tijdig deelresultaten demonstreren wordt in termen van dat artikel beschouwd als het niet respecteren van tussentijdse deadlines en wordt als dusdanig gesanctioneerd. Eén van de opdrachten (zoals hierboven opgesomd) niet realiseren leidt tot een afwezigheid voor die opdracht en bijgevolg ook voor het gehele opleidingsonderdeel, conform het examenreglement.
+Wat betreft het respecteren van deadlines is art. 37 van het FOER van kracht. Niet tijdig deelresultaten demonstreren wordt in termen van dat artikel beschouwd als het niet respecteren van tussentijdse deadlines en wordt als dusdanig gesanctioneerd. Eén van de opdrachten (zoals hierboven opgesomd) niet realiseren leidt tot een afwezigheid voor die opdracht en bijgevolg ook voor het gehele opleidingsonderdeel, conform het examenreglement.
 
 \textbf{Reguliere studenten} moeten \emph{minstens elke drie weken} deelresulaten opleveren en persoonlijk demonstreren aan de lector. Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een teken dat je ergens vast zit, de lector kan je dan opnieuw op weg helpen.
 
@@ -319,6 +343,8 @@ Wat betreft het respecteren van deadlines is art. 38 van het FOER van kracht. Ni
 \subsection{Tweede examenkans}
 \label{subs:tweede-examenkans}
 
-Wie niet slaagt, krijgt een tweede examenkans in de vorm van een individuele opdracht. De precieze opdracht hangt af van je evaluatie. Meer bepaald zal je moet kunnen aantonen dat je voor alle technische criteria minstens ``bekwaam'' bent. Deze opdracht kan meteen worden vastgelegd op het finale evaluatiemoment, of ten laatste op de feedback.
+Wie niet slaagt, krijgt een tweede examenkans in de vorm van een individuele opdracht. De precieze opdracht hangt af van je evaluatie. Meer bepaald zal je moet kunnen aantonen dat je voor alle technische criteria minstens ``bekwaam'' bent. Deze opdracht wordt meteen vastgelegd op het finale evaluatiemoment.
+
+Als je nog geen individuele opdracht gekregen hebt op het evaluatiemoment (bijvoorbeeld omdat je afwezig was), dan kom je naar de feedback. Studenten afstandsleren kunnen dit ook per e-mail regelen.
 
 \textbf{Wie na afloop van de feedback nog geen afspraak gemaakt heeft voor een individuele opdracht, geeft daarmee te kennen niet te willen deelnemen aan de 2e examenkans.}
