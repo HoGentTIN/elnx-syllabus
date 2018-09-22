@@ -71,8 +71,6 @@ $ vagrant ssh db
 | for specific device | `ip a show dev em1`  |
 | Routing info        | `ip route`, `ip r`   |
 
-Try option `--color`!
-
 ## Example
 
 ```
@@ -122,6 +120,8 @@ $ ip a
 | `wlp3s0b1` | Wireless PCI bus # slot #              |
 
 Also, see (Hayden, 2015)
+
+**Remark:** `bento/centos-7.5` base box has the old names `eth0`, `eth1`, etc.
 
 ## Configuration
 
@@ -317,4 +317,4 @@ sudo firewall-cmd --add-service=https --permanent
 - Jahoda, M., et al. (2016b) [RHEL 7 SELinux User's and Administrator's Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/SELinux_Users_and_Administrators_Guide/index.html)
 - Svistunov, M., et al. (2016) [RHEL 7 System Administrator's Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html)
 - Van Vreckem, B. (2015) [Enterprise Linux 7 Cheat sheet](https://github.com/bertvv/cheat-sheets/blob/master/src/EL7.md)
-- Van Vreckem, B. (2017) [Network troubleshooting guide](https://github.com/bertvv/cheat-sheets/blob/master/src/NetworkTroubleshooting.md)
+- Van Vreckem, B. (2017) [Network troubleshooting guide](https://bertvv.github.io/linux-network-troubleshooting/)
