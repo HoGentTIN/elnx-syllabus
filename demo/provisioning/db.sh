@@ -28,9 +28,10 @@ main() {
   usermod --append --groups adm vagrant
 
   install_packages
+  enable_selinux
   start_basic_services
-  setup_mariadb
 
+  setup_mariadb
   ensure_db_exists "${wordpress_database}" "${wordpress_user}" "${wordpress_password}"
   initialize_demo_db
 }
@@ -57,6 +58,16 @@ install_packages() {
     tree \
     vim-enhanced
 
+}
+
+enable_selinux() {
+  if [ "$(getenforce)" != 'Enforcing' ]; then
+    info "Enabling SELinux"
+    # Enable SELinux right now
+    setenforce 1
+    # Make the change permanent
+    sed -i 's/^SELINUX=[a-z]*$/SELINUX=enforcing/' /etc/selinux/config
+  fi
 }
 
 start_basic_services() {
@@ -139,21 +150,21 @@ readonly yellow='\e[0;33m'
 #
 # Prints all arguments on the standard output stream
 info() {
-  printf "${yellow}>>> %s${reset}\n" "${*}"
+  printf "${yellow}>>> %s${reset}\\n" "${*}"
 }
 
 # Usage: debug [ARG]...
 #
 # Prints all arguments on the standard output stream
 debug() {
-  printf "${cyan}### %s${reset}\n" "${*}"
+  printf "${cyan}### %s${reset}\\n" "${*}"
 }
 
 # Usage: error [ARG]...
 #
 # Prints all arguments on the standard error stream
 error() {
-  printf "${red}!!! %s${reset}\n" "${*}" 1>&2
+  printf "${red}!!! %s${reset}\\n" "${*}" 1>&2
 }
 #}}}
 
