@@ -20,6 +20,7 @@ main() {
   usermod --append --groups adm vagrant
 
   install_packages
+  enable_selinux
   start_basic_services
   setup_bind
 
@@ -46,6 +47,16 @@ install_packages() {
     tree \
     vim-enhanced
 
+}
+
+enable_selinux() {
+  if [ "$(getenforce)" != 'Enforcing' ]; then
+    info "Enabling SELinux"
+    # Enable SELinux right now
+    setenforce 1
+    # Make the change permanent
+    sed -i 's/^SELINUX=[a-z]*$/SELINUX=enforcing/' /etc/selinux/config
+  fi
 }
 
 start_basic_services() {
