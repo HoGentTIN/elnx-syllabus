@@ -17,6 +17,10 @@ IFS=$'\t\n'   # Split on newlines and tabs (but not on spaces)
 
 main() {
   install_packages
+  enable_selinux
+  start_basic_services
+  setup_networking
+
   configure_webserver
 }
 
@@ -43,17 +47,28 @@ install_packages() {
     tree \
     vim-enhanced \
     wordpress
+}
 
-  info "Setting up services, security"
+enable_selinux() {
+  if [ "$(getenforce)" != 'Enforcing' ]; then
+    info "Enabling SELinux"
+    # Enable SELinux right now
+    setenforce 1
+    # Make the change permanent
+    sed -i 's/^SELINUX=[a-z]*$/SELINUX=enforcing/' /etc/selinux/config
+  fi
+}
+
+start_basic_services() {
+  info "Starting essential services"
 
   systemctl start auditd.service
   systemctl enable auditd.service
   systemctl start firewalld.service
   systemctl enable firewalld.service
+}
 
-  setenforce 1
-  sed -i "s/^SELINUX=.*$/SELINUX=enforcing/" /etc/selinux/config
-
+setup_networking() {
   # the name of the last network interface when calling `ip l`
   last_interface=$(ip l | grep '^[0-9]' | awk '{ print $2; }' | tail -1 | tr -d ':')
 
