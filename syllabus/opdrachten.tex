@@ -78,7 +78,7 @@ De bedoeling van deze opdracht is om een Continuous Delivery ``build pipeline'' 
   \item compilatie (indien van toepassing);
   \item uitvoeren van unit tests;
   \item packaging (bv.~RPM, .deb);
-  \item deployment in QA-omgeving;
+  \item deployment in QA-omgeving (QA: Quality Assurance);
   \item uitvoeren van functionele tests;
   \item deployment in productie-omgeving.
   \end{itemize}
@@ -159,7 +159,7 @@ Enkele mogelijkheden:
 \begin{itemize}
 \item Op Ansible Galaxy zijn veel rollen te vinden die beter kunnen, of waar de auteur niet genoeg tijd heeft om zaken toe te voegen of fouten op te lossen. Implementeer een nieuwe feature, zorg er voor dat ze op CentOS 7 draaien, verbeter fouten, \ldots{} Ook de lector apprecieert hulp bij het verder ontwikkelen van zijn Ansible-rollen \url{https://galaxy.ansible.com/bertvv/} en \url{https://github.com/search?q=user\%3Abertvv+ansible}.
 
-  Het resultaat wordt ingediend als een Pull Request, de code volgt de richtlijnen voor stijl\footnote{\url{https://github.com/bertvv/ansible-role-skeleton/wiki}}, en wordt getest. Opties zijn niet \emph{hard-coded} maar blijven instelbaar via rolvariabelen. Waar mogelijk wordt een standaardwaarde gekozen die in de meeste gevallen het beste resultaat geeft, of wordt aan de hand van de eigenschappen vab het systeem een waarde ``berekend'' of bepaald die voor dat systeem optimaal is. Alle nieuwe variabelen/features worden goed gedocumenteerd.
+  Het resultaat wordt ingediend als een Pull Request, de code volgt de richtlijnen voor stijl\footnote{\url{https://github.com/bertvv/ansible-role-skeleton/wiki}}, en wordt getest. Opties zijn niet \emph{hard-coded} maar blijven instelbaar via rolvariabelen. Waar mogelijk wordt een standaardwaarde gekozen die in de meeste gevallen het beste resultaat geeft, of wordt aan de hand van de eigenschappen van het systeem een waarde ``berekend'' of bepaald die voor dat systeem optimaal is. Alle nieuwe variabelen/features worden goed gedocumenteerd.
 
   Concrete ideeën:
 
@@ -179,7 +179,7 @@ Andere ideeën zijn ook welkom, bespreek die met de lector. Ook op Chamilo kan j
 \section{Rapportering en documentatie}
 \label{sec:rapportering-en-documentatie}
 
-In de \texttt{doc/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn (op Github of reeds lokaal met een editor met Markdown-ondersteuning). Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
+In de \texttt{assignment/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn (op Github of reeds lokaal met een editor met Markdown-ondersteuning). Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
 
 \subsection{Laboverslagen}
 \label{subs:laboverslagen}
@@ -203,7 +203,7 @@ Om jezelf te helpen bij het onthouden van de belangrijkste commando's, is het bi
 
 Hetzelfde geldt voor procedures van handelingen die steeds terugkomen.  Bijvoorbeeld, als je wil nagaan of de IP-instellingen van een host kloppen, gebruik je altijd dezelfde commando's. Wanneer je die telkens opnieuw moet gaan opzoeken verspil je tijd en het is best mogelijk dat je zo zaken over het hoofd ziet. Door checklists bij te houden, verminder je het opzoekwerk en kan je ook vlotter werken~\autocite{Simmons2009}.
 
-In je repository vind je onder \texttt{doc/} een bestand \texttt{cheat-sheet.md} dat een aanzet geeft. Er zijn alvast enkele nuttige commando's in opgenomen, maar je kan dit zelf aanpassen naar je eigen smaak. Als het document te groot wordt, kan je het opsplitsen in verschillende bestanden. Je kan nog meer inspiratie opdoen op deze Github-repository waar een aantal cheat-sheets en checklists gepubliceerd zijn: \url{https://github.com/bertvv/cheat-sheets}.
+Je kan inspiratie opdoen op deze Github-repository waar een aantal cheat-sheets en checklists gepubliceerd zijn: \url{https://github.com/bertvv/cheat-sheets}.
 
 Bij de evaluatie wordt er rekening mee gehouden hoe je deze documenten hebt bijgehouden in de loop van het jaar (aan de hand van de commit log).
 
