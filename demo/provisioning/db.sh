@@ -52,6 +52,7 @@ install_packages() {
     mariadb \
     mariadb-server \
     mod_ssl \
+    multitail \
     pciutils \
     policycoreutils-python \
     psmisc \

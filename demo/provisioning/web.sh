@@ -39,6 +39,8 @@ install_packages() {
     git \
     httpd \
     mod_ssl \
+    multitail \
+    mysql \
     policycoreutils-python \
     php \
     php-mysql \
@@ -77,9 +79,13 @@ setup_networking() {
 
 configure_webserver() {
   info "Installing test page"
+  cp /vagrant/www/test.php /home/vagrant
   cp /vagrant/www/test.php /var/www/html
   chcon -t user_home_t /var/www/html/test.php
-  cp /vagrant/www/test.php /home/vagrant
+
+  info "Installing script for showing web server logs"
+  cp /vagrant/provisioning/web/showlogs.sh /home/vagrant
+  chown vagrant:vagrant /home/vagrant/showlogs.sh
 
   info "Setting port number"
   sed -i 's/Listen 80/Listen 8080/' /etc/httpd/conf/httpd.conf
