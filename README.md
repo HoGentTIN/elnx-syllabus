@@ -5,3 +5,4 @@
     - [Basiscommando's EL7](el7/)
     - [VirtualBox netwerkconfiguratie](vboxnet/)
     - [Troubleshooting](troubleshooting/)
+    - [DNS en BIND](bind/)
