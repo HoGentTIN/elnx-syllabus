@@ -74,6 +74,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         node.vm.box_url = host['box_url']
       end
 
+      # Add VM to a VirtualBox group
+      node.vm.provider :virtualbox do |vb|
+        # WARNING: if the name of the current directory is the same as the
+        # host name, this will fail.
+        vb.customize ['modifyvm', :id, '--groups', 'elnxdemo']
+      end
+
       node.vm.hostname = host['name']
       node.vm.network :private_network, network_options(host)
       custom_synced_folders(node.vm, host)
