@@ -78,7 +78,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.provider :virtualbox do |vb|
         # WARNING: if the name of the current directory is the same as the
         # host name, this will fail.
-        vb.customize ['modifyvm', :id, '--groups', 'elnxdemo']
+        vb.customize ['modifyvm', :id, '--groups', '/elnxdemo']
       end
 
       node.vm.hostname = host['name']
