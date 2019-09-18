@@ -10,25 +10,28 @@ informatie:
 \begin{itemize}
   \item De studiefichefiche van het opleidingsonderdeel:
   \begin{itemize}
-    \item Regulier: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=98508&b=5&c=1}
-    \item TILE: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=98507&b=5&c=1}
+    \item Regulier: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=110450\&b=5\&c=1}
+    \item TILE: \url{https://bamaflexweb.hogent.be/BMFUIDetailxOLOD.aspx?a=110449\&b=5\&c=1}
   \end{itemize}
   \item Deze studiewijzer
-  \item Aankondigingen en documenten op Chamilo
+  \item Documenten op Chamilo
+  \item Aankondigingen op Chamilo; deze worden ook telkens per e-mail naar de betrokken studenten gestuurd
 \end{itemize}
+
+Jullie zijn zelf verantwoordelijk voor het opvolgen en lezen van alle aankondigingen. Studenten worden geacht hun opleidingsgerelateerde e-mails regelmatig op te volgen.
 
 Indien er ergens twijfel over bestaat, of er is iets niet duidelijk, neem dan zo snel mogelijk contact op met je lector. De aangewezen manieren worden opgesomd in Sectie~\ref{sec:studiebegeleiding-en-planning}. Indien nuttig of nodig wordt het antwoord als aankondiging op Chamilo doorgegeven aan alle studenten.
 
 De ervaring leert dat de onderlinge communicatie tussen studenten via Facebook leidt tot verwarring, foute informatie en overbodige discussie. Gebruik dus a.u.b.~de officiële kanalen zodat we tot een open en correcte communicatie rond deze cursus kunnen komen.
 
-Jullie zijn zelf verantwoordelijk voor het opvolgen en lezen van alle aankondigingen.
+
 
 \section{Doel en plaats van de cursus in het curriculum}
 \label{sec:doel-en-plaats}
 
 De bedoeling van deze cursus is om je in staat te stellen om op een betrouwbare, reproduceerbare en schaalbare manier netwerkdiensten in productie te brengen op Linux aan de hand van een Configuration Management System.
 
-Wanneer je als systeembeheerder een serverpark van tientallen, honderden of zelfs duizenden machines (hetzij fysiek, hetzij virtueel) moet beheren, dan is het manueel opzetten, of zelfs scripten van de configuratie niet meer voldoende. In dit soort omgevingen wordt steevast gebruik gemaakt van Configuration Management Systems om de taaklast beheersbaar te houden. In deze cursus maken we gebruik van Ansible, omdat dit een voor beginners toegankelijk systeem is dat qua filosofie en logica aansluit bij klassieke shell scripts. In het werkveld is de kans groot dat je met andere Configuration Management Systems in aanraking komt, bijvoorbeeld Chef of Puppet.
+Wanneer je als systeembeheerder een serverpark van tientallen, honderden of zelfs duizenden machines (hetzij fysiek, hetzij virtueel) moet beheren, dan is het manueel opzetten, of zelfs scripten van de configuratie niet meer voldoende. In dit soort omgevingen wordt steevast gebruik gemaakt van Configuration Management Systems om de taaklast beheersbaar te houden. In deze cursus maken we gebruik van Ansible, omdat dit een voor beginners toegankelijk systeem is dat qua filosofie en logica aansluit bij klassieke shell scripts. In het werkveld is de kans groot dat je met andere Configuration Management Systems in aanraking komt, bijvoorbeeld Puppet of Chef.
 
 Kennis over Linux wordt meer en meer gevraagd op de arbeidsmarkt en wie een goed resultaat haalt voor deze cursus kan overal aan de slag als Linux system engineer.
 
@@ -59,16 +62,6 @@ Om deze doelstellingen te behalen, dien je de hieronder opgesomde competenties t
   \end{itemize}
 
   \item Je moet in staat zijn bestaande Ansible-playbooks en rollen te interpreteren en aan te passen voor je eigen doeleinden
-  \item Je moet in staat zijn Ansible-rollen te schrijven voor RHEL/CentOS 7, meer bepaald
-  
-  \begin{itemize}
-    \item De directorystructuur voor een rol aanmaken
-    \item Een \emph{playbook} schrijven voor de uit te voeren taken (\texttt{tasks/main.yml}) en daarbij gebruik maken van Ansible modules
-    \item Bestanden van het hostsysteem naar de VM kopiëren
-    \item Templates definiëren en gebruiken
-    \item Handlers definiëren
-    \item Variabelen declareren en toekennen
-  \end{itemize}
   
   \item Verder moet je die rollen kunnen toekennen aan hosts:
   
@@ -94,10 +87,10 @@ beheren en te troubleshooten.
   \item SELinux begrijpen en toepassen (Ančincová, 2014), meer bepaald:
   
   \begin{itemize}
-    \item Status opvragen en wijzigen (\texttt{getenforce}, \texttt{setenforce})
+    \item Status opvragen en wijzigen (\texttt{getenforce}, \texttt{setenforce}, \texttt{/etc/selinux/config})
     \item De verschillende modi begrijpen (\texttt{enforcing}, \texttt{permissive}, \texttt{disabled} )
-    \item SELinux context van bestanden opvragen (\texttt{ls\ -Z}) en aanpassen (\texttt{chcon})
-    \item Logs kunnen bekijken (\texttt{/var/log/audit/audit.log})
+    \item SELinux context van bestanden opvragen (\texttt{ls\ -Z}) en aanpassen (\texttt{chcon}, \texttt{restorecon})
+    \item Logs kunnen bekijken en problemen opsporen (\texttt{/var/log/audit/audit.log})
     \item Booleans kunnen opvragen en wijzigen (\texttt{getsebool}, \texttt{setsebool})
   \end{itemize}
 \end{itemize}
@@ -157,7 +150,7 @@ Je moet in staat zijn de juiste documentatie op te zoeken en te gebruiken, die r
 De cursus bestaat uit drie onderdelen:
 
 \begin{enumerate}
-  \item Realiseren van een labo-opdracht die het opzetten van infrastructuur a.h.v.~Ansible inhoudt (wordt verderop in deze studiewijzer de \emph{hoofdopdracht} genoemd). Je kan daarbij als student vrij kiezen uit drie concrete opdrachten (zie Hoofdstuk~\ref{ch:opdrachten}).
+  \item Realiseren van een labo-opdracht die het opzetten van infrastructuur a.h.v. Ansible inhoudt (wordt verderop in deze studiewijzer de \emph{hoofdopdracht} genoemd). Je kan daarbij als student vrij kiezen uit drie concrete opdrachten (zie Hoofdstuk~\ref{ch:opdrachten}).
   \item Volgen van de actualiteit in het vakgebied en dit toepassen op je hoofdopdracht (wordt verder de \emph{actualiteitsopdracht} genoemd)
   \item Een aantal \emph{troubleshooting}-labo's.
 \end{enumerate}
@@ -204,16 +197,16 @@ Screencasts en presentaties:
 De aard van deze cursus maakt dat het essentieel is dat je beschikt over voldoende krachtige hardware. Aanbevolen is minstens:
 
 \begin{itemize}
-  \item Processor: Intel i5 7e/8 generatie of equivalent/beter
+  \item Processor: Intel i5 7e generatie of equivalent/beter
   \item Geheugen: 8 GiB RAM
-  \item Harde schijf: 40 GB vrije schijfruimte
+  \item Harde schijf: 80 GB vrije schijfruimte
 \end{itemize}
 
 Verder komt het volgende nog van pas:
 
 \begin{itemize}
   \item Een USB-stick of externe USB-schijf met voldoende ruimte (voor het bijhouden van VMs en broncode)
-  \item Een netwerkkabel (netwerklokaal c.Schoonmeersen)
+  \item Een netwerkkabel (netwerklabo GAARB.0.032 en GSCHB.4.037)
   \item Oortjes voor het beluisteren/bekijken van videolessen, screencasts of videopresentaties zonder de rest te storen
 \end{itemize}
 
@@ -223,27 +216,48 @@ Verder komt het volgende nog van pas:
 Voor het uitwerken van de labo-taken maak je gebruik van de hieronder opgesomde software, in principe de laatste stabiele versies bij aanvang van het semester. Als je sommige van de opgesomde applicaties al geïnstalleerd hebt, werk die dan bij tot de laatste versie.
 
 \begin{itemize}
-  \item Een \textbf{goede} teksteditor: Sublime Text, Notepad++, Atom, Vim, Visual Studio Code, Brackets, enz. \textbf{Geen} Notepad, Wordpad of Word!
+  \item Een \textbf{package manager}, zoals je op een Linux-systeem hebt, kan het installeren van de verschillende nodige softwarepakketen enorm vereenvoudigen. Voor Windows is er Chocolatey\footnote{\url{https://chocolatey.org/}}, voor MacOS X is er Homebrew\footnote{\url{https://brew.sh/}}. Instructies vind je verderop.
+  \item Een \textbf{goede teksteditor} met syntaxkleuren: Visual Studio Code, Sublime Text, Notepad++, Atom, Vim, Brackets, enz. \textbf{Geen} Notepad, Wordpad of Word!
   \begin{itemize}
     \item Let op! Stel je editor zo in dat tekst inspringt met \textbf{spaties} i.p.v. tabs en zet tabbreedte in op 2 karakters.
-    \item In Linux hoef je niet specifiek iets extra te installeren. De default teksteditor, Gedit, heeft syntax-colouring. Je kan eventueel ook werken met Vim, installeer dan de package \texttt{vim-enhanced}. Vim is niet eenvoudig om mee aan de slag te gaan, maar eens je de vele commando's leert kennen, wordt het een bijzonder krachtige en productieve werkomgeving!
+    \item In Linux hoef je niet specifiek iets extra te installeren. De default teksteditor, Gedit, heeft syntax-colouring. Je kan eventueel ook werken met Vim, installeer dan de package \texttt{vim-enhanced}. Vim is niet eenvoudig om mee aan de slag te gaan, maar eens je de vele commando's leert kennen, wordt het een bijzonder krachtige en productieve werkomgeving! Visual Studio Code is ook beschikbaar voor Linux.
   \end{itemize}
   \item VirtualBox \footnote{\url{https://www.virtualbox.org/wiki/Downloads}} (installeer ook het ``Extension Pack'').
   \item Vagrant\footnote{\url{http://vagrantup.com/}}
-  \item Git\footnote{\url{https://git-scm.com/downloads}}
-  \item Bash shell. Onder Windows, kan je de Bash shell die meegeleverd wordt met Git gebruiken. Mac-gebruikers wordt aangeraden om een recente versie van Bash te installeren, bijvoorbeeld via HomeBrew\footnote{\url{https://brew.sh/}}.
-  \item Ansible\footnote{\url{https://docs.ansible.com/ansible/intro_installation.html}} (enkel voor wie werkt met een Mac of Linux-laptop, Windows-gebruikers kunnen dit niet installeren maar voor hen is een workaround voorzien)
-  \item Optioneel: Een teksteditor met ondersteuning voor Markdown\footnote{\url{http://daringfireball.net/projects/markdown/}}, bijvoorbeeld Visual Studio Code, Atom, MarkdownPad, Texts, enz.
+  \item Git\footnote{\url{https://git-scm.com/downloads}} client (onder Windows, installeer ook Git Bash)
+  \item Bash shell. Onder Windows, kan je de Bash shell die meegeleverd wordt met Git gebruiken. Mac-gebruikers wordt aangeraden om een recente versie van Bash te installeren via HomeBrew.
+  \item Ansible\footnote{\url{https://docs.ansible.com/ansible/intro_installation.html}} (enkel voor wie werkt met een Mac of Linux-laptop. Wie Windows gebruikt kan dit niet installeren. Voor hen is een workaround voorzien)
 \end{itemize}
+
+Installatie op Windows met Chocolatey:
+
+\begin{minted}{console}
+C:\> choco install git
+C:\> choco install vscode
+C:\> choco install virtualbox
+C:\> choco install vagrant
+\end{minted}
+
+Installatie op MacOS X met Homebrew:
+
+\begin{minted}{console}
+$ brew install bash
+$ brew install git
+$ brew cask install visual-studio-code
+$ brew cask install virtualbox
+$ brew cask install virtualbox-extension-pack
+$ brew cask install vagrant
+$ brew install ansible
+\end{minted}
 
 \section{Werkvormen}
 \label{sec:werkvormen}
 
-In dit opleidingsonderdeel wordt hoofdzakelijk gewerkt aan de hand van labo-opdrachten. De ondersteunende studiematerialen (zie Sectie~\ref{sec:leermateriaal}) en deze syllabus moeten je in staat stellen die met succes af te werken.
+In dit opleidingsonderdeel wordt hoofdzakelijk gewerkt aan de hand van labo-op\-drach\-ten. De ondersteunende studiematerialen (zie Sectie~\ref{sec:leermateriaal}) en deze syllabus moeten je in staat stellen die met succes af te werken.
 
 \textbf{In de reguliere lessen} wordt waar nodig klassikaal uitleg en demo's gegeven over bepaalde onderwerpen.
 
-Studenten \textbf{afstandsleren} kunnen vragen stellen tijdens de contactmomenten waarop de lector aanwezig is, of via e-mail.
+Studenten \textbf{afstandsleren} kunnen vragen stellen tijdens de contactmomenten wanneer de lector aanwezig is, of via e-mail.
 
 \section{Werk- en leeraanwijzingen}
 \label{sec:werk-en-leeraanwijzingen}
@@ -285,10 +299,9 @@ Tabel~\ref{tab:weekplanning} geeft een overzicht van de weekplanning voor de reg
     12 & Individuele opvolging                                          \\
     13 & Inhaalsessie (Indien ingericht door je lector)
   \end{tabular}
-  \label{tab:weekplanning}
   \caption{Weekplanning over het semester. Merk op dat er nog verschuivingen kunnen gebeuren naargelang er lessen wegvallen door verlofdagen, enz.}
+  \label{tab:weekplanning}
 \end{table}
-
 
 Voor \textbf{reguliere studenten} is aanwezigheid op de troubleshooting-labo's verplicht, aangezien dit evaluatiemomenten zijn. Bij ziekte volg je de normale procedure voor het wettigen van je afwezigheid. Contacteer ook zo snel mogelijk je lector voor een inhaalopdracht.
 
@@ -299,7 +312,7 @@ Bij het begin van een troubleshooting-opdracht krijg je een opstelling voorgesch
 \section{Evaluatie}
 \label{sec:evaluatie}
 
-In dit vak word je beoordeeld op de manier waarop je volgende taken hebt uitgevoerd:
+De evaluatie van dit opleidingsonderdeel gebeurt voor 100\% met niet-periodegebonden evaluatie. Meer bepaald word je beoordeeld op de manier waarop je volgende taken hebt uitgevoerd:
 
 \begin{itemize}
   \item Hoofdopdracht: opzetten infrastructuur met een configuration management system
@@ -308,7 +321,7 @@ In dit vak word je beoordeeld op de manier waarop je volgende taken hebt uitgevo
   \item Rapportering en documentatie
 \end{itemize}
 
-Troubleshooting wordt geëvalueerd op basis van vaardigheidstests (20\%, niet-periodegebonden evaluatie), de andere taken op basis van een portfolio dat je samenstelt tijdens de loop van het semester en dat je op een evaluatiemoment tijdens de examenperiode komt verdedigen (80\%, periodegebonden evaluatie). Dat portfolio bestaat concreet uit volgende elementen:
+Troubleshooting wordt geëvalueerd op basis van vaardigheidstests (20\% van het totaal), de andere taken op basis van een portfolio dat je samenstelt tijdens de loop van het semester en dat je op een evaluatiemoment tijdens de examenperiode komt verdedigen (80\%). Dat portfolio bestaat concreet uit volgende elementen:
 
 \begin{itemize}
   \item De broncode, door elke student bijgehouden in een toegewezen Git repository
@@ -325,12 +338,11 @@ In een tabel worden een aantal criteria opgesomd, waar je aan moet voldoen. Je k
 
 Om te slagen voor dit vak moet je aantonen dat je voor \textbf{alle} technische criteria minstens ``bekwaam'' bent. Met andere woorden, als je voor slechts één criterium ``nog niet bekwaam'' bevonden wordt, kan je niet slagen. De niet-technische criteria (bv. rapportering) kunnen het examencijfer afhankelijk van het behaalde niveau nog positief of negatief beïnvloeden.
 
-
 \textbf{Merk op} dat je zowel een werkend product moet opleveren (= broncode) als de verslagen indienen én demo's geven. Als één van de deliverables ontbreekt, wordt de opdracht beschouwd als niet gerealiseerd.
 
-Wat betreft het respecteren van deadlines is art. 37 van het FOER van kracht. Niet tijdig deelresultaten demonstreren wordt in termen van dat artikel beschouwd als het niet respecteren van tussentijdse deadlines en wordt als dusdanig gesanctioneerd. Eén van de opdrachten (zoals hierboven opgesomd) niet realiseren leidt tot een afwezigheid voor die opdracht en bijgevolg ook voor het gehele opleidingsonderdeel, conform het examenreglement.
+\textbf{Reguliere studenten} moeten \emph{minstens elke drie weken} deelresulaten opleveren en persoonlijk demonstreren aan de lector. Deze periodes worden beschouwd als tussentijdse deadlines waarvoor art. 5 van het FOER van kracht is. Niet tijdig deelresultaten demonstreren wordt in termen van dat artikel beschouwd als het niet respecteren van tussentijdse deadlines en wordt als dusdanig gesanctioneerd. Een student die meer dan twee maal tussentijdse deadlines niet respecteert, krijgt 0 voor die opdracht (``Nog niet bekwaam'') en kan bijgevolg ook niet slagen.
 
-\textbf{Reguliere studenten} moeten \emph{minstens elke drie weken} deelresulaten opleveren en persoonlijk demonstreren aan de lector. Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een teken dat je ergens vast zit, de lector kan je dan opnieuw op weg helpen.
+Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een teken dat je ergens vast zit, de lector kan je dan opnieuw op weg helpen.
 
 \textbf{Studenten afstandsleren} kunnen op verschillende manieren deelresultaten opleveren:
 

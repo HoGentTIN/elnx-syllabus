@@ -16,13 +16,14 @@ Richtlijnen voor het opstarten van je Git project:
   \item In principe moet je al een Github account hebben. Als je dit nog niet gedaan hebt, koppel dan zeker je @student.hogent.be adres aan het account. Je kan dan het Github Student Developer Pack\footnote{\url{https://education.github.com/pack}} aanvragen met allerlei interessante aanbiedingen.
   \item Maak een SSH-sleutelpaar aan om het pushen naar Github te vereenvoudigen. Het commando is \texttt{ssh-keygen}, volg de richtlijnen die het geeft. Geef voor je gemak een lege \emph{passphrase} op (zoniet moet je telkens je de sleutel gebruikt je passphrase intikken). Normaal zou er in de directory \path{~/.ssh}\footnote{Het symbool {\textasciitilde} is natuurlijk de \emph{home directory} van de gebruiker. In Linux komt dit overeen met \path{/home/USER}, onder Windows met \path{C:\Users\USER} of \path{C:\Gebruikers\USER}, onder MacOS met \path{/Users/USER}} twee bestanden aangemaakt moeten zijn: \path{id_rsa} en \path{id_rsa.pub}. Het eerste is je private sleutel (die je geheim moet houden), het tweede de publieke. Die laatste kan je op Github registreren via je profielinstellingen (klik op je avatar rechtsboven, volg \emph{Settings} en dan \emph{SSH and GPG keys}).
 
-  \item Basisconfiguratie Git, indien je dit nog niet gedaan hebt (kijk na in \path{~/.gitconfig}):
+  \item Basisconfiguratie Git, indien je dit nog niet gedaan hebt (kijk na in het configuratiebestand \path{~/.gitconfig}):
 
     \begin{minted}[gobble=6]{console}
       $ git config --global user.name "VOORNAAM NAAM"
-      $ git config --global user.email "VOORNAAM.NAAM@EXAMPLE.COM"
+      $ git config --global user.email "VOORNAAM.NAAM@student.hogent.be"
       $ git config --global push.default simple
       $ git config --global core.autocrlf input
+      $ git config --global pull.rebase true
     \end{minted}
 
   \item Maak lokaal een directory aan die je voorbehoudt voor al wat met deze cursus te maken heeft. Binnen deze directory kan je je Github-repository klonen. Klik op de Github-pagina van je repository op de groene knop rechts (\emph{Clone or download}), kies voor ``Clone with SSH'' kopieer de link van de vorm \path{git@github.com:HoGentTIN/REPO_NAAM-GEBRUIKERSNAAM.git}.
@@ -67,7 +68,7 @@ Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudi
       \item In de vierde regel, tenslotte, ga je de wijzigingen in de opgave op jouw eigen versie toepassen. Mogelijks komen er hier conflicten naar boven tussen bepaalde bestanden in de opgave en jouw wijzigingen. Lees goed de instructies die Git hier geeft om deze conflicten op te lossen.
     \end{itemize}
 
-Deze procedure werkt niet als je geen branch voor je eigen oplossing gemaakt hebt. In dat geval wordt het erg moeilijk om dit via Git te doen en maak je de nodige wijzigingen best manueel.
+Deze procedure werkt niet als je geen branch voor je eigen oplossing gemaakt hebt. In dat geval haal je jezelf een hoop ellende op de hals\ldots
 
 \end{enumerate}
 
@@ -80,12 +81,12 @@ In deze sectie vind je enkele algemene richtlijnen die je helpen vlotter en effi
   \item Voor je aan een (deel-)opdracht begint, bereid je eerst voor door alle aangereikte studiematerialen te bestuderen: handleidingen, screencasts, \ldots Die ``van buiten blokken'' is helemaal niet nodig, maar zorg er in elk geval voor dat je er in die mate vertrouwd bent, dat je snel gericht kan zoeken naar juiste, relevante informatie. Je vindt die via de bronvermeldingen in deze syllabus, of via de opgave
   \item Open \textbf{verschillende terminalvensters/consoles naast elkaar} (zie Figuur~\ref{fig:screenshot-terminals}). Elke terminal krijgt zijn eigen functie, bijvoorbeeld:
     \begin{itemize}
-      \item Vim editor (of Sublime/Notepad/\ldots in een apart venster);
+      \item Vim editor (of VS Code/Sublime/Notepad/\ldots in een apart venster);
       \item doorvoeren van wijzigingen aan de configuratie;
       \item ingelogd op VM, voor commando's;
       \item ingelogd op VM, voor tonen logbestanden.
     \end{itemize}
-  \item \textbf{Werk stap voor stap.} Schrijf niet teveel code ineens. Probeer eerst een minimaal werkende opstelling te verkrijgen en registreer meteen in Git. Maak minimale wijzigingen en \textbf{test elke wijziging uit}. Hoe groter en ingrijpender de wijzigingen, hoe meer kans op fouten en hoe moeilijker die te debuggen zijn. Zodra iets werkt, registreer dit meteen in Git en geef een duidelijke, beschrijvende commit-boodschap.
+  \item \textbf{Werk stap voor stap.} Schrijf niet teveel code ineens. Probeer eerst een minimaal werkende opstelling te verkrijgen en registreer meteen in Git. Maak minimale wijzigingen en \textbf{test elke wijziging uit}. Hoe groter en ingrijpender de wijzigingen, hoe meer kans op fouten en hoe moeilijker die te debuggen zijn. Zodra iets werkt, en je bent een stap verder, registreer je dit meteen in Git en geef je een duidelijke, beschrijvende commit-boodschap.
   \item \textbf{gebruik Git op de command-line.} Bij de meeste Git commando's krijg je gedetailleerde uitleg over hoe je een stap verder moet gaan en ook hoe je de laatste stap kan ongedaan maken. Dit geeft op de duur een beter inzicht in hoe Git precies werkt.
   \item Probeer \textbf{elke commit te beperken tot één enkele ``reden''} om wijzigingen aan te brengen aan de bestaande code. Dit maakt de ``geschiedenis'' van je project transparanter en maakt ook dat je makkelijker kan terugkeren naar een bepaalde stap wanneer je de mist in gaat.
   \item \textbf{Maak backups} van de originele, ongewijzigde configuratiebestanden zodat je er op kan terugvallen als er iets misloopt. Soms heb je zodanig zitten ``prutsen'' dat je er niet meer in slaagt de service te laten werken.
@@ -166,7 +167,7 @@ $ vagrant status
 Current machine states:
 
 router                    not created (virtualbox)
-pu004                     not created (virtualbox)
+pu001                     not created (virtualbox)
 
 The environment has not yet been created. Run `vagrant up` to
 create the environment. If a machine is not created, only the
@@ -175,11 +176,11 @@ then the machine is not created for that environment.
 $
 \end{minted}
 
-De hostnaam \texttt{pu004} slaat op het feit dat deze host in een publiek toegankelijk zit. Het getal is een volgnummer dat verder geen betekenis heeft. Hosts in een privaat netwerk dat niet van buitenaf toegankelijk is, zouden beginnen met \texttt{pr} gevolgd door een nummer (bv. \texttt{pr002}). Goede namen geven aan servers is niet altijd makkelijk en er bestaan verschillende benaderingen~\autocite{Mytton2015,mnxio}. De gekozen opgave legt de servernamen op, of geeft aanwijzingen.
+De initiële setup bevat twee virtuele machines met namen \texttt{router} en \texttt{pu001}, respectievelijk. We beginnen met \texttt{pu001}, de router wordt later geconfigureerd.
 
-Start de VM met \texttt{vagrant\ up\ pu004}. De eerste keer dat je dit doet wordt er een basis-VM gedownload met een minimale installatie van de laatste stabiele versie van CentOS. Die zal telkens dienst doen als basis voor het opzetten van alle hosts in ons netwerk.
+Start de VM met \texttt{vagrant\ up\ pu001}. De eerste keer dat je dit doet wordt er een basis-VM gedownload met een minimale installatie van de laatste stabiele versie van CentOS. Doe dit best op een performant netwerk: het bekabelde netwerk op de campus of thuis/op kot. Deze ``base box'' wordt bijgehouden en zal telkens dienst doen als basis voor het opzetten van alle hosts in ons netwerk. Het downloaden gebeurt dus slechts één keer-.
 
-Na opstarten kan je inloggen met \texttt{vagrant\ ssh\ pu004}. Je bent ingelogd als gebruiker \texttt{vagrant} en kan commando's uitvoeren met \texttt{root}-rechten door er \texttt{sudo} voor te plaatsen (geen wachtwoord vereist). Als het nodig mocht zijn: het wachtwoord van de gebruikers \texttt{vagrant} en \texttt{root} is telkens \texttt{vagrant}.
+Na opstarten kan je inloggen met \texttt{vagrant\ ssh\ pu001}. Je bent ingelogd als gebruiker \texttt{vagrant} en kan commando's uitvoeren met \texttt{root}-rechten door er \texttt{sudo} voor te plaatsen (geen wachtwoord vereist). Als het nodig mocht zijn: het wachtwoord van de gebruikers \texttt{vagrant} en \texttt{root} is telkens \texttt{vagrant}.
 
 Als je \texttt{ls\ /} uitvoert, zal je merken dat er een directory \path{/vagrant} bestaat. Dit is je lokale repository die gemount is binnen de VM. Dit is een eenvoudige manier om bestanden te delen tussen VM en host-systeem.
 
@@ -216,28 +217,28 @@ Zorg dat je goed begrijpt hoe deze interfaces werken, zoniet wordt troubleshoote
 \section{Ansible}
 \label{sec:ansible}
 
-Ansible is een \emph{configuration management system,} d.w.z. het staat in voor het configureren van een host vanaf een minimale installatie tot een volledig operationeel systeem. Het concept van een configuration management tool is dat je beschrijft wat de gewenste toestand van het systeem is, de tool zorgt er voor dat het systeem in die toestand terecht komt. Bekijk de screencast van \textcite{Weissig2015} voor een inleiding op Ansible. In een vervolg-screencast wordt ook de combinatie van Ansible en Vagrant belicht. In deze gids geven we enkel wat uitleg om aan de slag te gaan met de startopstelling voor de labo-opdracht, maar als je op zoek bent naar een goed naslagwerk over Ansible, overweeg dan om het e-boek van \textcite{Geerling2016} te kopen. De auteur werkt nog verder aan het boek, updates zijn gratis.
+Ansible is een \emph{configuration management system,} d.w.z. het staat in voor het configureren van een host vanaf een minimale installatie tot een volledig operationeel systeem. Het concept van een configuration management tool is dat je beschrijft wat de gewenste toestand van het systeem is, de tool brengt het systeem naar die toestand. Bekijk de screencast van \textcite{Weissig2015} voor een inleiding op Ansible. In een vervolg-screencast wordt ook de combinatie van Ansible en Vagrant belicht. In deze gids geven we enkel wat uitleg om aan de slag te gaan met de startopstelling voor de labo-opdracht, maar als je op zoek bent naar een goed naslagwerk over Ansible, overweeg dan om het e-boek van \textcite{Geerling2016} te kopen. Het boek is al enkele jaren oud, maar de auteur werkt nog verder aan het boek, updates zijn gratis.
 
-Sommige config management systemen hebben een eigen taal ontwikkeld om die configuratie in te beschrijven (bv. Puppet), andere gebruiken een bestaande taal (bv. Chef, configuratie in Ruby). Bij Ansible beschrijf je de configuratie van een systeem met Yaml, een eenvoudig tekstformaat om data te structureren op een manier die makkelijk te interpreteren is zowel door mensen als computers. De bestanden die deze configuratiecode bevatten worden \emph{playbooks}\footnote{\url{https://docs.ansible.com/ansible/playbooks.html}} genoemd. Als je deze playbooks op een specifieke manier structureert en herbruikbaar maakt, spreekt men van een \emph{rol}\footnote{\url{https://docs.ansible.com/ansible/playbooks_roles.html\#roles}}. Je kan rollen toekennen aan een host, en specifieke instellingen toepassen door het invullen van \emph{variabelen}\footnote{\url{https://docs.ansible.com/ansible/playbooks_variables.html}}. Op Ansible Galaxy\footnote{\url{https://galaxy.ansible.com/}} kan je tientallen rollen vinden die door hun auteurs gepubliceerd zijn.
+Sommige config management systemen hebben een eigen taal ontwikkeld om die configuratie in te beschrijven (bv. Puppet), andere gebruiken een bestaande taal (bv. Chef, configuratie in Ruby). Bij Ansible beschrijf je de configuratie van een systeem met YAML (een variant van JSON), een eenvoudig tekstformaat om data te structureren op een manier die makkelijk te interpreteren is zowel door mensen als computers. De bestanden die deze configuratiecode bevatten worden \emph{playbooks}\footnote{\url{https://docs.ansible.com/ansible/playbooks.html}} genoemd. Als je deze playbooks op een specifieke manier structureert en herbruikbaar maakt, spreekt men van een \emph{rol}\footnote{\url{https://docs.ansible.com/ansible/playbooks_roles.html\#roles}}. Je kan rollen toekennen aan een host, en specifieke instellingen toepassen door het invullen van \emph{variabelen}\footnote{\url{https://docs.ansible.com/ansible/playbooks_variables.html}}. Op Ansible Galaxy\footnote{\url{https://galaxy.ansible.com/}} kan je tientallen rollen vinden die door hun auteurs gepubliceerd zijn.
 
 De directorystructuur van een Ansible-project ligt vast en wordt uitvoerig beschreven in de documentatie\footnote{\url{https://docs.ansible.com/ansible/playbooks_best_practices.html}}.
 
 \subsection{Rollen toekennen aan hosts}
 \label{sub:rollen-toekennen-aan-hosts}
 
-Om een rol toe te kennen aan een host, bewerk je de \emph{master playbook} \path{ansible/site.yml}. Dit bestand bevat een overzicht van alle hosts onder het beheer van Ansible, met de rollen van elke host:
+Om een rol toe te kennen aan een host, bewerk je de \emph{master playbook} \path{ansible/site.yml}. Dit bestand bevat een overzicht van alle hosts onder het beheer van Ansible, met de rollen van elke host (spaties worden getoond):
 
-\begin{minted}{yaml}
+\begin{minted}[showspaces]{yaml}
 # site.yml
 ---
-- hosts: pu004
+- hosts: pu001
   become: true
   roles: []
 \end{minted}
 
-Host \texttt{pu004} heeft nog geen rollen toegekend, dat gaan we nu veranderen:
+Host \texttt{pu001} heeft nog geen rollen toegekend, dat gaan we nu veranderen:
 
-\begin{minted}{yaml}
+\begin{minted}[showspaces]{yaml}
 # site.yml
 ---
 - hosts: pu004
@@ -307,7 +308,7 @@ Telkens je een wijziging aanbrengt in de Ansible-configuratie, kan je die doorvo
 \section{Basiskennis CentOS}
 \label{sec:basiskennis_centos}
 
-CentOS is een Linux-distributie die afgeleid is van RedHat, maar initieel volledig door de \emph{community} onderhouden werd. RedHat is een commerciële Linux-distributie van het gelijknamige bedrijf. Je kan RedHat Enterprise Linux (RHEL) enkel gebruiken als je er een support contract voor tekent. Nu is RHEL wel volledig open source en is het dus toegelaten om de code te hergebruiken en te wijzigen. Dat is precies wat in het CentOS-project gebeurd is. Alles wat onder het merkenrecht valt (de naam RHEL, logo's, enz.) is verwijderd en vervangen. CentOS is dus volledig compatibel met RHEL, maar gratis, zij het zonder support vanuit RedHat. RedHat heeft echter wel goede relaties met het CentOS-project, zelfs in die mate dat ze sinds 2014 het project beginnen sponsoren zijn en de belangrijkste medewerkers van het project in dienst genomen hebben. In deze cursus gebruiken we CentOS omdat de RedHat-familie in het Vlaamse bedrijfsleven de meest gebruikte Linux-distributie is.
+CentOS is een Linux-distributie die afgeleid is van RedHat, maar initieel volledig door de \emph{community} onderhouden werd. RedHat is een commerciële Linux-dis\-tri\-bu\-tie van het gelijknamige bedrijf. Je kan RedHat Enterprise Linux (RHEL) enkel gebruiken als je er een support contract voor tekent. Nu is RHEL wel volledig open source en is het dus toegelaten om de code te hergebruiken en te wijzigen. Dat is precies wat in het CentOS-project gebeurd is. Alles wat onder het merkenrecht valt (de naam RHEL, logo's, enz.) is verwijderd en vervangen. CentOS is dus volledig compatibel met RHEL, maar gratis, zij het zonder support vanuit RedHat. RedHat heeft echter wel goede relaties met het CentOS-project, zelfs in die mate dat ze sinds 2014 het project beginnen sponsoren zijn en de belangrijkste medewerkers van het project in dienst genomen hebben. In deze cursus gebruiken we CentOS omdat de RedHat-familie in het Vlaamse bedrijfsleven de meest gebruikte Linux-dis\-tri\-bu\-tie is.
 
 Om je te helpen bij het leren kennen van deze distributie vind je hieronder enkele suggesties.
 
@@ -320,7 +321,14 @@ Om je te helpen bij het leren kennen van deze distributie vind je hieronder enke
       \item installatie van software beheren met \texttt{yum};
       \item services beheren met \texttt{systemctl};
       \item de firewall beheren met \texttt{firewall-cmd};
-      \item de juiste commando's voor het valideren van configuratiebestanden (bv. \texttt{testparm} voor Samba, \texttt{apachectl configtest} voor Apache, \texttt{named-checkconf} voor BIND, enz.)
+      \item de juiste commando's voor het valideren van configuratiebestanden, bv.
+      \begin{itemize}
+        \item Samba: \texttt{testparm}
+        \item Apache: \texttt{apachectl configtest}
+        \item BIND: \texttt{named-checkconf}
+        \item ISC-dhcpd: \texttt{dhcpd -t}
+        \item \ldots
+      \end{itemize}
     \end{itemize}
 
     Je kan je laten inspireren door deze cheat sheet: \url{https://github.com/bertvv/cheat-sheets/blob/master/src/EL7.md} Kopieer deze niet blind! Je moet je eigen cheat sheet zelf opstellen, zo zal je de commando's beter onthouden.
@@ -329,9 +337,9 @@ Om je te helpen bij het leren kennen van deze distributie vind je hieronder enke
 \section{DNS en BIND}
 \label{sec:dns-en-bind}
 
-% TODO: verwijs naar het rocket scientists boek
-
 DNS is essentieel voor de correcte werking van een domein, en redelijk wat (volgens sommigen \emph{alle}\footnote{\url{http://www.krisbuytaert.be/blog/}}) netwerkproblemen zijn terug te leiden tot fouten in DNS. Er zijn verschillende implementaties van DNS, maar veruit de meest gebruikte (en dus essentieel voor de werking van het Internet als geheel) is BIND\footnote{\url{https://www.isc.org/downloads/bind/}}.
+
+In deze syllabus geven we een heel summiere inleiding. Voor een uitgebreid overzicht van de werking en configuratie van BIND, zie~\textcite{Aitchison2015}.
 
 \subsection{Zonebestanden}
 \label{ssec:zonebestanden}
@@ -350,7 +358,7 @@ DNS is op zich geen complexe netwerkservice. Het komt neer op een databank met e
 
 Een zonebestand begint met een zgn. SOA-record, wat staat voor Start Of Authority. Hieronder vind je een voorbeeld van een \emph{forward zone file} voor een domein met de naam ``linuxlab.lan'' voor het IPv4-netwerk 192.168.15.0/24. Op de precieze betekenis gaan we hier niet in, dit wordt elders voldoende uitgediept~\autocite{Aitchison2015}.
 
-\begin{verbatim}
+\begin{minted}{text}
 ; /var/named/linuxlab.lan
 ; Forward lookup zone file for `linuxlab.lan.'
 $ORIGIN linuxlab.lan.
@@ -363,11 +371,11 @@ $TTL 1W
    1W           ; expire
    1D           ; minimum TTL
 )
-\end{verbatim}
+\end{minted}
 
 De overeenkomstige \emph{reverse zone file} begint als volgt:
 
-\begin{verbatim}
+\begin{minted}{text}
 ; /var/named/15.168.192.in-addr.arpa.
 ; Reverse lookup zone file for `linuxlab.lan.'
 $ORIGIN 15.168.192.in-addr.arpa.
@@ -379,13 +387,14 @@ $TTL 1W
    1W           ; expire
    1D           ; minimum TTL
 )
-\end{verbatim}
+\end{minted}
 
 De syntax van deze \emph{zone files} is heel strak en het is makkelijk om fouten te maken. De meest voorkomende fouten zijn de volgende:
 
 \begin{itemize}
-  \item Hostnamen die volledig uitgeschreven zijn (\emph{fully qualified domain name} of FQDN) moeten in een zonebestand altijd afgesloten worden met een punt, bv. ``\texttt{pu001.linuxlab.net.}''. Namen die niet op een punt eindigen, worden aangevuld met de waarde van \texttt{\$ORIGIN} die aan het begin van een zonebestand gegeven wordt (d.i. de domeinnaam, in ons geval ``\texttt{linuxlab.net.}''). Bv.  \texttt{pu002} wordt dan ``\texttt{pu002.linuxlab.net.}''. Als je een hostnaam volledig uitschrijft en je vergeet de punt, dan zal de domeinnaam dus verkeerd geïnterpreteerd worden. ``\texttt{pu002.linuxlab.net}'' wordt immers omgezet naar ``\path{pu002.linuxlab.net.linuxlab.net.}''.
-\item IP-adressen worden op een eigenaardige manier genoteerd. Ten eerste wordt het host-deel van het netwerkadres niet geschreven, de getallen in de ``dotted quad''-notatie worden omgekeerd en je moet er ``\texttt{in-addr.arpa.}'' achter schrijven. Met andere woorden, \texttt{192.0.2.0/24} wordt als ``\texttt{2.0.192.in-addr-arpa."} geschreven.
+  \item Hostnamen die volledig uitgeschreven zijn (\emph{fully qualified domain name} of FQDN) moeten in een zonebestand altijd afgesloten worden met een punt, bv. ``\texttt{pu001.linuxlab.lan.}''. Namen die niet op een punt eindigen, worden aangevuld met de waarde van \texttt{\$ORIGIN} die aan het begin van een zonebestand gegeven wordt (d.i. de domeinnaam, in ons geval ``\texttt{linuxlab.lan.}''). Bv.  \texttt{pu002} wordt dan ``\texttt{pu002.linuxlab.lan.}''. Als je een hostnaam volledig uitschrijft en je vergeet de punt, dan zal de domeinnaam dus verkeerd geïnterpreteerd worden. ``\texttt{pu002.linuxlab.lan}'' wordt immers omgezet naar ``\path{pu002.linuxlab.lan.linuxlab.lan.}''.
+  
+  \item IP-adressen worden op een eigenaardige manier genoteerd. Ten eerste wordt het host-deel van het netwerkadres niet geschreven, de getallen in de ``dotted quad''-notatie worden omgekeerd en je moet er ``\texttt{in-addr.arpa.}'' achter schrijven. Met andere woorden, \texttt{192.0.2.0/24} wordt als ``\texttt{2.0.192.in-addr-arpa."} geschreven.
 \end{itemize}
 
 \subsection{DNS troubleshooting}
@@ -395,23 +404,23 @@ Het is niet altijd evident om fouten op te sporen in de configuratie van een BIN
 
 \begin{itemize}
   \item Test de syntax van configuratiebestanden voordat je de service opstart. Voor het hoofd-configuratiebestand \path{/etc/named.conf} is het commando:
-    \begin{verbatim}
-$ sudo named-checkconf /etc/named.conf
-    \end{verbatim}
+    \begin{minted}[gobble=6]{console}
+      $ sudo named-checkconf /etc/named.conf
+    \end{minted}
   \item De syntax testen van zonebestanden gebeurt zo (voorbeeld voor forward en reverse zone, respectievelijk):
 
-    \begin{verbatim}
-$ sudo named-checkzone linuxlab.lan /var/named/linuxlab.lan
-$ sudo named-checkzone 15.168.192.in-addr.arpa \
-    /var/named/15.168.192.in-addr.arpa
-    \end{verbatim}
+    \begin{minted}[gobble=6]{console}
+      $ sudo named-checkzone linuxlab.lan /var/named/linuxlab.lan
+      $ sudo named-checkzone 15.168.192.in-addr.arpa \
+          /var/named/15.168.192.in-addr.arpa
+    \end{minted}
 
 \item Je kan foutboodschappen van de service bekijken met \texttt{journalctl}. Het handigste is om een aparte console te openen, in te loggen op je server en dan het volgende commando uit te voeren:
 
-    \begin{verbatim}
-$ sudo rndc querylog on
-$ sudo journalctl -l -f -u named.service
-    \end{verbatim}
+    \begin{minted}[gobble=6]{console}
+      $ sudo rndc querylog on
+      $ sudo journalctl -l -f -u named.service
+    \end{minted}
 
   Het eerste commando zorgt dat DNS-queries van clients in de logs verschijnen (wat standaard uit staat). Het tweede commando toont de logs van BIND.
 
@@ -420,21 +429,21 @@ $ sudo journalctl -l -f -u named.service
 
 Naast het valideren van de configuratiebestanden, is het ook belangrijk om te testen of de DNS-server ook correct antwoordt op aanvragen van clients. Installeer de package \texttt{bind-tools} om een aantal nuttige tools ter beschikking te krijgen. Het commando \texttt{nslookup} zal je misschien herkennen vanuit Windows. Het werkt hier op dezelfde manier:
 
-\begin{verbatim}
+\begin{minted}{console}
 $ nslookup www.hogent.be
-Server:		195.130.131.1
-Address:	195.130.131.1\#53
+Server:   195.130.131.1
+Address:  195.130.131.1\#53
 
 Non-authoritative answer:
-Name:	www.hogent.be
+Name:  www.hogent.be
 Address: 178.62.144.90
-\end{verbatim}
+\end{minted}
 
 Hier wordt gevraagd wat het IP-adres is voor hostnaam ``www.hogent.be''. Als antwoord krijgen we 178.62.144.90. Het antwoord werd gegeven door een DNS-server met IP-adres 195.130.131.1. Er wordt aangegeven dat het antwoord \emph{non-authoritative} is, wat wil zeggen dat de DNS-server die het antwoord gaf niet de DNS-server is die ook de eindverantwoordelijke is voor het hogent.be-domein.
 
 Je kan een query met \texttt{nslookup} ook richten naar een specifieke DNS-server door die ook mee te geven op de command line:
 
-\begin{verbatim}
+\begin{minted}{console}
 $ nslookup www.hogent.be 8.8.8.8
 Server:		8.8.8.8
 Address:	8.8.8.8#53
@@ -442,13 +451,13 @@ Address:	8.8.8.8#53
 Non-authoritative answer:
 Name:	www.hogent.be
 Address: 178.62.144.90
-\end{verbatim}
+\end{minted}
 
-Merk op dat als je de DNS-server niet expliciet vermeldt, de DNS-server ondervraagd wordt die door DHCP werd toegewezen en die vermeld wordt in \texttt{/etc/resolv.conf}.
+Merk op dat als je de DNS-server niet expliciet vermeldt, de DNS-server ondervraagd wordt die door DHCP werd toegewezen en die vermeld wordt in het bestand \texttt{/etc/resolv.conf}.
 
 Naast \texttt{nslookup}, bevat de \texttt{bind-utils} een nog veelzijdiger commando om DNS-servers te ondervragen: \texttt{dig}.
 
-\begin{verbatim}
+\begin{minted}{console}
 $ dig www.hogent.be
 
 ; <<>> DiG 9.10.5-P2-RedHat-9.10.5-2.P2.fc25 <<>> www.hogent.be
@@ -469,50 +478,50 @@ www.hogent.be.		2796	IN	A	178.62.144.90
 ;; SERVER: 195.130.131.1#53(195.130.131.1)
 ;; WHEN: Tue Sep 26 00:45:51 CEST 2017
 ;; MSG SIZE  rcvd: 58
-\end{verbatim}
+\end{minted}
 
 De syntax van de uitvoer is compatibel met die van zonebestanden. We zien hier dus dat er voor www.hogent.be een A-record bestaat dat verwijst naar IP-adres 178.62.144.90. Alle regels die beginnen met een kommapunt zijn commentaar.
 
 Je kan vragen enkel de relevante info af te drukken, zonder de commentaren:
 
-\begin{verbatim}
+\begin{minted}{console}
 $ dig +short www.hogent.be
 178.62.144.90
-\end{verbatim}
+\end{minted}
 
 Een specifieke DNS-server ondervragen gebeurt door die op de command-line mee te geven, voorafgegaan door een ``@'':
 
-\begin{verbatim}
+\begin{minted}{console}
 $ dig +short @8.8.8.8 www.hogent.be
 178.62.144.90
-\end{verbatim}
+\end{minted}
 
 Tenslotte kan je ook verschillende soorten records opvragen. Bijvoorbeeld, wie is de ``authoritative name server'' voor het domein hogent.be?
 
-\begin{verbatim}
+\begin{minted}{console}
 $ dig +short NS hogent.be
 ns2.belnet.be.
 ens2.hogent.be.
 ns1.belnet.be.
 ens1.hogent.be.
-\end{verbatim}
+\end{minted}
 
 Wat is het IPv6 adres voor download.fedoraproject.org?
 
-\begin{verbatim}
+\begin{minted}{console}
 $ dig +short AAAA download.fedoraproject.org
 wildcard.fedoraproject.org.
 2001:4178:2:1269::fed2
 2610:28:3090:3001:dead:beef:cafe:fed3
 2605:bc80:3010:600:dead:beef:cafe:fed9
-\end{verbatim}
+\end{minted}
 
 Zo doe je een ``reverse lookup'':
 
-\begin{verbatim}
+\begin{minted}{console}
 $ dig +short -x 195.130.131.1
 asse.dnscache02.telenet-ops.be.
-\end{verbatim}
+\end{minted}
 
 Hier krijg je enkel antwoord voor als de ondervraagde DNS-server ook effectief een PTR-record heeft voor het opgegeven IP-adres.
 
@@ -538,18 +547,22 @@ Samba voorziet een commando voor het controleren of het configuratiebestand \pat
 
 Om te testen of de share toegankelijk is van buitenaf, kan je vanop het hostsysteem in de file explorer werken, maar dit is niet zo interessant.  De foutboodschappen geven weinig of geen informatie die helpt bij het vinden van de oorzaak van het probleem. Gebruik liever \texttt{smbclient}, daarmee krijg je alvast iets duidelijker foutboodschappen. Enkele voorbeelden van het gebruik:
 
+\begin{itemize}
+  \item Geef een overzicht van de shares op server \texttt{FILES}
+    \begin{minted}[gobble=6]{console}
+      smbclient -L //files/
+    \end{minted}
+  \item Log in op een share als gebruiker \texttt{lizae} met wachtwoord \texttt{letmein}
+    \begin{minted}[gobble=6]{console}
+      smbclient //files/public/ -Ulizae%letmein
+    \end{minted}
+  \item Log in op een share als "gast"
+    \begin{minted}[gobble=6]{console}
+      smbclient //files/public -U%
+    \end{minted}
+\end{itemize}
+
 Voor gedetailleerde richtlijnen naar het troubleshooten van Samba, zie~\textcite{TrigdellEtAl2010,CarterEtAl2010}
-
-\begin{verbatim}
-## Geef een overzicht van de shares op server FILES
-smbclient -L //files/
-
-## Log in op een share als gebruiker lizae met wachtwoord letmein
-smbclient //files/public/ -Ulizae%letmein
-
-## Log in op een share als "gast"
-smbclient //files/public -U%
-\end{verbatim}
 
 \section{Troubleshooting}
 \label{sec:troubleshooting-1}
@@ -564,21 +577,21 @@ De beste manier om het troubleshooten van netwerkservices systematiseren is om d
 
 \begin{enumerate}
   \item Datalinklaag: kabels, netwerkpoorten op de switch/router, netwerkkaart, enz.;
-  \item Internetlaag: IP adresconfiguratie, default gateway, DNS-server;
-  \item Transportlaag: toestand netwerkservice, open netwerkpoorten, firewall-instellingen;
+  \item Internetlaag: IP adresconfiguratie, default gateway, DNS-server en connectiviteit binnen het LAN;
+  \item Transportlaag: toestand netwerkservice, open netwerkpoorten, firewall-in\-stel\-lingen;
   \item Applicatielaag: fouten in configuratiebestanden, logbestanden, bereikbaarheid service vanop het netwerk, enz.
 \end{enumerate}
 
-Deze werkwijze wordt verder uitgediept in \textcite{VanVreckem2015}. \textbf{Lees die grondig}, verwerk wat je er leert in je eigen cheat sheet. Tip: je kan een gelijkaardige checklist maken voor bv.~Windows Server. De werkwijze is net hetzelfde, je moet enkel opzoeken hoe je op Windows deze zaken kan controleren.
+Deze werkwijze wordt verder uitgediept in \textcite{VanVreckem2015}. \textbf{Bestudeer die grondig}, verwerk wat je er leert in je eigen cheat sheet. Tip: je kan een gelijkaardige checklist maken voor bv.~Windows Server. De werkwijze is net hetzelfde, je moet enkel opzoeken hoe je op Windows deze zaken kan controleren.
 
 Nog enkele tips bij het troubleshooten:
 \begin{itemize}
   \item Werk je checklist bij wanneer je nieuwe dingen leert.
-  \item Wees \textbf{grondig}. Sla nooit stappen over (een typische: kabels vergeten nakijken).
+  \item Wees \textbf{grondig}. Sla nooit stappen over (een typische: kabels vergeten nakijken, of IP instellingen onvoldoende controleren).
   \item Lees de \textbf{foutboodschappen}. Die geven aan wat er precies misloopt. Zoek ze op met Google.
   \item Werk in \textbf{kleine stappen} en verifieer elke stap.
   \item Geen veronderstellingen! \textbf{Testen!}
   \item Maak een \textbf{backup van configuratiebestanden}, in elk geval de \emph{originele} en de laatst gekende werkende versie.
-  \item \textbf{Valideer altijd configuratiebestanden} voordat je de service opstart.
+  \item \textbf{Valideer configuratiebestanden} voordat je de service opstart.
   \item Werk met verschillende terminals, gebruik er minstens één voor het tonen van de logbestanden (\texttt{journalctl -f})
 \end{itemize}
