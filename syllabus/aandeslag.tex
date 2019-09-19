@@ -448,7 +448,7 @@ Het is niet altijd evident om fouten op te sporen in de configuratie van een BIN
           /var/named/15.168.192.in-addr.arpa
     \end{minted}
 
-\item Je kan foutboodschappen van de service bekijken met \texttt{journalctl}. Het handigste is om een aparte console te openen, in te loggen op je server en dan het volgende commando uit te voeren:
+  \item Je kan foutboodschappen van de service bekijken met \texttt{journalctl}. Het handigste is om een aparte console te openen, in te loggen op je server en dan het volgende commando uit te voeren:
 
     \begin{minted}[gobble=6]{console}
       $ sudo rndc querylog on
@@ -458,6 +458,15 @@ Het is niet altijd evident om fouten op te sporen in de configuratie van een BIN
   Het eerste commando zorgt dat DNS-queries van clients in de logs verschijnen (wat standaard uit staat). Het tweede commando toont de logs van BIND.
 
   Open een andere console om commando's uit te voeren (bv. de service herstarten). Je ziet dan meteen relevante info- en foutboodschappen verschijnen.
+  
+  \item Een DNS service luister op poort 53, zowel over UDP als TCP, afhankelijk van welk protocol de client kiest. Controleer dus je firewall-instellingen! Het beste is om de dns-service toe te voegen aan de regels in plaats van de poortnummers te specifiëren:
+  
+  \begin{minted}{console}
+  $ sudo firewall-cmd --add-port=53/udp --permanent # --> FOUT
+  $ sudo firewall-cmd --add-service=dns --permanent # --> GOED  
+  \end{minted}
+  
+  Als slechts één van de twee transportprotocollen doorgelaten wordt, zal de service niet werken.
 \end{itemize}
 
 Naast het valideren van de configuratiebestanden, is het ook belangrijk om te testen of de DNS-server ook correct antwoordt op aanvragen van clients. Installeer de package \texttt{bind-tools} om een aantal nuttige tools ter beschikking te krijgen. Het commando \texttt{nslookup} zal je misschien herkennen vanuit Windows. Het werkt hier op dezelfde manier:
