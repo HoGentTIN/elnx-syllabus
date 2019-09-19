@@ -37,7 +37,7 @@ Richtlijnen voor het opstarten van je Git project:
   
   \item Creëer een nieuwe \emph{branch} met de naam \texttt{solution} om je eigen code en documentatie bij te houden. Verderop wordt duidelijk waarom dit belangrijk is.
 
-    \begin{minted}[gobble=6]{console}
+    \begin{minted}[gobble=6,linenos=false]{console}
       $ git checkout -b solution
     \end{minted}
 
@@ -49,7 +49,7 @@ Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudi
 \begin{enumerate}
   \item Eerst moet je zorgen dat je updates kan binnenhalen van de repository met de opdracht. Het volgende commando zorgt dat je kan synchroniseren met die repository. Dit moet slechts één keer gebeuren.
 
-    \begin{minted}[gobble=6]{console}
+    \begin{minted}[gobble=6,linenos=false]{console}
       $ git remote add upstream https://github.com/HoGentTIN/elnx-sme.git
     \end{minted}
 
@@ -404,7 +404,7 @@ Het is niet altijd evident om fouten op te sporen in de configuratie van een BIN
 
 \begin{itemize}
   \item Test de syntax van configuratiebestanden voordat je de service opstart. Voor het hoofd-configuratiebestand \path{/etc/named.conf} is het commando:
-    \begin{minted}[gobble=6]{console}
+    \begin{minted}[gobble=6,linenos=false]{console}
       $ sudo named-checkconf /etc/named.conf
     \end{minted}
   \item De syntax testen van zonebestanden gebeurt zo (voorbeeld voor forward en reverse zone, respectievelijk):
@@ -549,15 +549,15 @@ Om te testen of de share toegankelijk is van buitenaf, kan je vanop het hostsyst
 
 \begin{itemize}
   \item Geef een overzicht van de shares op server \texttt{FILES}
-    \begin{minted}[gobble=6]{console}
+    \begin{minted}[gobble=6,linenos=false]{console}
       smbclient -L //files/
     \end{minted}
   \item Log in op een share als gebruiker \texttt{lizae} met wachtwoord \texttt{letmein}
-    \begin{minted}[gobble=6]{console}
+    \begin{minted}[gobble=6,linenos=false]{console}
       smbclient //files/public/ -Ulizae%letmein
     \end{minted}
   \item Log in op een share als "gast"
-    \begin{minted}[gobble=6]{console}
+    \begin{minted}[gobble=6,linenos=false]{console}
       smbclient //files/public -U%
     \end{minted}
 \end{itemize}
@@ -595,3 +595,29 @@ Nog enkele tips bij het troubleshooten:
   \item \textbf{Valideer configuratiebestanden} voordat je de service opstart.
   \item Werk met verschillende terminals, gebruik er minstens één voor het tonen van de logbestanden (\texttt{journalctl -f})
 \end{itemize}
+
+\section{Vaak voorkomende problemen}
+\label{sec:problemen}
+
+In deze sectie worden enkele vaak voorkomende problemen met hun oplossing opgesomd.
+
+\subsection{VM opstarten vanuit VirtualBox GUI}
+
+\begin{minted}{text}
+Vagrant was unable to mount VirtualBox shared folders. This is usually
+because the filesystem "vboxsf" is not available. This filesystem is
+made available via the VirtualBox Guest Additions and kernel module.
+Please verify that these guest additions are properly installed in the
+guest. This is not a bug in Vagrant and is usually caused by a faulty
+Vagrant box. For context, the command attempted was:
+
+mount -t vboxsf -o uid=1000,gid=1000 vagrant /vagrant
+
+The error output from the command was:
+
+/sbin/mount.vboxsf: mounting failed with the error: No such device
+\end{minted}
+
+Deze foutboodschap geeft aan dat de directory \texttt{/vagrant}, die je projectdirectory op je fysieke systeem voorstelt (de kloon van je Github-repo), niet beschikbaar is binnen de VM. Meestal is de oorzaak dat je de VM hebt opgestart vanuit de VirtualBox GUI in plaats van via het commando \texttt{vagrant up}. Het commando zal niet enkel de VM aanzetten, maar ook een aantal basisinstellingen toepassen zoals port forwarding voor SSH, netwerkinterfaces een IP adres toekennen, en de \texttt{/vagrant} directory beschikbaar maken binnen de VM.
+
+\textbf{Start VMs altijd op via de command line.} Je hebt de VirtualBox GUI \textit{niet} meer nodig, tenzij voor troubleshooting.
