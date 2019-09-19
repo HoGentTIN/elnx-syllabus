@@ -44,6 +44,8 @@ Richtlijnen voor het opstarten van je Git project:
   \item Bekijk de bestanden in de \path{assignment/} directory. Hier vind je de opgave van deelopdrachten en sjablonen voor verslagen en cheat sheets in Markdown-formaat~\autocite{Gruber2004}. Pas alvast het sjabloon aan, vul er je eigen naam in.
 \end{enumerate}
 
+\subsection{Errata}
+
 Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudig binnen halen, maar enkel als je een eigen branch aangemaakt hebt.
 
 \begin{enumerate}
@@ -69,6 +71,37 @@ Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudi
     \end{itemize}
 
 Deze procedure werkt niet als je geen branch voor je eigen oplossing gemaakt hebt. In dat geval haal je jezelf een hoop ellende op de hals\ldots
+
+Als er conflicten optreden in bestanden, blijft Git in ``rebase-modus'' steken en kan je voorlopig niet verder werken. Voer eerst \texttt{git status} uit om een lijst te krijgen met alle betrokken bestanden.
+
+\begin{minted}{console}
+$ git status
+rebase in progress; onto e5bd2df
+You are currently rebasing branch 'master' on 'e5bd2df'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add <file>..." to mark resolution)
+
+    both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+\end{minted}
+
+Open deze één voor één met je teksteditor en zoek naar de markeringen voor conflicten, bv.
+
+\begin{minted}{text}
+If you have questions, please
+<<<<<<< HEAD
+open an issue
+=======
+ask your question in IRC.
+>>>>>>> branch-a
+\end{minted}
+
+Bewerk alle bestanden met conflicten en verbeter de code. Vervolgens voeg je alle aangepaste bestanden toe met \texttt{git add .} en kan je het rebase-proces verder zetten met \verb|git rebase --continue|. Gebruik tussendoor regelmatig \texttt{git status} om te zien hoe ver je staat en welke commando's je nodig hebt om een stap verder te gaan.
 
 \end{enumerate}
 
