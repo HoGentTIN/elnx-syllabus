@@ -1,5 +1,7 @@
-# vagrant-hosts.yml
-# Specify the VMs in this Vagrant environment
+# vagrant-hosts.yml - List of hosts to be created by Vagrant.
+#
+# For more information about the possible settings, see the documentation at
+# <https://github.com/bertvv/ansible-skeleton>
 ---
 
 - name: db

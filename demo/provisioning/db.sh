@@ -77,8 +77,6 @@ start_basic_services() {
   systemctl restart network.service
   systemctl enable firewalld.service
   systemctl start firewalld.service
-  firewall-cmd --add-service=mysql --permanent
-  firewall-cmd --add-service=mysql
 }
 
 setup_mariadb() {
