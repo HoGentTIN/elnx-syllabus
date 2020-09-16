@@ -1,9 +1,9 @@
-\chapter{Opdrachten}
+\chapter{Opdrachten}%
 \label{ch:opdrachten}
 
 In dit hoofdstuk worden de verschillende taken en opdrachten toegelicht die je in het kader van deze cursus moet uitvoeren. De bedoeling van deze opdrachten is dat je die gebruikt als aanzet om een dieper inzicht te krijgen in de werking van Linux, Ansible, virtualisatie, enz. Probeer a.u.b.~\emph{``voodoo programming''} te vermijden, het intikken van code of uitvoeren van commando's zonder ze te begrijpen, totdat het er op lijkt dat ``het werkt''. Ook al gebruik je een tool om het configureren van servers te automatiseren, toch blijft het nodig om de onderliggende werking te begrijpen: de structuur en syntax van configuratiebestanden, de belangrijkste commando's voor systeembeheertaken, enz.
 
-\section{Hoofdopdracht}
+\section{Hoofdopdracht}%
 \label{sec:hoofdopdracht}
 
 De hoofdopdracht omvat het opzetten van ict-infrastructuur op basis van Linux. We werken in een gevirtualiseerde omgeving en er is een bijzondere aandacht voor \emph{automatiseren} en \emph{testen}. Je moet dus in staat zijn de systemen ``from scratch'' op te bouwen met een minimum aan manuele handelingen. Daarna moet je kunnen aantonen dat deze systemen voldoen aan de opgelegde specificaties aan de hand van geautomatiseerde tests en een gedetailleerd testplan en -rapport.
@@ -22,7 +22,7 @@ De eerste opdracht is in detail uitgewerkt met geautomatiseerde functionele test
 
 Langs de andere kant zijn de twee andere opdrachten meer representatief voor de manier waarop Linux tegenwoordig in de praktijk wordt toegepast. Studenten die er naar streven (of overwegen) om als Linux system engineer aan de slag te gaan, kunnen met deze opdrachten relevante ervaring op doen.
 
-\subsection{Small/Medium Enterprise infrastructure}
+\subsection{Small/Medium Enterprise infrastructure}%
 \label{subs:smallmedium-enterprise-infrastructure}
 
 In deze opdracht speel je de rol van de klassieke systeembeheerder of \textit{system engineer} en zet je een volledig (gevirtualiseerd) netwerkdomein op met de enkele typische netwerkdiensten voor een kantooromgeving (zie Figuur~\ref{fig:sme}).
@@ -30,7 +30,7 @@ In deze opdracht speel je de rol van de klassieke systeembeheerder of \textit{sy
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{img/assignment-sme.png}
-  \caption[Netwerkdiagram SME-opdracht]{Diagram van het op te zetten kantoornetwerk in de SME-opdracht. Links van de router bevindt zich het netwerk met publiek toegankelijke services (IP range 192.0.2.0/24), rechts het interne netwerk (172.16.0.0/16) met werkstations en netwerkservices voor intern gebruik. Merk op dat sommige van de vernoemde machines niet tot de opdracht behoren, maar enkel dienen als illustratie.}
+  \caption[Netwerkdiagram SME-opdracht]{Diagram van het op te zetten kantoornetwerk in de SME-opdracht. Links van de router bevindt zich het netwerk met publiek toegankelijke services (IP range 192.0.2.0/24), rechts het interne netwerk (172.16.0.0/16) met werkstations en netwerkservices voor intern gebruik. Merk op dat sommige van de vernoemde machines niet tot de opdracht behoren, maar enkel dienen als illustratie.}%
   \label{fig:sme}
 \end{figure}
 
@@ -44,7 +44,7 @@ Deze opdracht bestaat uit een aantal deeltaken:
 \item Integratie, configuratie router
 \end{itemize}
 
-\subsection{High availability}
+\subsection{High availability}%
 \label{subs:high-availability}
 
 In de tweede opdracht verkennen we de taken van een \textit{site reliability engineer (SRE)}. Het is de bedoeling om de infrastructuur op te zetten voor een grote website die veel webtrafiek moet kunnen verwerken. Typisch worden de netwerkservices die samen de klassieke LAMP-stack vormen verdeeld over verschillende machines (zie Figuur~\ref{fig:ha}):
@@ -60,11 +60,11 @@ Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht 
 \begin{figure}
   \centering
   \includegraphics[width=\textwidth]{img/assignment-ha.png}
-  \caption[Netwerkdiagram High Availability-opdracht]{Netwerkdiagram High Availability-opdracht. In een eerste opstelling draait de webserver in zijn geheel op een enkele VM met een monitoringsysteem voor de opvolging. Het einddoel is een opstelling waar alle services op aparte entiteiten draaien: een loadbalancer die requests verdeelt over een aantal webservers en een aparte database in de backend.}
+  \caption[Netwerkdiagram High Availability-opdracht]{Netwerkdiagram High Availability-opdracht. In een eerste opstelling draait de webserver in zijn geheel op een enkele VM met een monitoringsysteem voor de opvolging. Het einddoel is een opstelling waar alle services op aparte entiteiten draaien: een loadbalancer die requests verdeelt over een aantal webservers en een aparte database in de backend.}%
   \label{fig:ha}
 \end{figure}
 
-\subsection{Continuous Integration/Continuous Delivery}
+\subsection{Continuous Integration/Continuous Delivery}%
 \label{subs:continuous-delivery}
 
 Het derde jobprofiel dat je kan verkennen is dat van de \textit{release engineer}. Deze komt vooral voor in omgevingen waar webapplicaties de omzet van het bedrijf genereren, zoals bijvoorbeeld grote websites als Google, Amazon, Facebook, enz. De release engineer ondersteunt een team van software-ontwikkelaars om zo snel en zo vlot mogelijk nieuwe features in productie kunnen brengen. In plaats van grote, ingrijpende releases over langere periodes met veel nieuwe features, streeft men er tegenwoordig naar om kleinere releases te doen aan een hoger tempo (soms zelfs tientallen per dag), met bv.~slechts één nieuwe feature of verbetering. Voor deze manier van werken is specifieke infrastructuur nodig en is het nodig een aantal zaken verregaand te automatiseren.
@@ -82,7 +82,7 @@ Typisch verloopt dat proces volgens deze stappen:
   \item compilatie (indien van toepassing);
   \item uitvoeren van unit tests;
   \item packaging (bv.~RPM, .deb, tarball);
-  \item deployment in QA-omgeving (QA: Quality Assurance);
+  \item deployment in QA-omgeving (Quality Assurance);
   \item uitvoeren van functionele tests;
   \item deployment in productie-omgeving.
   \end{itemize}
@@ -98,20 +98,20 @@ De VMs die op de verschillende platformen draaien, worden toch zo identiek mogel
 Enkele concrete suggesties volgen hieronder. Behalve de Drupal-opdracht zijn dit allemaal reële casussen. Neem contact op met \href{mailto:bert.vanvreckem@hogent.be}{Bert Van Vreckem} indien je interesse hebt in deze opdrachten.
 
 \begin{itemize}
-  \item ASP.NET-applicatie op Docker\footnote{\url{https://www.docker.com/}}. Dit is een reële casus en het resultaat is in het beste geval een opstelling die in productie zal gebruikt worden binnen HOGENT. Recentelijk is er een nieuwe applicatie geschreven voor de administratieve opvolging van stages binnen de opleiding toegepaste informatica. Deze draait echter nog niet in productie. Jouw taak zou dan zijn om er voor te zorgen dat de applicatie kan worden gecompileerd en uitgerold in de productie-omgeving. De applicatie is geschreven om in Docker te draaien, dus via deze casus krijg je ook de kans daar ervaring mee op te doen. 
+  \item ASP.NET-applicatie op Docker\footnote{\url{https://www.docker.com/}}. Dit is een reële casus en het resultaat is in het beste geval een opstelling die in productie zal gebruikt worden binnen HOGENT.\@ Recentelijk is er een nieuwe applicatie geschreven voor de administratieve opvolging van stages binnen de opleiding toegepaste informatica. Deze draait echter nog niet in productie. Jouw taak zou dan zijn om er voor te zorgen dat de applicatie kan worden gecompileerd en uitgerold in de productie-omgeving. De applicatie is geschreven om in Docker te draaien, dus via deze casus krijg je ook de kans daar ervaring mee op te doen. 
   
   \item Android application development. Dit is een reële casus en bestaat uit het verbeteren en stroomlijnen van een proof-of-concept van een Jenkins build-server voor het compileren van Android applicaties die op Google cloud draait.
   
-  \item Geautomatiseerd testen van Ansible-rollen met Molecule\footnote{\url{https://github.com/ansible/molecule}}. Ook dit is een reële casus. De rollen \texttt{bertvv.bind}, \texttt{bertvv.vsftp}, enz. worden getest via Travis CI\footnote{Zie bijvoorbeeld \url{https://travis-ci.org/bertvv/ansible-role-bind}}. Voor elke ondersteunde Linux-distributie wordt een Docker-container opgestart waarop de Ansible-rol toegepast wordt, waarna er acceptatie-tests op uitgevoerd worden. Het testsysteem is ontwikkeld op een moment dat er nog geen algemeen gebruikte oplossingen bestonden voor het doorgedreven testen van Ansible-rollen. Het is gebaseerd op een shell-script en Docker images die specifiek voor deze toepassing zijn opgezet. Het onderhouden van de testinfrastructuur neemt veel tijd in beslag en regelmatig falen de tests omwille van fouten in het testsysteem. Molecule is een relatief nieuw systeem dat recent als het officiële Ansible-testplatform is verkozen. De bedoeling hier is om een proof-of-concept op te zetten voor het testen van de \texttt{bertvv.*}-rollen op basis van Molecule.
+  \item Geautomatiseerd testen van Ansible-rollen met Molecule\footnote{\url{https://github.com/ansible/molecule}}. Ook dit is een reële casus. De rollen \texttt{bertvv.bind}, \texttt{bertvv.vsftp}, enz.\ worden getest via Travis CI\footnote{Zie bijvoorbeeld \url{https://travis-ci.org/bertvv/ansible-role-bind}}. Voor elke ondersteunde Linux-distributie wordt een Docker-container opgestart waarop de Ansible-rol toegepast wordt, waarna er acceptatie-tests op uitgevoerd worden. Het testsysteem is ontwikkeld op een moment dat er nog geen algemeen gebruikte oplossingen bestonden voor het doorgedreven testen van Ansible-rollen. Het is gebaseerd op een shell-script en Docker images die specifiek voor deze toepassing zijn opgezet. Het onderhouden van de testinfrastructuur neemt veel tijd in beslag en regelmatig falen de tests omwille van fouten in het testsysteem. Molecule is een relatief nieuw systeem dat recent als het officiële Ansible-testplatform is verkozen. De bedoeling hier is om een proof-of-concept op te zetten voor het testen van de \texttt{bertvv.*}-rollen op basis van Molecule.
   
-  \item Automatisch genereren van PDF-bestanden uit \LaTeX{}-broncode en publicatie op Github. De bedoeling is hier om vanuit een Github-repo met \LaTeX-{}be\-stan\-den bij elke push in Travis-CI een build-omgeving op te zetten, het bestand te compileren (incl.~bibliografie, index, enz.), en de resulterende PDF te publiceren op Github, onder Releases. Het systeem moet in staat zijn om bestanden met de HOGENT huisstijlsjablonen te compileren, waarvoor o.a. specifieke fonts nodig zijn (bv. Montserrat). In Travis-CI moet je alle nodige packages downloaden en installeren, wat veel tijd in beslag neemt. Een mogelijke benadering is vooraf een Docker-container te prepareren waar de compilatie in kan uitgevoerd worden\footnote{Bijvoorbeeld \url{https://github.com/Vincevrp/docker-tex}}. Die kan ook lokaal getest worden, wat tijd bespaart bij het troubleshooten.
+  \item Automatisch genereren van PDF-bestanden uit \LaTeX{}-broncode en publicatie op Github. De bedoeling is hier om vanuit een Github-repo met \LaTeX-{}be\-stan\-den bij elke push in Travis-CI een build-omgeving op te zetten, het bestand te compileren (incl.\ bibliografie, index, enz.), en de resulterende PDF te publiceren op Github, onder Releases. Het systeem moet in staat zijn om bestanden met de HOGENT huisstijlsjablonen te compileren, waarvoor o.a.\ specifieke fonts nodig zijn (bv.\ Montserrat). In Travis-CI moet je alle nodige packages downloaden en installeren, wat veel tijd in beslag neemt. Een mogelijke benadering is vooraf een Docker-container te prepareren waar de compilatie in kan uitgevoerd worden\footnote{Bijvoorbeeld \url{https://github.com/Vincevrp/docker-tex}}. Die kan ook lokaal getest worden, wat tijd bespaart bij het troubleshooten.
 
-  \item Ontwikkelen van Drupal plugins. De developer krijgt een VM met Drupal die toelaat om code te schrijven op het hostsysteem en die onmiddellijk zichtbaar is (bv. via VirtualBox shared Folders). Bij committen van code in het versiebeheersysteem worden linters/code analyzers uitgevoerd en geautomatiseerde tests. Eventueel kunnen tests op verschillende versies van PHP/MySQL/Drupal in parallel uitgevoerd worden. Als dit lukt, wordt een package gecreëerd dat kan gepubliceerd worden voor gebruikers.
+  \item Ontwikkelen van Drupal plugins. De developer krijgt een VM met Drupal die toelaat om code te schrijven op het hostsysteem en die onmiddellijk zichtbaar is (bv.\ via VirtualBox shared Folders). Bij committen van code in het versiebeheersysteem worden linters/code analyzers uitgevoerd en geautomatiseerde tests. Eventueel kunnen tests op verschillende versies van PHP/MySQL/Drupal in parallel uitgevoerd worden. Als dit lukt, wordt een package gecreëerd dat kan gepubliceerd worden voor gebruikers.
 \end{itemize}
 
 \textbf{Opmerking.} Studenten die deze opdracht combineren met het DevOps-project wordt gevraagd om voor dit vak een andere casus te kiezen. Hetzelfde werk indienen voor twee verschillende vakken is een oneerlijk voordeel dat andere studenten niet hebben. Je kan wel voor beide vakken dezelfde achterliggende technologieën gebruiken zodat je de opgedane kennis wel in beide kan toepassen.
 
-\section{Actualiteit}
+\section{Actualiteit}%
 \label{sec:actualiteit}
 
 Bij elke rol in de ict-sector is het voortdurend bijwerken van je vakkennis onontbeerlijk om de snelle evolutie in je vakgebied bij te kunnen benen. In Linux systeembeheer is dat niet anders. Wat ons vakgebied kenmerkt is een uitgesproken wil om informatie en kennis te delen. \emph{Sharing is caring!} Er is dan ook een schat van informatie te vinden over de meest recente evoluties via blogs, conferenties waarvan de lezingen op Youtube of Vimeo gepubliceerd zijn, enz.
@@ -120,14 +120,14 @@ De bedoeling van deze taak is aan te tonen dat je deze evoluties ook opvolgt en 
 
 \begin{itemize}
   \item Pas een recentelijk gepubliceerde techniek, tool, \ldots{} toe op de opstelling van je hoofdopdracht;
-  \item Doe een bijdrage aan een open source project gerelateerd aan de cursus (incl. tools en projecten die door de lector onderhouden worden\footnote{\url{https://github.com/bertvv/}}).
+  \item Doe een bijdrage aan een open source project gerelateerd aan de cursus (incl.\ tools en projecten die door de lector onderhouden worden\footnote{\url{https://github.com/bertvv/}}).
 \end{itemize}
 
 Samenwerken met één of enkele medestudenten is toegelaten. In dat geval moet elke student individueel kunnen aantonen een significante bijdrage geleverd te hebben via duidelijke rapportering, Git commits, \ldots
 
-\textbf{Begin zo snel mogelijk hier aan te werken!} Wacht niet tot het einde van het semester om dan snel iets in elkaar te flansen. Dit kan leiden tot een beoordeling ``nog niet bekwaam,'' met als gevolg dat je niet kan slagen.
+\textbf{Begin zo snel mogelijk hier aan te werken!} Wacht niet tot het einde van het semester om dan snel iets in elkaar te flansen. Dit kan leiden tot een beoordeling ``nog niet bekwaam'', met als gevolg dat je niet kan slagen.
 
-\subsection{Nieuwe technieken uitproberen}
+\subsection{Nieuwe technieken uitproberen}%
 \label{subs:nieuwe-technieken-uitproberen}
 
 Zoals eerder aangegeven, vormen Linux-systeembeheerders een ``community'' waar er veel informatie uitgewisseld wordt. Sommigen gieten zaken die ze bijleren in een blog-artikel, gaan erover spreken op conferenties, enz.
@@ -140,10 +140,10 @@ De bedoeling hier is om zo'n artikel of lezing toe te passen op de labo-opdracht
   \item Fail2ban is een Intrusion Prevention System dat een server kan beschermen tegen brute-force of denial of service-aanvallen \autocite{Sawiyati2014}. Kan je dit toepassen op onze servers? Het is uiteraard wel de bedoeling dit via Ansible te doen. Dat kan hetzij via een bestaande rol (zie Ansible Galaxy), die je zo nodig aanpast, hetzij één die je zelf schrijft.
   \item Secure Shell is de standaard manier om Linux-servers op een veilige manier van over het netwerk te beheren. Maar volgens \textcite{stribika2015} is het mogelijk om \texttt{sshd} nog beter te beveiligen. Kan je dit toepassen op onze servers? Kan je eventueel een Ansible-rol voor het beher van \texttt{sshd} gebruiken en verbeteren op basis van het artikel?
   \item Zoals onze opstelling nu is, zullen wachtwoorden in de \texttt{host\_vars} of \texttt{group\_vars} bestanden opgeslagen worden. Dit is niet ideaal: we steken onze code in een versiebeheersysteem, maar wachtwoorden horen daar met het oog op beveiliging helemaal niet in thuis. Ansible heeft hiervoor een oplossing: Ansible Vault\footnote{\url{https://docs.ansible.com/ansible/playbooks_vault.html}}. \textcite{Blanc2015} beschrijft een methode om het gebruik van Ansible Vault zo transparant mogelijk te maken. Kan je het toepassen in onze opstelling?
-  \item \textcite{Johnson2015} schreef een artikel over het versnellen van Ansible. Kloppen zijn aanbevelingen? Kan je dat aantonen, m.a.w. het tijdverschil meten tussen de standaardinstellingen en zijn aanpassingen?
+  \item \textcite{Johnson2015} schreef een artikel over het versnellen van Ansible. Kloppen zijn aanbevelingen? Kan je dat aantonen, m.a.w.\ het tijdverschil meten tussen de standaardinstellingen en zijn aanpassingen?
 \end{itemize}
 
-Je kan de blogs waar naar gerefereerd werd in deze voorbeelden opvolgen (bv. via een RSS reader), hieronder volgen er nog enkele:
+Je kan de blogs waar naar gerefereerd werd in deze voorbeelden opvolgen (bv.\ via een RSS reader), hieronder volgen er nog enkele:
 
 \begin{itemize}
 \item AT Blog: \url{http://www.atcomputing.nl/blog/}
@@ -156,7 +156,7 @@ Je kan de blogs waar naar gerefereerd werd in deze voorbeelden opvolgen (bv. via
 \item Linux Journal: \url{http://www.linuxjournal.com/}
 \item Major.io (Major Hayden): \url{https://major.io/}
 \item ma.ttias.be (Mattias Geniar): \url{https://ma.ttias.be/}
-\item Planet CentOS: \url{http://planet.centos.org/}
+\item Planet CentOS:\ \url{http://planet.centos.org/}
 \item Runaway Sequence (Aaron Hunter): \url{http://sharknet.us/}
 \item Standalone Sysadmin (Matt Simmons): \url{https://www.standalone-sysadmin.com/blog/}
 \item SysadminCasts (Justin Weissig): \url{https://sysadmincasts.com/}
@@ -167,14 +167,14 @@ Vond je andere interessante blogs? Geef maar door aan de lectoren! Andere bronne
 
 Ben je zelf buiten de opleiding om bezig met Linux? Bespreek met de lector of je je ervaringen, experimenten, \ldots{} eventueel kan inbrengen voor deze opdracht.
 
-\subsection{Bijdrage aan een open source project}
+\subsection{Bijdrage aan een open source project}%
 \label{subs:bijdrage-aan-een-open-source-project}
 
 Alle tools waar we in de cursus gebruiken zijn open source. Sommige, zoals Ansible, werden door een softwarebedrijf ontwikkeld die daar een businessmodel rond gebouwd hebben. Andere werden door enthousiastelingen in hun vrije tijd ontwikkeld. In elk geval kunnen we gratis gebruik maken van software van hoge kwaliteit, dankzij de inspanningen van velen.
 
 Het is passend daar iets voor terug te doen, dus de bedoeling is om een significante bijdrage te leveren aan een open source project dat gerelateerd is aan de cursus. Dit kan een kleine bijdrage zijn, maar voorwaarde is wel dat ze aanvaard is door de auteur(s) van het project.
 
-Je mag hiervoor samenwerken met één of meerdere medestudenten, maar de individuele bijdrage van elk teamlid moet aantoonbaar zijn (bv. aan de hand van Git commits). Zet hiervoor een aparte, publieke Github repository op, en verwijs er naar vanuit je laboverslag voor deze opdracht.
+Je mag hiervoor samenwerken met één of meerdere medestudenten, maar de individuele bijdrage van elk teamlid moet aantoonbaar zijn (bv.\ aan de hand van Git commits). Zet hiervoor een aparte, publieke Github repository op, en verwijs er naar vanuit je laboverslag voor deze opdracht.
 
 Enkele mogelijkheden:
 
@@ -192,12 +192,12 @@ Enkele mogelijkheden:
 
 Andere ideeën zijn ook welkom, bespreek die met de lector. Ook op Chamilo kan je nog enkele voorstellen vinden.
 
-\section{Rapportering en documentatie}
+\section{Rapportering en documentatie}%
 \label{sec:rapportering-en-documentatie}
 
-In de \texttt{assignment/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, \LaTeX\, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn (op Github of reeds lokaal met een editor met Markdown-ondersteuning). Gebruik bv. codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
+In de \texttt{assignment/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, {\LaTeX}, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn (op Github of reeds lokaal met een editor met Markdown-ondersteuning). Gebruik bv.\ codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
 
-\subsection{Laboverslagen}
+\subsection{Laboverslagen}%
 \label{subs:laboverslagen}
 
 Er is een sjabloon voorzien voor de laboverslagen. Pas dit sjabloon aan voor jezelf, vul bovenaan je naam in. Voor elke deeltaak maak je een apart verslag, waar je in detail uitlegt wat je precies gedaan hebt. Hoe heb je de taak aangepakt? Welke bronnen heb je gebruikt? Reflecteer ook over je vooruitgang: wat ging goed/niet goed? Wat heb je geleerd? Waar zit je vast, waar heb je nog problemen mee? Let wel: het is niet de bedoeling om code te gaan knippen en plakken in je laboverslag!
@@ -210,7 +210,7 @@ Door het lezen van het testrapport moet het duidelijk zijn in hoeverre de opdrac
 
 Ook bij de \textbf{troubleshooting-oefeningen} hoort een verslag. Deel je verslag op in secties voor de verschillende fasen in het troubleshooting-proces. Je kan je verslag al voorbereiden door de commando's die je zeker moet uitvoeren er alvast in op te sommen, samen met verwachte resultaten (voor zover dit al op voorhand kan). Sla dit op als een apart sjabloon specifiek voor troubleshooting. Bij het uitvoeren van de oefening kan je dit dan aanvullen met de effectieve resultaten die je krijgt, en de commando's/configuratiewijzigingen die je hebt uitgevoerd om problemen op te lossen.
 
-\subsection{Cheat-sheets en checklists}
+\subsection{Cheat-sheets en checklists}%
 \label{subs:cheat-sheets-en-checklists}
 
 Wanneer je niet gewend bent om met Linux te werken, dan is het niet evident om op te zoeken en te onthouden welke commando's je nodig hebt voor welke taak. Via Google vind je wel vaak een oplossing, maar dat ligt niet altijd voor de hand. Er zijn bijvoorbeeld recentelijk substantiële wijzigingen doorgevoerd in de architectuur van de belangrijkste Linux-distributies waardoor bepaalde commando's (die je erg vaak tegenkomt bij Googlen) niet meer werken.
@@ -223,7 +223,7 @@ Je kan inspiratie opdoen op deze Github-repository waar een aantal cheat-sheets 
 
 Bij de evaluatie wordt er rekening mee gehouden hoe je deze documenten hebt bijgehouden in de loop van het jaar (aan de hand van de commit log).
 
-\subsection{Bloggen}
+\subsection{Bloggen}%
 \label{subs:bloggen}
 
 Technische blogs zoals deze die eerder aangehaald werden zijn een meer en meer voorkomende manier om ervaringen en informatie uit te wisselen binnen ons vakgebied. Studenten die gaan solliciteren (en ook wie al in het vak staat) kunnen met een eigen blog aan potentiële werkgevers aantonen dat ze gepassioneerd zijn door hun vak, bezig zijn met de laatste technologieën en open staan voor het delen van kennis. Je kan een eigen blog opstarten en schrijven over wat je in deze cursus (en ook andere!) leert, zaken die je zelf opgezocht en ondervonden hebt, \ldots
