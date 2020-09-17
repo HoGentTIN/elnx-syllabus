@@ -221,7 +221,7 @@ zone "56.168.192.in-addr.arpa" IN {
 ## Example zone file
 
 ```
-$ORIGIN example.com
+$ORIGIN example.com.
 $TTL 1W
 
 @ IN SOA ns1.example.com. hostmaster.example.com. (
