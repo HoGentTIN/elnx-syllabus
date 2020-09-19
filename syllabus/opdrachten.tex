@@ -13,7 +13,7 @@ De infrastructuur die je bouwt moet telkens volledig ``from scratch'' kunnen wor
 Je kiest aan het begin van het semester één van deze drie opdrachten die je de komende maanden verder uitwerkt.
 
 \begin{itemize}
-\item \emph{Small/Medium Enterprise infrastructure:} het opzetten van een bedrijfsnetwerk voor een KMO.
+\item \emph{Small/Medium Enterprise infrastructure:} het opzetten van een bedrijfsnetwerk voor een KMO
 \item \emph{High availability:} het opzetten van een robuust webserverplatform
 \item \emph{Release Engineering:} het opzetten van een ``build pipeline'' voor de ontwikkeling van webapplicaties
 \end{itemize}
@@ -55,7 +55,7 @@ In de tweede opdracht verkennen we de taken van een \textit{site reliability eng
 \item De \textit{database-backend} komt op een aparte server.
 \end{itemize}
 
-Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht heeft van de correcte werking van alle componenten. Om dit te realiseren moet je een monitoring-systeem implementeren met een dashboard dat een overzicht geeft van het platform. Je moet in het bijzonder in staat zijn om de \textit{bottleneck resource} te identificeren, de hardware- of systeembron die het eerst verzadigd wordt door de binnenkomende trafiek. Dat kan de CPU zijn, het geheugen, I/O (netwerk of opslag), enz.
+Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht heeft van de correcte werking van alle componenten. Om dit te realiseren moet je een monitoring-systeem implementeren met een dashboard dat een overzicht geeft van het platform. Je moet in het bijzonder in staat zijn om de \textit{bottleneck resource} te identificeren, de hardware- of systeembron die het eerst verzadigd wordt wanneer het systeem meer en meer belast wordt. Dat kan de CPU zijn, het geheugen, I/O (netwerk of opslag), enz.
 
 \begin{figure}
   \centering
@@ -67,7 +67,7 @@ Bij dit soort opstellingen is het ook essentieel dat de beheerder een overzicht 
 \subsection{Continuous Integration/Continuous Delivery}%
 \label{subs:continuous-delivery}
 
-Het derde jobprofiel dat je kan verkennen is dat van de \textit{release engineer}. Deze komt vooral voor in omgevingen waar webapplicaties de omzet van het bedrijf genereren, zoals bijvoorbeeld grote websites als Google, Amazon, Facebook, enz. De release engineer ondersteunt een team van software-ontwikkelaars om zo snel en zo vlot mogelijk nieuwe features in productie kunnen brengen. In plaats van grote, ingrijpende releases over langere periodes met veel nieuwe features, streeft men er tegenwoordig naar om kleinere releases te doen aan een hoger tempo (soms zelfs tientallen per dag), met bv.~slechts één nieuwe feature of verbetering. Voor deze manier van werken is specifieke infrastructuur nodig en is het nodig een aantal zaken verregaand te automatiseren.
+Het derde jobprofiel dat je kan verkennen is dat van de \textit{release engineer}. Deze komt vooral voor in omgevingen waar webapplicaties de omzet van het bedrijf genereren, zoals bijvoorbeeld grote websites als Google, Amazon, Facebook, enz. De release engineer ondersteunt een team van software-ontwikkelaars om zo snel en zo vlot mogelijk nieuwe features in productie kunnen brengen. In plaats van grote, ingrijpende releases met veel nieuwe features, verspreid over langere periodes, streeft men er tegenwoordig naar om kleinere releases te doen aan een hoger tempo (soms zelfs tientallen per dag), met bv.~slechts één nieuwe feature of verbetering. Voor deze manier van werken is specifieke infrastructuur nodig en is het nodig een aantal zaken verregaand te automatiseren.
 
 De bedoeling van deze opdracht is om een Continuous Delivery ``build pipeline'' te bouwen voor een zelf te kiezen casus.
 
@@ -88,28 +88,26 @@ Typisch verloopt dat proces volgens deze stappen:
   \end{itemize}
 
 \item De ``QA environment'' is een VM op een zelf te kiezen virtualisatieplatform (bv. KVM, OpenNebula, Docker)
-\item Wanneer alle tests slagen, wordt de nieuwe code automatisch gepromoveerd naar de volgende stap, in het beste geval tot en met de ``productie-omgeving'' op een cloud-platform (bv. Amazon AWS of DigitalOcean).
+\item Wanneer alle tests slagen, wordt de nieuwe code automatisch gepromoveerd naar de volgende stap, in het beste geval tot en met de ``productie-omgeving'' op een cloud-platform (bv.\ Amazon AWS of DigitalOcean).
 \end{itemize}
 
 Je moet de hele pipeline kunnen demonstreren. Na een wijziging in de code te pushen moet je (na verloop van tijd) de wijziging op de productieserver kunnen zien.
 
-De VMs die op de verschillende platformen draaien, worden toch zo identiek mogelijk geconfigureerd. Hier bestaan tools voor, bv.~Packer.  Je mag ook containers (bv. Docker) gebruiken om je applicatie in te pakken. De build server kan Jenkins zijn, je kan ook kijken naar Travis CI of Gitlab. Voor het laatste kan je gebruik maken van een abonnement op het Gitlab Gold Plan. Indien je hiermee wil werken, neem dan contact op met \href{mailto:bert.vanvreckem@hogent.be}{Bert Van Vreckem}.
+De VMs die op de verschillende platformen draaien, worden toch zo identiek mogelijk geconfigureerd. Hier bestaan tools voor, bv.\ Packer. Je mag ook containers (bv.\ Docker) gebruiken om je applicatie in te pakken. De build server kan Jenkins zijn, je kan ook kijken naar Travis CI of Gitlab. Voor het laatste kan je gebruik maken van een abonnement op het Gitlab Gold Plan. Indien je hiermee wil werken, neem dan contact op met \href{mailto:bert.vanvreckem@hogent.be}{Bert Van Vreckem}.
 
-Enkele concrete suggesties volgen hieronder. Behalve de Drupal-opdracht zijn dit allemaal reële casussen. Neem contact op met \href{mailto:bert.vanvreckem@hogent.be}{Bert Van Vreckem} indien je interesse hebt in deze opdrachten.
+Enkele concrete suggesties volgen hieronder. Neem contact op met \href{mailto:bert.vanvreckem@hogent.be}{Bert Van Vreckem} indien je interesse hebt in deze opdrachten.
 
 \begin{itemize}
-  \item ASP.NET-applicatie op Docker\footnote{\url{https://www.docker.com/}}. Dit is een reële casus en het resultaat is in het beste geval een opstelling die in productie zal gebruikt worden binnen HOGENT.\@ Recentelijk is er een nieuwe applicatie geschreven voor de administratieve opvolging van stages binnen de opleiding toegepaste informatica. Deze draait echter nog niet in productie. Jouw taak zou dan zijn om er voor te zorgen dat de applicatie kan worden gecompileerd en uitgerold in de productie-omgeving. De applicatie is geschreven om in Docker te draaien, dus via deze casus krijg je ook de kans daar ervaring mee op te doen. 
+  \item ASP.NET-applicatie op Docker\footnote{\url{https://www.docker.com/}}.
   
-  \item Android application development. Dit is een reële casus en bestaat uit het verbeteren en stroomlijnen van een proof-of-concept van een Jenkins build-server voor het compileren van Android applicaties die op Google cloud draait.
+  \item Android application development.
   
-  \item Geautomatiseerd testen van Ansible-rollen met Molecule\footnote{\url{https://github.com/ansible/molecule}}. Ook dit is een reële casus. De rollen \texttt{bertvv.bind}, \texttt{bertvv.vsftp}, enz.\ worden getest via Travis CI\footnote{Zie bijvoorbeeld \url{https://travis-ci.org/bertvv/ansible-role-bind}}. Voor elke ondersteunde Linux-distributie wordt een Docker-container opgestart waarop de Ansible-rol toegepast wordt, waarna er acceptatie-tests op uitgevoerd worden. Het testsysteem is ontwikkeld op een moment dat er nog geen algemeen gebruikte oplossingen bestonden voor het doorgedreven testen van Ansible-rollen. Het is gebaseerd op een shell-script en Docker images die specifiek voor deze toepassing zijn opgezet. Het onderhouden van de testinfrastructuur neemt veel tijd in beslag en regelmatig falen de tests omwille van fouten in het testsysteem. Molecule is een relatief nieuw systeem dat recent als het officiële Ansible-testplatform is verkozen. De bedoeling hier is om een proof-of-concept op te zetten voor het testen van de \texttt{bertvv.*}-rollen op basis van Molecule.
+  \item Geautomatiseerd testen van Ansible-rollen met Molecule\footnote{\url{https://github.com/ansible/molecule}}.
   
   \item Automatisch genereren van PDF-bestanden uit \LaTeX{}-broncode en publicatie op Github. De bedoeling is hier om vanuit een Github-repo met \LaTeX-{}be\-stan\-den bij elke push in Travis-CI een build-omgeving op te zetten, het bestand te compileren (incl.\ bibliografie, index, enz.), en de resulterende PDF te publiceren op Github, onder Releases. Het systeem moet in staat zijn om bestanden met de HOGENT huisstijlsjablonen te compileren, waarvoor o.a.\ specifieke fonts nodig zijn (bv.\ Montserrat). In Travis-CI moet je alle nodige packages downloaden en installeren, wat veel tijd in beslag neemt. Een mogelijke benadering is vooraf een Docker-container te prepareren waar de compilatie in kan uitgevoerd worden\footnote{Bijvoorbeeld \url{https://github.com/Vincevrp/docker-tex}}. Die kan ook lokaal getest worden, wat tijd bespaart bij het troubleshooten.
 
   \item Ontwikkelen van Drupal plugins. De developer krijgt een VM met Drupal die toelaat om code te schrijven op het hostsysteem en die onmiddellijk zichtbaar is (bv.\ via VirtualBox shared Folders). Bij committen van code in het versiebeheersysteem worden linters/code analyzers uitgevoerd en geautomatiseerde tests. Eventueel kunnen tests op verschillende versies van PHP/MySQL/Drupal in parallel uitgevoerd worden. Als dit lukt, wordt een package gecreëerd dat kan gepubliceerd worden voor gebruikers.
 \end{itemize}
-
-\textbf{Opmerking.} Studenten die deze opdracht combineren met het DevOps-project wordt gevraagd om voor dit vak een andere casus te kiezen. Hetzelfde werk indienen voor twee verschillende vakken is een oneerlijk voordeel dat andere studenten niet hebben. Je kan wel voor beide vakken dezelfde achterliggende technologieën gebruiken zodat je de opgedane kennis wel in beide kan toepassen.
 
 \section{Actualiteit}%
 \label{sec:actualiteit}
@@ -135,12 +133,13 @@ Zoals eerder aangegeven, vormen Linux-systeembeheerders een ``community'' waar e
 De bedoeling hier is om zo'n artikel of lezing toe te passen op de labo-opdracht. Een paar voorbeelden als inspiratie:
 
 \begin{itemize}
-  \item \textcite{Hayden2015} en \textcite{Davila2015} beschrijven een manier om RHEL of CentOS-sys\-te\-men te testen op vlak van beveiliging, gebaseerd op Ansible. Is het mogelijk dat toe te passen op onze systemen? In het artikel gaat het over versie 6, terwijl wij op versie 7 zitten. In hoeverre kan dit aangepast worden?
+  \item \textcite{Hayden2015} en \textcite{Davila2015} beschrijven een manier om RHEL of CentOS-sys\-te\-men te testen op vlak van beveiliging, gebaseerd op Ansible. Is het mogelijk dat toe te passen op onze systemen? In het artikel gaat het over versie 6, terwijl wij intussen op versie 8 zitten. In hoeverre kan dit aangepast worden?
   \item Gerelateerd aan het vorige voorstel: voer een security-audit uit met Lynis\footnote{\url{https://cisofy.com/lynis/}} op de VMs in je opstelling. Tracht de belangrijkste problemen op te lossen en verwerk dit in de Ansible-rollen die je gebruikt hebt. Dien eventueel een Pull Request in bij het Github-project van die rol.
   \item Fail2ban is een Intrusion Prevention System dat een server kan beschermen tegen brute-force of denial of service-aanvallen \autocite{Sawiyati2014}. Kan je dit toepassen op onze servers? Het is uiteraard wel de bedoeling dit via Ansible te doen. Dat kan hetzij via een bestaande rol (zie Ansible Galaxy), die je zo nodig aanpast, hetzij één die je zelf schrijft.
   \item Secure Shell is de standaard manier om Linux-servers op een veilige manier van over het netwerk te beheren. Maar volgens \textcite{stribika2015} is het mogelijk om \texttt{sshd} nog beter te beveiligen. Kan je dit toepassen op onze servers? Kan je eventueel een Ansible-rol voor het beher van \texttt{sshd} gebruiken en verbeteren op basis van het artikel?
   \item Zoals onze opstelling nu is, zullen wachtwoorden in de \texttt{host\_vars} of \texttt{group\_vars} bestanden opgeslagen worden. Dit is niet ideaal: we steken onze code in een versiebeheersysteem, maar wachtwoorden horen daar met het oog op beveiliging helemaal niet in thuis. Ansible heeft hiervoor een oplossing: Ansible Vault\footnote{\url{https://docs.ansible.com/ansible/playbooks_vault.html}}. \textcite{Blanc2015} beschrijft een methode om het gebruik van Ansible Vault zo transparant mogelijk te maken. Kan je het toepassen in onze opstelling?
   \item \textcite{Johnson2015} schreef een artikel over het versnellen van Ansible. Kloppen zijn aanbevelingen? Kan je dat aantonen, m.a.w.\ het tijdverschil meten tussen de standaardinstellingen en zijn aanpassingen?
+  \item In RHEL8 is een nieuwe tool geïntroduceerd voor monitoring: Performance Co-Pilot\footnote{\url{https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/monitoring_and_managing_system_status_and_performance/monitoring-performance-with-performance-co-pilot_monitoring-and-managing-system-status-and-performance}} (PCP). Probeer deze tool uit en zorg er voor dat je gehele opstelling via PCP kan opgevolgd worden.
 \end{itemize}
 
 Je kan de blogs waar naar gerefereerd werd in deze voorbeelden opvolgen (bv.\ via een RSS reader), hieronder volgen er nog enkele:
@@ -179,7 +178,7 @@ Je mag hiervoor samenwerken met één of meerdere medestudenten, maar de individ
 Enkele mogelijkheden:
 
 \begin{itemize}
-  \item Op Ansible Galaxy zijn veel rollen te vinden die beter kunnen, of waar de auteur niet genoeg tijd heeft om zaken toe te voegen of fouten op te lossen. Implementeer een nieuwe feature, zorg er voor dat ze op CentOS 7 draaien, verbeter fouten, \ldots{} Ook de lector apprecieert hulp bij het verder ontwikkelen van zijn Ansible-rollen \url{https://galaxy.ansible.com/bertvv/} en \url{https://github.com/search?q=user\%3Abertvv+ansible}.
+  \item Op Ansible Galaxy zijn veel rollen te vinden die beter kunnen, of waar de auteur niet genoeg tijd heeft om zaken toe te voegen of fouten op te lossen. Implementeer een nieuwe feature, zorg er voor dat ze op CentOS 8 draaien, verbeter fouten, \ldots{} Ook de lector apprecieert hulp bij het verder ontwikkelen van zijn Ansible-rollen \url{https://galaxy.ansible.com/bertvv/} en \url{https://github.com/search?q=user\%3Abertvv+ansible}.
 
   Het resultaat wordt ingediend als een Pull Request, de code volgt de richtlijnen voor stijl\footnote{\url{https://github.com/bertvv/ansible-role-skeleton/wiki}}, en wordt getest. Opties zijn niet \emph{hard-coded} maar blijven instelbaar via rolvariabelen. Waar mogelijk wordt een standaardwaarde gekozen die in de meeste gevallen het beste resultaat geeft, of wordt aan de hand van de eigenschappen van het systeem een waarde ``berekend'' of bepaald die voor dat systeem optimaal is. Alle nieuwe variabelen/features worden goed gedocumenteerd.
   
@@ -187,15 +186,15 @@ Enkele mogelijkheden:
 
   \item Schrijf een Ansible rol (waar nog geen alternatief voor CentOS voor bestaat) en publiceer die op Ansible Galaxy. Dit doe je best in samenwerking met één of meerdere medestudent(en)! Wanneer je voor de hoofdopdracht een nieuwe Ansible rol schrijft, kan je die algemeen bruikbaar maken en publiceren.
   
-  \item Pas een techniek die beschreven is voor een andere distributie (CentOS 6, Debian, Ubuntu, \ldots{}) toe op CentOS 7. In de vorige sectie vind je een paar concrete voorbeelden.
+  \item Pas een techniek die beschreven is voor een andere distributie (CentOS 6, Debian, Ubuntu, \ldots{}) toe op CentOS 8. In de vorige sectie vind je een paar concrete voorbeelden.
 \end{itemize}
 
-Andere ideeën zijn ook welkom, bespreek die met de lector. Ook op Chamilo kan je nog enkele voorstellen vinden.
+Andere ideeën zijn ook welkom, bespreek die met de lector. 
 
 \section{Rapportering en documentatie}%
 \label{sec:rapportering-en-documentatie}
 
-In de \texttt{assignment/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML, of makkelijk naar andere formaten kan omgezet worden (PDF, {\LaTeX}, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn (op Github of reeds lokaal met een editor met Markdown-ondersteuning). Gebruik bv.\ codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
+In de \texttt{assignment/} directory van je repository komt alle documentatie terecht in verband met de labo-taken. Het gebruikte formaat is Markdown~\autocite{Gruber2004,Github2016}, wat de standaard geworden is voor documentatie op Github (en ook andere Git hosting-oplossingen zoals Gitlab of Bitbucket). Markdown is een eenvoudig tekstformaat dat kan gerenderd worden als HTML.\@ Je kan het ook makkelijk omzetten naar andere formaten (PDF, {\LaTeX}, presentatie met reveal.js, enz.). Leer het formaat goed kennen en controleer of je verslagen duidelijk leesbaar zijn op Github. Moderne texteditors met Markdown-ondersteuning hebben een preview-functie (bv.\ Ctrl+Shift+V in VS Code). Gebruik bv.\ codeblokken met syntax colouring, links naar relevante code elders in de repository, enz.
 
 \subsection{Laboverslagen}%
 \label{subs:laboverslagen}
@@ -209,6 +208,8 @@ Het testplan is eigenlijk het scenario van de demo die je geeft aan de lector om
 Door het lezen van het testrapport moet het duidelijk zijn in hoeverre de opdracht is uitgevoerd, wat het effectieve resultaat van de tests was. Je kan transcripties toevoegen van de terminal (gebruik hiervoor Markdown codeblokken, geen screenshots!). Het testrapport zou evenveel informatie moeten bevatten als de demo.
 
 Ook bij de \textbf{troubleshooting-oefeningen} hoort een verslag. Deel je verslag op in secties voor de verschillende fasen in het troubleshooting-proces. Je kan je verslag al voorbereiden door de commando's die je zeker moet uitvoeren er alvast in op te sommen, samen met verwachte resultaten (voor zover dit al op voorhand kan). Sla dit op als een apart sjabloon specifiek voor troubleshooting. Bij het uitvoeren van de oefening kan je dit dan aanvullen met de effectieve resultaten die je krijgt, en de commando's/configuratiewijzigingen die je hebt uitgevoerd om problemen op te lossen.
+
+\textbf{Onderschat het belang van een goed labo-verslag niet!} In het verleden is al meermaals voorgevallen dat op het evaluatiemoment de demo totaal mislukte door omstandigheden buiten de controle van de student. Op dat moment kan je aan de hand van je labo-verslag toch nog aantonen dat je de opdracht hebt uitgevoerd.
 
 \subsection{Cheat-sheets en checklists}%
 \label{subs:cheat-sheets-en-checklists}

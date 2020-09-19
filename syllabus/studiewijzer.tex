@@ -29,6 +29,8 @@ Wanneer je als systeembeheerder een serverpark van tientallen, honderden of zelf
 
 Kennis over Linux wordt meer en meer gevraagd op de arbeidsmarkt en wie een goed resultaat haalt voor deze cursus kan overal aan de slag als Linux system engineer.
 
+Binnen het curriculum volgt deze cursus op Besturingssystemen (en meer bepaald het onderdeel Linux). De vakinhoud van deze cursus wordt ook toegepast binnen Project 3: Systeembeheer.
+
 \section{Leerdoelen en competenties}%
 \label{sec:leerdoelen}
 
@@ -70,7 +72,7 @@ Om deze doelstellingen te behalen, dien je de hieronder opgesomde competenties t
 \subsection{Troubleshooting}%
 \label{ssec:troubleshooting}
 
-Je moet de juiste commando's kennen om RHEL/Centos \textbf{7} hosts te
+Je moet de juiste commando's kennen om RHEL/Centos \textbf{8} hosts te
 beheren en te troubleshooten.
 
 \begin{itemize}
@@ -78,7 +80,7 @@ beheren en te troubleshooten.
   \item Services beheren met \texttt{systemctl}
   \item Firewalld beheren met \texttt{firewalld-cmd}
   \item Secure Shell gebruiken (\texttt{ssh}, \texttt{scp}), inloggen ahv een SSH-sleutel
-  \item SELinux begrijpen en toepassen (Ančincová, 2014), meer bepaald:
+  \item SELinux begrijpen en toepassen, meer bepaald:
   
   \begin{itemize}
     \item Status opvragen en wijzigen (\texttt{getenforce}, \texttt{setenforce}, \texttt{/etc/selinux/config})
@@ -89,51 +91,29 @@ beheren en te troubleshooten.
   \end{itemize}
 \end{itemize}
 
-Te kennen uit de RedHat manuals:
-
-\begin{itemize}
-  \item System Administration Guide~\autocite{SvistunovEtAl2016}
-  
-  \begin{itemize}
-    \item Basic system configuration (hst 1--4)
-    \item Package Management (hst 5)
-    \item Infrastructure Services (hst 6--7)
-    \item Opzetten van netwerkservices: web (hst 9), mail (hst 10), file/print (hst 12; \emph{NIET} 12.3)
-    \item Monitoring and automation (hst 16, 18, 19)
-  \end{itemize}
-  
-  \item Networking Guide~\autocite{JahodaEtAl2016}
-  
-  \begin{itemize}
-    \item Inleiding (hst 1, i.h.b.\ secties 1.3--4, 1.7--9)
-    \item Command line (sectie 2.4)
-    \item Hostnamen (hst 3)
-    \item DHCP servers (hst 10)
-    \item BIND DNS (hst 11)
-  \end{itemize}
-  \item
-  SELinux User's and Administrator's Guide~\autocite{JahodaEtAl2016a}
-  
-  \begin{itemize}
-    \item Inleiding (hst 1)
-    \item SELinux contexts (hst 2)
-    \item Working with SELinux (hst 4, secties 1--6, 9)
-    \item Troubleshooting (hst 10)
-  \end{itemize}
-\end{itemize}
-
 \subsection{Documentatie gebruiken}%
 \label{ssec:documentatie-gebruiken}
 
-Je moet in staat zijn de juiste documentatie op te zoeken en te gebruiken, die relevant is voor het systeem waar je mee werkt, i.h.b.~RHEL/CentOS 7.
+Je gebruikt de  om relevante informatie op te zoeken over de taken die je moet uitvoeren. Je bent in het bijzonder vertrouwd met de inhoud van de handleidingen hieronder opgesomd, d.w.z.\ dat je in grote lijnen weet wat er in staat en dat je er snel in kan terugvinden wat je nodig hebt.
 
 \begin{itemize}
-  \item RHEL/CentOS7 handleidingen, i.h.b.~de System Administrator's Guide~\autocite{SvistunovEtAl2016}, Networking Guide~\autocite{JahodaEtAl2016} en SELinux User's and Administrator's Guide~\autocite{JahodaEtAl2016a}.
+  \item Handleidingen voor RHEL8\footnote{\url{https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/8/}} of CentOS 8:
+  \begin{itemize}
+    \item System Administration:
+    \begin{itemize}
+      \item Deploying Different Types of Servers
+      \item Configuring and Managing Networking
+    \end{itemize}
+    \item Security:
+    \begin{itemize}
+      \item Using SELinux
+    \end{itemize}
+  \end{itemize}
   \item Ansible documentatie~\autocite{Ansible2016}, in het bijzonder
   
   \begin{itemize}
-    \item Ansible Best Practices: \url{http://docs.ansible.com/playbooks_best_practices.html}
-    \item Ansible Module Index: \url{http://docs.ansible.com/modules_by_category.html}
+    \item Ansible Best Practices\footnote{\url{http://docs.ansible.com/playbooks_best_practices.html}}
+    \item Ansible Module Index\footnote{\url{http://docs.ansible.com/modules_by_category.html}}
   \end{itemize}
   \item Vagrant documentatie~\autocite{Hashicorp}.
 \end{itemize}
@@ -158,11 +138,13 @@ De cursus bestaat uit drie onderdelen:
 Zoals eerder vermeld, gebruiken we als leermateriaal in de eerste plaats de handleidingen van de software die we gebruiken in de cursus. Al deze leermaterialen zijn gratis on-line raadpleegbaar.
 
 \begin{itemize}
-  \item RHEL 7 System Administrator's Guide~\autocite{SvistunovEtAl2016}
-  \item RHEL 7 Networking Guide~\autocite{JahodaEtAl2016}
-  \item RHEL 7 SELinux User's and Administrator's Guide~\autocite{JahodaEtAl2016a}
+  \item RHEL 8 documentatie
   \item Ansible documentatie~\autocite{Ansible2016}
   \item Vagrant documentatie~\autocite{Hashicorp}
+  \item DNS for Rocket Scientists~\autocite{Aitchison2015}
+  \item Samba User Documentation\footnote{\url{https://wiki.samba.org/index.php/User_Documentation}}
+  \item Analyzing and Solving Samba Problems~\autocite{CarterEtAl2010}
+  \item The Samba Checklist~\autocite{TrigdellEtAl2010}
 \end{itemize}
 
 Verderop in deze syllabus vind je nog aanvullende informatie die je ook verder op weg kan helpen.
@@ -192,7 +174,7 @@ De aard van deze cursus maakt dat het essentieel is dat je beschikt over voldoen
 
 \begin{itemize}
   \item Processor: Intel i5 7e generatie of equivalent/beter
-  \item Geheugen: 8 GiB RAM
+  \item Geheugen: 16 GiB RAM
   \item Harde schijf: 80 GB vrije schijfruimte
 \end{itemize}
 
@@ -200,7 +182,7 @@ Verder komt het volgende nog van pas:
 
 \begin{itemize}
   \item Een USB-stick of externe USB-schijf met voldoende ruimte (voor het bijhouden van VMs en broncode)
-  \item Een netwerkkabel (netwerklabo GAARB.0.032 en GSCHB.4.037)
+  \item Een Ethernet-kabel (netwerklabo GAARB.0.032 en GSCHB.4.037)
   \item Oortjes voor het beluisteren/bekijken van videolessen, screencasts of videopresentaties zonder de rest te storen
 \end{itemize}
 
@@ -249,25 +231,36 @@ $ brew install ansible
 
 In dit opleidingsonderdeel wordt hoofdzakelijk gewerkt aan de hand van labo-op\-drach\-ten. De ondersteunende studiematerialen (zie Sectie~\ref{sec:leermateriaal}) en deze syllabus moeten je in staat stellen die met succes af te werken.
 
-\textbf{In de reguliere lessen} wordt waar nodig klassikaal uitleg en demo's gegeven over bepaalde onderwerpen.
+\textbf{Tijdens de reguliere lessen} geven de lectoren klassikaal instructie waarna studenten zelfstandig en op eigen tempo werken aan de opdrachten. Studenten hebben op regelmatige basis een voortgangsgesprek met de lector en kunnen dan uitleg vragen bij specifieke problemen.
 
-Studenten \textbf{afstandsleren} kunnen vragen stellen tijdens de contactmomenten wanneer de lector aanwezig is, of via e-mail.
+Als de contactmomenten omwille van corona-maatregelen niet op de campus kunnen doorgaan, dan gebeuren zowel de klassikale instructie als individuele opvogingsgesprekken via Microsoft Teams (videoconferencing).
+
+De lector zal elke wijziging in deze regeling via Chamilo aankondigen, maar je mag in principe uitgaan van volgende regeling:
+
+\begin{itemize}
+  \item \textbf{Code groen/geel}: contactmomenten gaan door op de campus
+  \item \textbf{Code oranje/rood}: contactmomenten gaan door via Teams
+\end{itemize}
+
+Buiten de contactmomenten kunnen studenten vragen stellen via Teams (chat-kanaal van het Team voor dit vak). Studenten worden aangemoedigd om daar ook vragen van anderen te beantwoorden.
+
+Studenten \textbf{afstandsleren} kunnen eveneens vragen stellen via Teams chat of tijdens de contactmomenten voor TILE\@. Als deze contactmomenten niet op de campus doorgaan, gebeurt dit via Teams (videoconferencing).
 
 \section{Werk- en leeraanwijzingen}%
 \label{sec:werk-en-leeraanwijzingen}
 
-Het werken met labo-opdrachten vergt een zekere mate van zelfstandigheid van jou als student, maar dat is precies ook een attitude die verwacht wordt van een systeembeheerder. Je neemt dus zelf initiatief om de nodige kennis te vergaren en zoekt naar oplossingen voor de problemen die je ongetwijfeld zal tegenkomen. Help elkaar daarin: samenwerken en kennis delen wordt van harte aangemoedigd. De lector is uiteraard ook beschikbaar om je bij te staan als je toch vast komt te zitten en kan je tips geven of verwijzen naar geschikte aanvullende studiematerialen.
+Het werken met labo-opdrachten vergt een zekere mate van zelfstandigheid van jou als student, maar dat is precies ook een attitude die verwacht wordt van een systeembeheerder. Je neemt dus zelf initiatief om de nodige kennis te vergaren en zoekt naar oplossingen voor de problemen die je ongetwijfeld zal tegenkomen. Help elkaar daarin: samenwerken en kennis delen wordt van harte aangemoedigd. De lector is uiteraard beschikbaar om je bij te staan als je vast komt te zitten en kan je tips geven of verwijzen naar geschikte aanvullende studiematerialen.
 
-\textbf{Reguliere studenten} moeten minstens eens in de drie weken persoonlijk bij de lector langs komen om deelresultaten te tonen. Als je ergens vast zit, en je raakt niet verder, kom dan ook zeker langs zodat de lector je terug op weg kan helpen!
+\textbf{Reguliere studenten} moeten minstens eens in de drie weken persoonlijk bij de lector langs komen om deelresultaten te tonen. Kom zeker langs als je ergens vast zit, zodat de lector je terug op weg kan helpen!
 
 \section{Studiebegeleiding en planning}%
 \label{sec:studiebegeleiding-en-planning}
 
-\textbf{Reguliere studenten} stellen vragen over de cursus bij voorkeur tijdens de contactmomenten.
+\textbf{Reguliere studenten} stellen vragen over de cursus bij voorkeur tijdens de contactmomenten of via Teams chat.
 
-\textbf{Studenten afstandsleren} kunnen eveneens vragen stellen tijdens de voorziene contactmomenten waarop de lector aanwezig is, of via e-mail. Gelieve het onderwerp van je bericht te laten voorafgaan door de vermelding ``[ELNX]''.
+\textbf{Studenten afstandsleren} kunnen eveneens vragen stellen tijdens de voorziene contactmomenten waarop de lector aanwezig is, via Teams chat of via e-mail. Gelieve het onderwerp van je bericht te laten voorafgaan door de vermelding ``[ELNX]''.
 
-Alle studenten kunnen ook vragen stellen op het Chamilo-forum van de cursus. Als je het antwoord kent op gestelde vragen mag je ook zelf antwoorden. Alvast bedankt in dat geval!
+Als je het antwoord kent op gestelde vragen op Teams mag je ook zelf antwoorden. Alvast bedankt in dat geval!
 
 Tabel~\ref{tab:weekplanning} geeft een overzicht van de weekplanning voor de reguliere studenten. Studenten afstandsleren kunnen dit ook gebruiken als een leidraad bij het bewaken van de voortgang van hun studie.
 
@@ -278,7 +271,7 @@ Tabel~\ref{tab:weekplanning} geeft een overzicht van de weekplanning voor de reg
     \textbf{Lesweek} & \textbf{Onderwerp}                                             \\
     \midrule
     1  & Inleiding, uitleg opdrachten                                   \\
-       & Les + demo basiscommando's EL7, VirtualBox netwerkconfiguratie \\
+       & Les + demo basiscommando's EL8, VirtualBox netwerkconfiguratie \\
     2  & Finale keuze hoofdopdracht                                     \\
        & Les + demo Ansible                                             \\
     3  & Individuele opvolging                                          \\
@@ -306,7 +299,7 @@ Bij het begin van een troubleshooting-opdracht krijg je een opstelling voorgesch
 \section{Evaluatie}%
 \label{sec:evaluatie}
 
-De evaluatie van dit opleidingsonderdeel gebeurt voor 100\% met niet-periodegebonden evaluatie. Meer bepaald word je beoordeeld op de manier waarop je volgende taken hebt uitgevoerd:
+De evaluatie van dit opleidingsonderdeel gebeurt voledig via permanente evaluatie. Meer bepaald word je beoordeeld op de manier waarop je volgende taken hebt uitgevoerd:
 
 \begin{itemize}
   \item Hoofdopdracht: opzetten infrastructuur met een configuration management system
@@ -315,7 +308,16 @@ De evaluatie van dit opleidingsonderdeel gebeurt voor 100\% met niet-periodegebo
   \item Rapportering en documentatie
 \end{itemize}
 
-Troubleshooting wordt geëvalueerd op basis van vaardigheidstests (20\% van het totaal), de andere taken op basis van een portfolio dat je samenstelt tijdens de loop van het semester en dat je op een evaluatiemoment tijdens de examenperiode komt verdedigen (80\%). Dat portfolio bestaat concreet uit volgende elementen:
+Afhankelijk van de corona-maatregelen die op dat moment van kracht zijn, worden de evaluatiemomenten georganiseerd als volgt:
+
+\begin{itemize}
+  \item \textbf{Code groen/geel}: evaluatiemomenten gaan door op de campus
+  \item \textbf{Code oranje/rood}: evaluatiemomenten gaan door via Microsoft Teams
+\end{itemize}
+
+De exacte organisatie wordt via Chamilo aangekondigd.
+
+Troubleshooting wordt geëvalueerd op basis van vaardigheidstests, de andere taken op basis van een portfolio dat je samenstelt tijdens de loop van het semester en dat je op een evaluatiemoment tijdens de examenperiode komt verdedigen. Dat portfolio bestaat concreet uit volgende elementen:
 
 \begin{itemize}
   \item De broncode, door elke student bijgehouden in een toegewezen Git repository
@@ -326,23 +328,23 @@ Troubleshooting wordt geëvalueerd op basis van vaardigheidstests (20\% van het 
 
 In Hoofdstuk~\ref{ch:opdrachten} wordt in meer detail uitgelegd wat precies verwacht wordt.
 
-De toekenning van het examencijfer gebeurt op basis van ``rubrics''~\autocite{Andrade2000} die beschreven worden in de evaluatiekaart.
+De toekenning van het examencijfer gebeurt op basis van ``rubrics''~\autocite{Andrade2000} die beschreven worden in de evaluatiekaart die gepubliceerd wordt op Chamilo.
 
-In een tabel worden een aantal criteria opgesomd, waar je aan moet voldoen. Je kan ``voldoen'' op verschillende niveaus, meer bepaald ``bekwaam'', ``gevorderd'', ``deskundig'', of in het slechtste geval ``nog niet bekwaam''. Voor elk niveau wordt beschreven wat dat precies inhoudt. De volledige evaluatiekaart is gepubliceerd op Chamilo.
+In een tabel worden een aantal criteria opgesomd, waar je aan moet voldoen. Je kan ``voldoen'' op verschillende niveaus, meer bepaald ``bekwaam'', ``gevorderd'', ``deskundig'', of in het slechtste geval ``nog niet bekwaam''. Voor elk niveau wordt beschreven wat dat precies inhoudt.
 
-Om te slagen voor dit vak moet je aantonen dat je voor \textbf{alle} technische criteria minstens ``bekwaam'' bent. Met andere woorden, als je voor slechts één criterium ``nog niet bekwaam'' bevonden wordt, kan je niet slagen. De niet-technische criteria (bv.\ rapportering) kunnen het examencijfer afhankelijk van het behaalde niveau nog positief of negatief beïnvloeden.
+Om te slagen voor dit vak moet je aantonen dat je voor \textbf{alle} technische criteria minstens ``bekwaam'' bent. Met andere woorden, als je voor slechts één criterium ``nog niet bekwaam'' bevonden wordt, kan je niet slagen, hoe goed je ook de andere onderdelen hebt afgewerkt. De niet-technische criteria (bv.\ rapportering) kunnen het examencijfer afhankelijk van het behaalde niveau nog positief of negatief beïnvloeden.
 
 \textbf{Merk op} dat je zowel een werkend product moet opleveren (= broncode) als de verslagen indienen én demo's geven. Als één van de deliverables ontbreekt, wordt de opdracht beschouwd als niet gerealiseerd.
 
 \textbf{Reguliere studenten} moeten \emph{minstens elke drie weken} deelresulaten opleveren en persoonlijk demonstreren aan de lector. Deze periodes worden beschouwd als tussentijdse deadlines waarvoor art. 5 van het FOER van kracht is. Niet tijdig deelresultaten demonstreren wordt in termen van dat artikel beschouwd als het niet respecteren van tussentijdse deadlines en wordt als dusdanig gesanctioneerd. Een student die meer dan twee maal tussentijdse deadlines niet respecteert, krijgt 0 voor die opdracht (``Nog niet bekwaam'') en kan bijgevolg ook niet slagen.
 
-Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een teken dat je ergens vast zit, de lector kan je dan opnieuw op weg helpen.
+Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een teken dat je ergens vast zit, en de lector kan je dan opnieuw op weg helpen.
 
 \textbf{Studenten afstandsleren} kunnen op verschillende manieren deelresultaten opleveren:
 
 \begin{itemize}
-  \item aan de hand van een screencast (bv.\ publiceren op Youtube, link doorsturen naar de lector),
-  \item via videoconferencing (Google Hangouts of Skype, na afspraak),
+  \item aan de hand van een screencast (bv.\ publiceren via Youtube of Panopto, link doorsturen naar de lector),
+  \item via videoconferencing (Microsoft Teams, na afspraak),
   \item tijdens de contactmomenten voor TILE-studenten, als de lector daar aanwezig is (en enkel na afspraak),
 \end{itemize}
 
@@ -351,6 +353,6 @@ Ook als je weinig tot niets gerealiseerd hebt, kom je langs. Dat is immers een t
 
 Wie niet slaagt, krijgt een tweede examenkans in de vorm van een individuele opdracht. De precieze opdracht hangt af van je evaluatie. Meer bepaald zal je moet kunnen aantonen dat je voor alle technische criteria minstens ``bekwaam'' bent. Deze opdracht wordt meteen vastgelegd op het finale evaluatiemoment.
 
-Als je nog geen individuele opdracht gekregen hebt op het evaluatiemoment (bijvoorbeeld omdat je afwezig was), dan kom je naar de feedback. Studenten afstandsleren kunnen dit ook per e-mail regelen.
+Als je nog geen individuele opdracht gekregen hebt op het evaluatiemoment (bijvoorbeeld omdat je afwezig was), dan kom je naar de feedback. Studenten afstandsleren kunnen dit ook per e-mail regelen of een afspraak maken om dit te bespreken via Teams.
 
 \textbf{Wie na afloop van de feedback nog geen afspraak gemaakt heeft voor een individuele opdracht, geeft daarmee te kennen niet te willen deelnemen aan de 2e examenkans.}

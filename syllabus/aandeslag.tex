@@ -13,7 +13,7 @@ Installeer eerst de nodige software, meer bepaald de laatste stabiele versie van
 Richtlijnen voor het opstarten van je Git project:
 
 \begin{enumerate}
-  \item In principe moet je al een Github account hebben. Als je dit nog niet gedaan hebt, koppel dan zeker je @student.hogent.be adres aan het account. Je kan dan het Github Student Developer Pack\footnote{\url{https://education.github.com/pack}} aanvragen met allerlei interessante aanbiedingen.
+  \item In principe moet je al een Github account hebben. Als je dit nog niet gedaan hebt, koppel dan zeker je @student.hogent.be adres aan het account. Je kan dan het Github Student Developer Pack\footnote{\url{https://education.github.com/pack}} aanvragen met allerlei interessante aanbiedingen. Het is mogelijk om meerdere e-mailadressen te registreren, en het is zinvol om ook je privé-adres te koppelen. Op die manier kan je je Github-account nog gebruiken na je afstuderen.
   \item Maak een SSH-sleutelpaar aan om het pushen naar Github te vereenvoudigen. Het commando is \texttt{ssh-keygen}, volg de richtlijnen die het geeft. Geef voor je gemak een lege \emph{passphrase} op (zoniet moet je telkens je de sleutel gebruikt je passphrase intikken). Normaal zou er in de directory \path{~/.ssh}\footnote{Het symbool {\textasciitilde} is natuurlijk de \emph{home directory} van de gebruiker. In Linux komt dit overeen met \path{/home/USER}, onder Windows met \path{C:\Users\USER} of \path{C:\Gebruikers\USER}, onder MacOS met \path{/Users/USER}} twee bestanden aangemaakt moeten zijn: \path{id_rsa} en \path{id_rsa.pub}. Het eerste is je private sleutel (die je geheim moet houden), het tweede de publieke. Die laatste kan je op Github registreren via je profielinstellingen (klik op je avatar rechtsboven, volg \emph{Settings} en dan \emph{SSH and GPG keys}).
 
   \item Basisconfiguratie Git, indien je dit nog niet gedaan hebt (kijk na in het configuratiebestand \path{~/.gitconfig}):
@@ -26,20 +26,26 @@ Richtlijnen voor het opstarten van je Git project:
       $ git config --global pull.rebase true
     \end{minted}
 
-  \item Maak lokaal een directory aan die je voorbehoudt voor al wat met deze cursus te maken heeft. Binnen deze directory kan je je Github-repository klonen. Klik op de Github-pagina van je repository op de groene knop rechts (\emph{Clone or download}), kies voor ``Clone with SSH'' kopieer de link van de vorm \path{git@github.com:HoGentTIN/REPO_NAAM-GEBRUIKERSNAAM.git}.
+  \item Maak lokaal een directory aan die je voorbehoudt voor al wat met deze cursus te maken heeft. Binnen deze directory kan je je Github-repository klonen. Klik op de Github-pagina van je repository op de groene knop rechts (\emph{Code}), kies voor ``Use SSH'' kopieer de link van de vorm \path{git@github.com:HoGentTIN/REPO_NAAM-GEBRUIKERSNAAM.git}.
 
     \begin{minted}[gobble=6]{console}
       $ cd Documents/Courses/EnterpriseLinux/
-      $ git clone git@github.com:HoGentTIN/REPONAAM-GEBRUIKERSNAAM.git repo
+      $ git clone git@github.com:HoGentTIN/REPONAAM-GEBRUIKERSNAAM.git
     \end{minted}
 
-  Dit maakt een lokale kopie van de repository in een subdirectory \path{repo}. Je kan zelf de naam van deze directory kiezen en die achteraf verplaatsen, alles blijft gewoon werken.
+  Dit maakt een lokale kopie van de repository in een subdirectory. Je mag de naam van deze directory aanpassen en die verplaatsen, alles blijft gewoon werken.
   
   \item Creëer een nieuwe \emph{branch} met de naam \texttt{solution} om je eigen code en documentatie bij te houden. Verderop wordt duidelijk waarom dit belangrijk is.
 
     \begin{minted}[gobble=6,linenos=false]{console}
-      $ git checkout -b solution
+      $ git switch -c solution
     \end{minted}
+
+  of op oudere versies van Git:
+
+  \begin{minted}[gobble=6,linenos=false]{console}
+    $ git checkout -b solution
+  \end{minted}
 
   \item Bekijk de bestanden in de \path{assignment/} directory. Hier vind je de opgave van deelopdrachten en sjablonen voor verslagen en cheat sheets in Markdown-formaat~\autocite{Gruber2004}. Pas alvast het sjabloon aan, vul er je eigen naam in.
 \end{enumerate}
@@ -58,9 +64,9 @@ Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudi
   \item Wanneer er nieuwe commits gebeurd zijn in de opgave, kan je de wijzigingen telkens zo ophalen:
 
     \begin{minted}[gobble=6]{console}
-      $ git checkout master
+      $ git switch master
       $ git pull upstream master
-      $ git checkout solution
+      $ git switch solution
       $ git rebase master
     \end{minted}
 
@@ -69,6 +75,7 @@ Wanneer er errata in de opgave gepubliceerd worden, kan je die relatief eenvoudi
       \item In de derde regel ga je opnieuw naar je eigen branch. Voorlopig is er daar nog niets gewijzigd
       \item In de vierde regel, tenslotte, ga je de wijzigingen in de opgave op jouw eigen versie toepassen. Mogelijks komen er hier conflicten naar boven tussen bepaalde bestanden in de opgave en jouw wijzigingen. Lees goed de instructies die Git hier geeft om deze conflicten op te lossen.
     \end{itemize}
+\end{enumerate}
 
 Deze procedure werkt niet als je geen branch voor je eigen oplossing gemaakt hebt. In dat geval haal je jezelf een hoop ellende op de hals\ldots
 
@@ -103,15 +110,13 @@ ask your question in IRC.
 
 Bewerk alle bestanden met conflicten en verbeter de code. Vervolgens voeg je alle aangepaste bestanden toe met \verb|git add .| en kan je het rebase-proces verder zetten met \verb|git rebase --continue|. Gebruik tussendoor regelmatig \texttt{git status} om te zien hoe ver je staat en welke commando's je nodig hebt om een stap verder te gaan.
 
-\end{enumerate}
-
 \section{Algemene richtlijnen}%
 \label{sec:algemene_richtlijnen}
 
 In deze sectie vind je enkele algemene richtlijnen die je helpen vlotter en efficiënter te werken.
 
 \begin{itemize}
-  \item Voor je aan een deelopdracht begint, bereid je eerst voor door alle aangereikte studiematerialen te bestuderen: handleidingen, screencasts, \ldots Die ``van buiten blokken'' is helemaal niet nodig, maar zorg er in elk geval voor dat je er in die mate vertrouwd bent, dat je snel gericht kan zoeken naar juiste, relevante informatie. Je vindt die via de bronvermeldingen in deze syllabus, of via de opgave
+  \item Voor je aan een deelopdracht begint, bereid je je eerst voor door alle aangereikte studiematerialen te bestuderen: handleidingen, screencasts, \ldots ``Van buiten blokken'' is helemaal niet nodig, maar zorg er in elk geval voor dat je er in die mate vertrouwd bent, dat je snel gericht kan zoeken naar juiste, relevante informatie. Je vindt die via de bronvermeldingen in deze syllabus, of via de opgave
   \item Open \textbf{verschillende terminalvensters/consoles naast elkaar} (zie Figuur~\ref{fig:screenshot-terminals}). Elke terminal krijgt zijn eigen functie, bijvoorbeeld:
     \begin{itemize}
       \item Vim editor (of VS Code/Sublime/Notepad/\ldots in een apart venster);
@@ -120,7 +125,7 @@ In deze sectie vind je enkele algemene richtlijnen die je helpen vlotter en effi
       \item ingelogd op VM, voor tonen logbestanden.
     \end{itemize}
   \item \textbf{Werk stap voor stap.} Schrijf niet teveel code ineens. Probeer eerst een minimaal werkende opstelling te verkrijgen en registreer meteen in Git. Maak minimale wijzigingen en \textbf{test elke wijziging uit}. Hoe groter en ingrijpender de wijzigingen, hoe meer kans op fouten en hoe moeilijker die te debuggen zijn. Zodra iets werkt, en je bent een stap verder, registreer je dit meteen in Git en geef je een duidelijke, beschrijvende commit-boodschap.
-  \item \textbf{gebruik Git op de command-line.} Bij de meeste Git commando's krijg je gedetailleerde uitleg over hoe je een stap verder moet gaan en ook hoe je de laatste stap kan ongedaan maken. Dit geeft op de duur een beter inzicht in hoe Git precies werkt.
+  \item \textbf{gebruik Git op de command-line.} Bij de meeste Git commando's krijg je gedetailleerde uitleg over hoe je een stap verder moet gaan en ook hoe je de laatste stap kan ongedaan maken. Dit geeft op de duur een beter inzicht in hoe Git precies werkt dan je via een GUI kan krijgen.
   \item Probeer \textbf{elke commit te beperken tot één enkele ``reden''} om wijzigingen aan te brengen aan de bestaande code. Dit maakt de ``geschiedenis'' van je project transparanter en maakt ook dat je makkelijker kan terugkeren naar een bepaalde stap wanneer je de mist in gaat.
   \item \textbf{Maak backups} van de originele, ongewijzigde configuratiebestanden zodat je er op kan terugvallen als er iets misloopt. Soms heb je zodanig zitten ``prutsen'' dat je er niet meer in slaagt de service te laten werken.
   \item \textbf{Gebruik \texttt{vagrant destroy}} (zie Sectie~\ref{sec:vagrant}). Wanneer je veel manuele wijzigingen hebt aangebracht in een VM, ben je op de duur niet meer zeker dat die zich in de gewenste toestand bevindt. Of je kan door experimenteren de VM onbruikbaar gemaakt hebben. Door de VM te verwijderen en opnieuw op te bouwen (met \texttt{vagrant up}) kan je opnieuw beginnen van een werkende versie (als je de vorige richtlijnen opvolgt, tenminste!).
@@ -147,10 +152,10 @@ De tips hier gelden ook voor Windows- en MacOS-gebruikers! Windows-gebruikers he
   \item \textbf{Bang bang!} In Bash zijn er enkele shortcuts voorzien voor (delen van) het vorige commando. \texttt{!!} staat voor het gehele vorige commando, \texttt{!\$} voor het laatste argument en \texttt{!*} voor alle argumenten. Een voorbeeldje van het gebruik:
 
     \begin{minted}{console}
-$ yum update
+$ dnf update
 You need to be root to perform this command.
 $ sudo !!
-sudo yum update
+sudo dnf update
 [...]
 $ mkdir -p some/long/path/i/dont/want/to/repeat
 $ cd !$
@@ -182,7 +187,7 @@ alias h='git log --pretty="format:%C(yellow)%h %C(blue)%ad %C(reset)%sC(red)%d %
 alias s='git status'
 alias vu='vagrant up'
 alias vD='vagrant destroy'
-alias elnx='cd /home/bert/Documents/Courses/EnterpriseLinux/16-17'
+alias elnx='cd /home/bert/Documents/Courses/EnterpriseLinux/20-21'
 \end{minted}
 
     Nog meer voorbeelden vind je in \url{https://github.com/bertvv/dotfiles/blob/master/.bash.d/aliases.sh}.
@@ -193,7 +198,7 @@ alias elnx='cd /home/bert/Documents/Courses/EnterpriseLinux/16-17'
 
 Vagrant is een command line tool die het aanmaken en configureren van virtuele machines automatiseert. Het ondersteunt een aantal virtualisatieplatforms, o.a.~VirtualBox, Hyper-V, libvirt, enz. Wij zullen het gebruiken in combinatie met VirtualBox. Voor een demo van de werking van Vagrant, bekijk eerst de screencast van \textcite{Weissig2014}.
 
-Je Git repository bevat een Vagrant-omgeving voor het opzetten van de VMs voor je labo-opdracht. Er zijn alvast twee VMs gedefinieerd.  Je kan een overzicht van de VMs opvragen met (voorbeeld uit de SME-opdracht van Sectie~\ref{subs:smallmedium-enterprise-infrastructure}):
+Je Git repository bevat een Vagrant-omgeving voor het opzetten van de VMs voor je labo-opdracht. Er zijn alvast één of twee VMs gedefinieerd.  Je kan een overzicht van de VMs opvragen met (voorbeeld uit de SME-opdracht van Sectie~\ref{subs:smallmedium-enterprise-infrastructure}):
 
 \begin{minted}{console}
 $ vagrant status
@@ -211,11 +216,11 @@ $
 
 De initiële setup bevat twee virtuele machines met namen \texttt{router} en \texttt{pu001}, respectievelijk. We beginnen met \texttt{pu001}, de router wordt later geconfigureerd.
 
-Start de VM met \texttt{vagrant up pu001}. De eerste keer dat je dit doet wordt er een basis-VM gedownload met een minimale installatie van de laatste stabiele versie van CentOS.\@Doe dit best op een performant netwerk: het bekabelde netwerk op de campus of thuis/op kot. Deze ``base box'' wordt bijgehouden en zal telkens dienst doen als basis voor het opzetten van alle hosts in ons netwerk. Het downloaden gebeurt dus slechts één keer.
+Start de VM met \texttt{vagrant up pu001}. De eerste keer dat je dit doet wordt er een basis-VM gedownload met een minimale installatie van de laatste stabiele versie van CentOS\@. Doe dit best op een performant netwerk: het bekabelde netwerk op de campus of thuis/op kot. Deze ``base box'' wordt bijgehouden en zal telkens dienst doen als basis voor het opzetten van alle hosts in ons netwerk. Het downloaden gebeurt dus slechts één keer.
 
 Na opstarten kan je inloggen met \texttt{vagrant\ ssh\ pu001}. Je bent ingelogd als gebruiker \texttt{vagrant} en kan commando's uitvoeren met \texttt{root}-rechten door er \texttt{sudo} voor te plaatsen (geen wachtwoord vereist). Als het nodig mocht zijn: het wachtwoord van de gebruikers \texttt{vagrant} en \texttt{root} is telkens \texttt{vagrant}.
 
-Als je \texttt{ls\ /} uitvoert, zal je merken dat er een directory \path{/vagrant} bestaat. Dit is je lokale repository die gemount is binnen de VM.\@Dit is een eenvoudige manier om bestanden te delen tussen VM en host-systeem.
+Als je \texttt{ls\ /} uitvoert, zal je merken dat er een directory \path{/vagrant} bestaat. Dit is je lokale repository die gemount is binnen de VM\@.Dit is een eenvoudige manier om bestanden te delen tussen VM en host-systeem.
 
 Let er op dat je VMs niet meer vanuit je VirtualBox GUI opstart of bewerkt. Doe dit nu enkel met Vagrant en vanuit een terminal. Het commando \texttt{vagrant} moet altijd uitgevoerd worden vanuit de directory waar het bestand \texttt{Vagrantfile} zich bevindt.
 
@@ -250,9 +255,9 @@ Zorg dat je goed begrijpt hoe deze interfaces werken, zoniet wordt troubleshoote
 \section{Ansible}%
 \label{sec:ansible}
 
-Ansible is een \emph{configuration management system,} d.w.z.\ het staat in voor het configureren van een host vanaf een minimale installatie tot een volledig operationeel systeem. Het concept van een configuration management tool is dat je beschrijft wat de gewenste toestand van het systeem is, de tool brengt het systeem naar die toestand. Bekijk de screencast van \textcite{Weissig2015} voor een inleiding op Ansible. In een vervolg-screencast wordt ook de combinatie van Ansible en Vagrant belicht. In deze gids geven we enkel wat uitleg om aan de slag te gaan met de startopstelling voor de labo-opdracht, maar als je op zoek bent naar een goed naslagwerk over Ansible, overweeg dan om het e-boek van \textcite{Geerling2016} te kopen. Het boek is al enkele jaren oud, maar de auteur werkt nog verder aan het boek, updates zijn gratis.
+Ansible is een \emph{configuration management system,} d.w.z.\ het staat in voor het configureren van een host vanaf een minimale installatie tot een volledig operationeel systeem. Het concept van een configuration management tool is dat je beschrijft wat de gewenste toestand van het systeem is, de tool brengt het systeem naar die toestand. Bekijk de screencast van \textcite{Weissig2015} voor een inleiding op Ansible. In een vervolg-screencast wordt ook de combinatie van Ansible en Vagrant belicht. In deze gids geven we enkel wat uitleg om aan de slag te gaan met de startopstelling voor de labo-opdracht, maar als je op zoek bent naar een goed naslagwerk over Ansible, overweeg dan om het e-boek van \textcite{Geerling2016} te kopen. Het boek is al enkele jaren oud, maar de auteur werkt nog verder aan het boek en updates zijn gratis. De inhoud van het e-boek is dus nog altijd actueel!
 
-Sommige config management systemen hebben een eigen taal ontwikkeld om die configuratie in te beschrijven (bv. Puppet), andere gebruiken een bestaande taal (bv. Chef, configuratie in Ruby). Bij Ansible beschrijf je de configuratie van een systeem met YAML (een variant van JSON), een eenvoudig tekstformaat om data te structureren op een manier die makkelijk te interpreteren is zowel door mensen als computers. De bestanden die deze configuratiecode bevatten worden \emph{playbooks}\footnote{\url{https://docs.ansible.com/ansible/playbooks.html}} genoemd. Als je deze playbooks op een specifieke manier structureert en herbruikbaar maakt, spreekt men van een \emph{rol}\footnote{\url{https://docs.ansible.com/ansible/playbooks_roles.html\#roles}}. Je kan rollen toekennen aan een host, en specifieke instellingen toepassen door het invullen van \emph{variabelen}\footnote{\url{https://docs.ansible.com/ansible/playbooks_variables.html}}. Op Ansible Galaxy\footnote{\url{https://galaxy.ansible.com/}} kan je tientallen rollen vinden die door hun auteurs gepubliceerd zijn.
+Sommige config management systemen hebben een eigen taal ontwikkeld om die configuratie in te beschrijven (bv. Puppet), andere gebruiken een bestaande taal (bv.\ Chef, configuratie in Ruby). Bij Ansible beschrijf je de configuratie van een systeem met YAML (een variant van JSON), een eenvoudig tekstformaat om data te structureren op een manier die makkelijk te interpreteren is zowel door mensen als computers. De bestanden die deze configuratiecode bevatten worden \emph{playbooks}\footnote{\url{https://docs.ansible.com/ansible/playbooks.html}} genoemd. Als je deze playbooks op een specifieke manier structureert en herbruikbaar maakt, spreekt men van een \emph{rol}\footnote{\url{https://docs.ansible.com/ansible/playbooks_roles.html\#roles}}. Je kan rollen toekennen aan een host, en specifieke instellingen toepassen door het invullen van \emph{variabelen}\footnote{\url{https://docs.ansible.com/ansible/playbooks_variables.html}}. Op Ansible Galaxy\footnote{\url{https://galaxy.ansible.com/}} kan je tientallen rollen vinden die door hun auteurs gepubliceerd zijn.
 
 De directorystructuur van een Ansible-project ligt vast en wordt uitvoerig beschreven in de documentatie\footnote{\url{https://docs.ansible.com/ansible/playbooks_best_practices.html}}.
 
@@ -346,7 +351,7 @@ CentOS is een Linux-distributie die afgeleid is van RedHat, maar initieel volled
 Om je te helpen bij het leren kennen van deze distributie vind je hieronder enkele suggesties.
 
 \begin{itemize}
-  \item \textbf{Lees eerst de RHEL 7-documentatie}~\autocite{SvistunovEtAl2016,JahodaEtAl2016,JahodaEtAl2016a}, ga niet in het wilde weg Googlen naar commando's. Recent zijn er redelijk wat ingrijpende wijzigingen gebeurd in het Linux-landschap waardoor vele commando's die nog altijd in blog-artikels en HOWTO's staan niet meer werken of verouderd zijn. De delen van de handleidingen die bij uitstek relevant zijn, worden opgesomd in Sectie~\ref{sec:leerdoelen}.
+  \item \textbf{Lees eerst de RHEL 8-documentatie}\footnote{\url{https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/}}, ga niet in het wilde weg Googlen naar commando's. Recent zijn er redelijk wat ingrijpende wijzigingen gebeurd in het Linux-landschap waardoor vele commando's die nog altijd in blog-artikels en HOWTO's staan niet meer werken of verouderd zijn. De delen van de handleidingen die bij uitstek relevant zijn, worden opgesomd in Sectie~\ref{sec:leerdoelen}.
   \item Maak voor jezelf een \textbf{cheat sheet} met de belangrijkste commando's, in het bijzonder voor:
     \begin{itemize}
       \item netwerkinstellingen opvragen met \texttt{ip};
@@ -370,7 +375,7 @@ Om je te helpen bij het leren kennen van deze distributie vind je hieronder enke
 \section{DNS en BIND}%
 \label{sec:dns-en-bind}
 
-DNS is essentieel voor de correcte werking van een domein, en redelijk wat (volgens sommigen \emph{alle}\footnote{\url{http://www.krisbuytaert.be/blog/}}) netwerkproblemen zijn terug te leiden tot fouten in DNS.\@ Er zijn verschillende implementaties van DNS, maar veruit de meest gebruikte (en dus essentieel voor de werking van het Internet als geheel) is BIND\footnote{\url{https://www.isc.org/downloads/bind/}}.
+DNS is essentieel voor de correcte werking van een domein, en redelijk wat (volgens sommigen \emph{alle}\footnote{\url{http://www.krisbuytaert.be/blog/}}) netwerkproblemen zijn terug te leiden tot fouten in DNS\@. Er zijn verschillende implementaties van DNS, maar veruit de meest gebruikte (en dus essentieel voor de werking van het Internet als geheel) is BIND\footnote{\url{https://www.isc.org/downloads/bind/}}.
 
 In deze syllabus geven we een heel summiere inleiding. Voor een uitgebreid overzicht van de werking en configuratie van BIND, zie~\textcite{Aitchison2015}.
 
@@ -425,9 +430,9 @@ $TTL 1W
 De syntax van deze \emph{zone files} is heel strak en het is makkelijk om fouten te maken. De meest voorkomende fouten zijn de volgende:
 
 \begin{itemize}
-  \item Hostnamen die volledig uitgeschreven zijn (\emph{fully qualified domain name} of FQDN) moeten in een zonebestand altijd afgesloten worden met een punt, bv. ``\texttt{pu001.linuxlab.lan.}''. Namen die niet op een punt eindigen, worden aangevuld met de waarde van \texttt{\$ORIGIN} die aan het begin van een zonebestand gegeven wordt (d.i.\ de domeinnaam, in ons geval ``\texttt{linuxlab.lan.}''). Bv.\ \texttt{pu002} wordt dan ``\texttt{pu002.linuxlab.lan.}''. Als je een hostnaam volledig uitschrijft en je vergeet de punt, dan zal de domeinnaam dus verkeerd geïnterpreteerd worden. ``\texttt{pu002.linuxlab.lan}'' wordt immers omgezet naar ``\path{pu002.linuxlab.lan.linuxlab.lan.}''.
+  \item Hostnamen die volledig uitgeschreven zijn (\emph{fully qualified domain name} of FQDN) moeten in een zonebestand altijd afgesloten worden met een punt, bv. ``\texttt{pu001.linuxlab.lan.}''. Namen die niet op een punt eindigen, worden aangevuld met de waarde van \texttt{\$ORIGIN} die aan het begin van een zonebestand gegeven wordt (d.i.\ de domeinnaam, in ons geval ``\texttt{linuxlab.lan.}''). Bv.\ \texttt{pu002} wordt dan ``\texttt{pu002.linuxlab.lan.}''. Als je een hostnaam volledig uitschrijft en je vergeet de punt, dan zal de domeinnaam dus verkeerd geïnterpreteerd worden. ``\texttt{pu002.linuxlab.lan}'' wordt immers geïnterpreteerd worden als ``\path{pu002.linuxlab.lan.linuxlab.lan.}''.
   
-  \item IP-adressen worden op een eigenaardige manier genoteerd. Ten eerste wordt het host-deel van het netwerkadres niet geschreven, de getallen in de ``dotted quad''-notatie worden omgekeerd en je moet er ``\texttt{in-addr.arpa.}'' achter schrijven. Met andere woorden, \texttt{192.0.2.0/24} wordt als ``\texttt{2.0.192.in-addr-arpa.}'' geschreven.
+  \item IP-adressen van subnetten worden op een eigenaardige manier genoteerd. Ten eerste wordt het host-deel van het netwerkadres niet geschreven, de getallen in de ``dotted quad''-notatie worden omgekeerd en je moet er ``\texttt{in-addr.arpa.}'' achter schrijven. Met andere woorden, \texttt{192.0.2.0/24} wordt als ``\texttt{2.0.192.in-addr-arpa.}'' geschreven.
 \end{itemize}
 
 \subsection{DNS troubleshooting}%
@@ -455,7 +460,7 @@ Het is niet altijd evident om fouten op te sporen in de configuratie van een BIN
       $ sudo journalctl -l -f -u named.service
     \end{minted}
 
-  Het eerste commando zorgt dat DNS-queries van clients in de logs verschijnen (wat standaard uit staat). Het tweede commando toont de logs van BIND.
+  Het eerste commando zorgt dat DNS-queries van clients in de logs verschijnen (wat standaard uit staat). Het tweede commando toont de logs van BIND\@.
 
   Open een andere console om commando's uit te voeren (bv.\ de service herstarten). Je ziet dan meteen relevante info- en foutboodschappen verschijnen.
   
@@ -487,11 +492,11 @@ Je kan een query met \texttt{nslookup} ook richten naar een specifieke DNS-serve
 
 \begin{minted}{console}
 $ nslookup www.hogent.be 8.8.8.8
-Server:		8.8.8.8
-Address:	8.8.8.8#53
+Server:   8.8.8.8
+Address:  8.8.8.8#53
 
 Non-authoritative answer:
-Name:	www.hogent.be
+Name:    www.hogent.be
 Address: 178.62.144.90
 \end{minted}
 
@@ -511,10 +516,10 @@ $ dig www.hogent.be
 ;; OPT PSEUDOSECTION:
 ; EDNS: version: 0, flags:; udp: 4096
 ;; QUESTION SECTION:
-;www.hogent.be.			IN	A
+;www.hogent.be.        IN   A
 
 ;; ANSWER SECTION:
-www.hogent.be.		2796	IN	A	178.62.144.90
+www.hogent.be.   2796  IN   A   178.62.144.90
 
 ;; Query time: 11 msec
 ;; SERVER: 195.130.131.1#53(195.130.131.1)
@@ -558,6 +563,8 @@ wildcard.fedoraproject.org.
 2605:bc80:3010:600:dead:beef:cafe:fed9
 \end{minted}
 
+Wat een grapjassen bij het Fedora-project\ldots
+
 Zo doe je een ``reverse lookup'':
 
 \begin{minted}{console}
@@ -574,7 +581,7 @@ De meest gebruikte manier om met Linux een fileserver op te zetten die voor alle
 
 De laatste versie van Samba laat zelfs toe als een Active Directory Domain Controller op te treden, maar dat valt buiten het bestek van deze cursus.
 
-Het opzetten van een Samba fileserver \autocite{VanVreckem2014,VernooijEtAl2010} is soms een uitdaging, vooral wat betreft het juist instellen van de toegangsrechten. Als je bepaalde gebruikers wil lees- of schrijftoegang geven tot een share, dan moet dit op drie verschillende niveaus correct ingesteld zijn:
+Het opzetten van een Samba fileserver \autocite{VanVreckem2014} is soms een uitdaging, vooral wat betreft het juist instellen van de toegangsrechten. Als je bepaalde gebruikers wil lees- of schrijftoegang geven tot een share, dan moet dit op drie verschillende niveaus correct ingesteld zijn:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -619,7 +626,7 @@ De beste manier om het troubleshooten van netwerkservices systematiseren is om d
 
 \begin{enumerate}
   \item Datalinklaag: kabels, netwerkpoorten op de switch/router, netwerkkaart, enz.;
-  \item Internetlaag: IP adresconfiguratie, default gateway, DNS-server en connectiviteit binnen het LAN;
+  \item Internetlaag: IP adresconfiguratie, default gateway, DNS-server en connectiviteit binnen het LAN\@;
   \item Transportlaag: toestand netwerkservice, open netwerkpoorten, firewall-in\-stel\-lingen;
   \item Applicatielaag: fouten in configuratiebestanden, logbestanden, bereikbaarheid service vanop het netwerk, enz.
 \end{enumerate}
@@ -660,6 +667,6 @@ The error output from the command was:
 /sbin/mount.vboxsf: mounting failed with the error: No such device
 \end{minted}
 
-Deze foutboodschap geeft aan dat de directory \texttt{/vagrant}, die je projectdirectory op je fysieke systeem voorstelt (de kloon van je Github-repo), niet beschikbaar is binnen de VM.\@Meestal is de oorzaak dat je de VM hebt opgestart vanuit de VirtualBox GUI in plaats van via het commando \texttt{vagrant up}. Het commando zal niet enkel de VM aanzetten, maar ook een aantal basisinstellingen toepassen zoals port forwarding voor SSH, netwerkinterfaces een IP adres toekennen, en de \texttt{/vagrant} directory beschikbaar maken binnen de VM.
+Deze foutboodschap geeft aan dat de directory \texttt{/vagrant}, die je projectdirectory op je fysieke systeem voorstelt (de kloon van je Github-repo), niet beschikbaar is binnen de VM\@. Meestal is de oorzaak dat je de VM hebt opgestart vanuit de VirtualBox GUI in plaats van via het commando \texttt{vagrant up}. Het commando zal niet enkel de VM aanzetten, maar ook een aantal basisinstellingen toepassen zoals port forwarding voor SSH, netwerkinterfaces een IP adres toekennen, en de \texttt{/vagrant} directory beschikbaar maken binnen de VM\@.
 
 \textbf{Start VMs altijd op via de command line.} Je hebt de VirtualBox GUI \textit{niet} meer nodig, tenzij voor troubleshooting.
