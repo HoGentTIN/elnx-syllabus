@@ -42,20 +42,22 @@ install_packages() {
 
   info "Installing packages"
 
-  yum install -y epel-release
-  yum install -y \
+  dnf install -y epel-release
+  dnf install -y \
     audit \
     bash-completion \
-    bash-completion-extras \
     bind-utils \
+    cockpit \
+    cockpit-dashboard \
+    cockpit-system \
     git \
     mariadb \
     mariadb-server \
     mod_ssl \
     multitail \
     pciutils \
-    policycoreutils-python \
     psmisc \
+    python3-policycoreutils \
     tree \
     vim-enhanced
 
@@ -75,8 +77,10 @@ start_basic_services() {
   info "Starting essential services"
   systemctl start auditd.service
   systemctl restart network.service
-  systemctl enable firewalld.service
-  systemctl start firewalld.service
+  systemctl enable --now firewalld.service
+  systemctl enable --now cockpit.socket
+  firewall-cmd --add-service=cockpit
+  firewall-cmd --add-service=cockpit --permanent
 }
 
 setup_mariadb() {

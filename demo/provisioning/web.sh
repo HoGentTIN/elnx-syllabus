@@ -30,25 +30,25 @@ install_packages() {
 
   info "Installing packages"
 
-  yum install -y epel-release
-  yum install -y \
+  dnf install -y epel-release
+  dnf install -y \
     audit \
     bash-completion \
-    bash-completion-extras \
     bind-utils \
+    cockpit \
+    cockpit-dashboard \
     git \
     httpd \
     mod_ssl \
     multitail \
     mysql \
-    policycoreutils-python \
+    python3-policycoreutils \
     php \
-    php-mysql \
+    php-mysqlnd \
     pciutils \
     psmisc \
     tree \
-    vim-enhanced \
-    wordpress
+    vim-enhanced
 }
 
 enable_selinux() {
@@ -64,17 +64,21 @@ enable_selinux() {
 start_basic_services() {
   info "Starting essential services"
 
-  systemctl start auditd.service
-  systemctl enable auditd.service
-  systemctl start firewalld.service
-  systemctl enable firewalld.service
+  systemctl enable --now auditd.service
+  systemctl enable --now firewalld.service
+  systemctl enable --now cockpit.socket
+  firewall-cmd --add-service=cockpit
+  firewall-cmd --add-service=cockpit --permanent
 }
 
 setup_networking() {
   # the name of the last network interface when calling `ip l`
   last_interface=$(ip l | grep '^[0-9]' | awk '{ print $2; }' | tail -1 | tr -d ':')
+  iface_status=$(nmcli dev status | grep "${last_interface}" | awk '{print $3}')
 
-  ifdown "${last_interface}"
+  if [ "${iface_status}" = 'connected'  ]; then
+    nmcli dev disconnect "${last_interface}"
+  fi
 }
 
 configure_webserver() {

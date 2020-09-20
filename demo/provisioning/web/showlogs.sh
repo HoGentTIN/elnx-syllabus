@@ -5,10 +5,12 @@
 # 1/ journalctl output for the httpd service
 # 2/ Apache access log
 # 3/ Apache error log
+# 4/ SELinux log
 #
 # Each log is shown with the appropriate color scheme (-cS option)
 #
 journalctl --full --follow --unit=httpd.service | \
   multitail -cS syslog -j \
     -cS apache -i /var/log/httpd/access_log \
-    -cS apache_error -i /var/log/httpd/error_log
+    -cS apache_error -i /var/log/httpd/error_log \
+    -cS audit -i /var/log/audit/audit.log
