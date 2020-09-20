@@ -12,10 +12,10 @@
 ##---------- Variables --------------------------------------------------------
 
 # Markdown file containing presentation source
-SOURCE_FILE := basic-commands-el7.md
+SOURCE_FILE := basic-commands-el8.md
 
 # Target directory for the reveal.js presentation
-OUTPUT := ../publish/el7
+OUTPUT := ../publish/el8
 
 # Directory for reveal.js
 REVEAL_JS_DIR := $(OUTPUT)/reveal.js

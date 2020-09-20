@@ -1,4 +1,4 @@
-% Basic commands for EL7
+% Basic commands for EL8
 % Enterprise Linux
 % HOGENT applied computer science
 
@@ -36,7 +36,7 @@ Code: see <https://github.com/HoGentTIN/elnx-syllabus/>
 **For now, only start `db`**
 
 ```console
-$ vagrant up db
+vagrant up db
 ```
 
 ---
@@ -73,7 +73,7 @@ $ vagrant ssh db
 
 ## Example
 
-```
+```console
 $ ip l
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -85,7 +85,7 @@ $ ip l
 
 ---
 
-```
+```console
 $ ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -121,7 +121,7 @@ $ ip a
 
 Also, see (Hayden, 2015)
 
-**Remark:** `bento/centos-7.5` base box has the old names `eth0`, `eth1`, etc.
+**Remark:** `bento/centos-8` base box has the old names `eth0`, `eth1`, etc.
 
 ## Configuration
 
@@ -313,8 +313,6 @@ sudo firewall-cmd --add-service=https --permanent
 ## References
 
 - Hayden, M. (2015) [Understanding systemd’s predictable network device names](https://major.io/2015/08/21/understanding-systemds-predictable-network-device-names/)
-- Jahoda, M., et al. (2016a) [RHEL 7 Security Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Security_Guide/index.html)
-- Jahoda, M., et al. (2016b) [RHEL 7 SELinux User's and Administrator's Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/SELinux_Users_and_Administrators_Guide/index.html)
-- Svistunov, M., et al. (2016) [RHEL 7 System Administrator's Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/index.html)
+- RedHat. (n.d.) [RHEL 8 Documentation](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/8/)
 - Van Vreckem, B. (2015) [Enterprise Linux 7 Cheat sheet](https://github.com/bertvv/cheat-sheets/blob/master/src/EL7.md)
 - Van Vreckem, B. (2017) [Network troubleshooting guide](https://bertvv.github.io/linux-network-troubleshooting/)
