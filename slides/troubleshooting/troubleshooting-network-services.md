@@ -1,4 +1,4 @@
-% Troubleshooting Network Services (on EL7)
+% Troubleshooting Network Services
 % Enterprise Linux
 % HOGENT applied computer science
 
@@ -27,11 +27,6 @@ $ vagrant up web db
 
 **Interrupt me if you have remarks/questions!**
 
-## Terminology
-
-- *host system* = the physical machine running virtualisation software (my laptop)
-- *network host* = any machine with an IP address
-
 ## Case: web + db server
 
 Two VirtualBox VMs, set up with Vagrant
@@ -46,7 +41,7 @@ Two VirtualBox VMs, set up with Vagrant
 
 ## Objective
 
-![The PHP application](img/result.png)
+![The PHP application](assets/result.png)
 
 ## Test the database server
 
@@ -63,6 +58,11 @@ $ ./query_db.sh
 +----+-------------------+
 + set +x
 ```
+
+Should work from
+
+- physical system (MacOS/Linux and if MySQL/MariaDB client is installed)
+- from VMs (`/vagrant/query_db.sh`)
 
 ## Use a bottom-up approach
 
@@ -179,8 +179,8 @@ Checking routing within the *LAN*:
 
 ## LAN connectivity: `ping`
 
-- host -> VM: `ping 192.168.56.72`
-- VM -> host: `ping 192.168.56.1`
+- physical -> VM: `ping 192.168.56.72`
+- VM -> physical: `ping 192.168.56.1`
 - VM -> GW: `ping 10.0.2.2`
 - VM -> DNS: `ping 10.0.2.3`
 
@@ -251,6 +251,7 @@ $ sudo firewall-cmd --reload
 - Validate config file *syntax*
 - Use (command line) *client* tools
     - e.g. `curl`, `smbclient` (Samba), `dig` (DNS), etc.
+    - Netcat (`ncat`, `nc`)
 - Other checks are application dependent
     - Read the reference manuals!
 
@@ -378,7 +379,7 @@ Tip: automate this!
 
 ## Know your log files
 
-![Credit: @KrisBuytaert](img/reading-errorlog-files-small.jpg)
+![Credit: @KrisBuytaert](assets/reading-errorlog-files-small.jpg)
 
 ## Read The F*** Error Message!
 
@@ -400,7 +401,7 @@ E.g. <https://github.com/bertvv/cheat-sheets>
 
 ## Automate tests
 
-E.g. <https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu004/lamp.bats>
+E.g. <https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu001/lamp.bats>
 
 ## Never ping Google!
 

@@ -35,7 +35,7 @@ STYLE_FILE := $(REVEAL_JS_DIR)/css/theme/$(STYLE).css
 help: ## Show this help message (default)
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
-all: $(STYLE_FILE) $(OUTPUT)/index.html ## Build the presentation (but not the handouts)
+all: $(STYLE_FILE) $(OUTPUT)/assets $(OUTPUT)/index.html ## Build the presentation (but not the handouts)
 
 handouts: $(OUTPUT)/handouts.pdf ## Generate PDF handouts
 
@@ -79,3 +79,7 @@ $(REVEAL_JS_DIR):
 	rm $(REVEAL_JS_TAR)
 	mv -T reveal.js* $(REVEAL_JS_DIR)
 
+## Copy assets
+$(OUTPUT)/assets:
+	mkdir $(OUTPUT)/assets
+	cp -r assets/* $(OUTPUT)/assets
