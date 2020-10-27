@@ -37,7 +37,7 @@ $ vagrant up ns1 ns2
 
 Hosts file: `/etc/hosts`
 
-```
+```text
 # IP-address   hostname    aliases
 127.0.0.1      localhost   localhost.localdomain
 ::1            localhost6  localhost6.localdomain6
@@ -75,7 +75,7 @@ Hosts file: `/etc/hosts`
 - Forwarding/caching: sends requests to other servers
 - Primary/Secondary (master/slave)
 
-## Best practice
+## Best practices in production
 
 - Authoritative-only
     - **Do not** mix caching & authoritative
@@ -88,44 +88,57 @@ Typical Active Directory Domain Controller violates both!
 
 ## nslookup
 
-```bash
-$ nslookup www.hogent.be
-$ nslookup www.hogent.be 193.190.172.1
+query the DNS server in `/etc/resolv.conf`
+
+```console
+nslookup www.hogent.be
 ```
 
-1. query the DNS server in `/etc/resolv.conf`
-2. query the specified DNS server
+query the specified DNS server
+
+```console
+nslookup www.hogent.be 193.190.172.1
+```
 
 ## dig: forward lookups
 
-```bash
+```console
 $ dig www.hogent.be
-$ dig www.hogent.be @193.190.172.1 +short
+[...]
+$ dig www.hogent.be @ens1.hogent.be +short
+hogent.be.
+193.190.173.132
 ```
 
 ## dig: reverse lookup
 
-```bash
-$ dig -x 178.62.144.90
+```console
+$ dig -x 193.190.173.132 @ens1.hogent.be +short
+net-173-node-133.hogent.be.
 ```
 
 ## dig: IPv6
 
-```bash
-$ dig AAAA www.hogent.be +short
+```console
+$ dig AAAA www.google.com +short
+2a00:1450:400e:806::2004
 ```
 
 ## dig: domain info
 
-```bash
+```console
 $ dig NS hogent.be
 $ dig MX hogent.be
 $ dig SOA hogent.be
+$ dig ANY hogent.be @ens1.hogent.be
+$ dig AXFR zonetransfer.me @nsztm1.digi.ninja
 ```
 
 1. Who is the authoritative name server for hogent.be?
 2. Who is the mail server for hogent.be?
 3. Start-of-Authority section for hogent.be
+4. Get any RR that contains the given name
+5. Request domain transfer
 
 # BIND
 
@@ -137,7 +150,7 @@ $ dig SOA hogent.be
 
 Read *DNS for rocket scientists*: <http://www.zytrax.com/books/dns/>
 
-## Installation on EL7
+## Installation on Enterprise Linux
 
 - Package: `named`
 - Service configuration: `/etc/named*`
@@ -145,7 +158,7 @@ Read *DNS for rocket scientists*: <http://www.zytrax.com/books/dns/>
 
 ## Main config file
 
-```
+```text
 options {
   listen-on port 53 { any; };
   listen-on-v6 port 53 { any; };
@@ -164,7 +177,7 @@ options {
 };
 ```
 
-## Main config file
+## Important options
 
 - `listen-on`: port number + network interfaces
     - `any;`
@@ -174,11 +187,11 @@ options {
 - `recursion`: allow recursive queries
     - should be `no` on authoritative name server
 
-## Main config file: zone definition
+## Primary server forward zone definition
 
 Forward lookup zone for *example.com*
 
-```
+```text
 zone "example.com" IN {
   type master;
   file "example.com";
@@ -187,11 +200,11 @@ zone "example.com" IN {
 };
 ```
 
-## Main config file: zone definition
+## Secondary server zone definition
 
 On a secondary name server:
 
-```
+```text
 zone "example.com" IN {
   type slave;
   masters { 192.168.56.10; };
@@ -199,9 +212,9 @@ zone "example.com" IN {
 };
 ```
 
-## Reverse lookup zone
+## Primary server reverse lookup zone
 
-```
+```text
 zone "56.168.192.in-addr.arpa" IN {
   type master;
   file "56.168.192.in-addr.arpa";
@@ -220,7 +233,7 @@ zone "56.168.192.in-addr.arpa" IN {
 
 ## Example zone file
 
-```
+```text
 $ORIGIN example.com.
 $TTL 1W
 
@@ -228,7 +241,7 @@ $TTL 1W
   18042020 1D 1H 1W 1D )
 
                      IN  NS     ns1
-                     IN  NS     ns1
+                     IN  NS     ns2
 
 ns1                  IN  A      192.168.56.10
 ns2                  IN  A      192.168.56.11
@@ -241,18 +254,18 @@ priv0001             IN  A      172.16.0.10
 priv0002             IN  A      172.16.0.11
 ```
 
-## Resource records
+## Resource records (RRs)
 
-```
+```text
 web  IN  A      192.168.56.172
 www  IN  CNAME  web
 ```
 
-## Resource records
+## Types of Resource Records
 
-- `A`: name to IP
-- `AAAA`: name to IPv6
-- `PTR`: IP to name
+- `A`: name → IP
+- `AAAA`: name → IPv6
+- `PTR`: IP → name
 - `CNAME`: alias
 - `SOA`: start of authority, info about the domain
 - `NS`: authoritative name server(s)
@@ -263,7 +276,7 @@ www  IN  CNAME  web
 
 ## Start of Authority
 
-```
+```text
 @ IN SOA ns1.example.com. hostmaster.example.com. (
   18042020 1D 1H 1W 1D )
 ```
@@ -274,16 +287,16 @@ www  IN  CNAME  web
 - `18042020`: serial
     - **REMARK** Secondary name servers will **only** update if serial increments
 
-## Start of Authority
+## Start of Authority timeouts
 
-```
+```text
 @ IN SOA ns1.example.com hostmaster.example.com (
   18042020 1D 1H 1W 1D )
 ```
 
 - `1D`: when will secondary ns try to refresh the zone
 - `1H`: time between update retries
-- `1W`: when is zone data no longer authoritative (slave only)
+- `1W`: when is zone data no longer authoritative (only secondary)
 - `1D`: how long can NAME ERROR result be cached
 
 ## "Shortcuts"
@@ -300,7 +313,7 @@ www  IN  CNAME  web
 - Unqualified: without dot
     - `$ORIGIN` added to the end
 
-## Specifying time:
+## Specifying time
 
 - default = seconds
 - M = minutes
@@ -312,7 +325,7 @@ Combinations are allowed, e.g. `2H30M`
 
 ## Reverse zone file
 
-```
+```text
 $TTL 1W
 $ORIGIN 16.172.in-addr.arpa.
 
@@ -331,25 +344,25 @@ $ORIGIN 16.172.in-addr.arpa.
 
 Every (forwarding) name server should have list of root name servers
 
-```
+```console
 dig @a.root-servers.net
 ```
 
 ---
 
-```
-.			518400	IN	NS	a.root-servers.net.
-.			518400	IN	NS	b.root-servers.net.
+```text
+.   518400 IN NS a.root-servers.net.
+.   518400 IN NS b.root-servers.net.
 
 [...]
 
-a.root-servers.net.	518400	IN	A	198.41.0.4
-b.root-servers.net.	518400	IN	A	199.9.14.201
+a.root-servers.net. 518400 IN A 198.41.0.4
+b.root-servers.net. 518400 IN A 199.9.14.201
 
 [...]
 
-a.root-servers.net.	518400	IN	AAAA	2001:503:ba3e::2:30
-b.root-servers.net.	518400	IN	AAAA	2001:500:200::b
+a.root-servers.net. 518400 IN AAAA 2001:503:ba3e::2:30
+b.root-servers.net. 518400 IN AAAA 2001:500:200::b
 
 [...]
 ```
@@ -375,7 +388,7 @@ The host `web` has an alias, `www`.
 ## Goal: make the tests succeed!
 
 ```console
-$ ./tests/runtests.sh 
+[vagrant@ns1]$ /vagrant/tests/runtests.sh
 Testing 192.168.56.10
  ✓ The dig command should be installed
  ✓ It should return the NS record(s)
@@ -403,8 +416,37 @@ Testing 192.168.56.11
     - main: `named-checkconf /etc/named.conf`
     - zone files: `named-checkzone ZONE FILE`
 
-```
+```console
 $ named-checkconf
-$ named-checkzone example.com /var/named/example.conf
+$ named-checkzone example.com /var/named/example.com
 $ named-checkzone 16.172.in-addr.arpa /var/named/16.172.in-addr.arpa
+```
+
+## Tips
+
+Enable Query log:
+
+```console
+[root@ns1 ~]# rndc querylog
+```
+
+Force zone update:
+
+```console
+[root@ns2 ~]# rndc refresh example.com
+```
+
+## Tips (vervolg)
+
+Follow BIND logs:
+
+```console
+[root@ns1 ~]# journalctl -f -u named.service
+```
+
+Capture network traffic:
+
+```console
+[root@ns2 ~]# tcpdump -i eth1 -vvnnttt
+[root@ns2 ~]# tcpdump -i eth1 -U -w - | tee dns.pcap | tcpdump -vv -nn -ttttt -r -
 ```

@@ -36,17 +36,16 @@ install_packages() {
   yum install -y \
     audit \
     bash-completion \
-    bash-completion-extras \
-    bind-utils \
-    git \
     bind \
     bind-utils \
+    git \
+    nano \
     pciutils \
-    policycoreutils-python \
     psmisc \
+    python3-policycoreutils \
+    tcpdump \
     tree \
     vim-enhanced
-
 }
 
 enable_selinux() {
