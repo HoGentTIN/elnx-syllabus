@@ -17,7 +17,7 @@ $ vagrant up ns1 ns2
 ## Agenda
 
 - DNS
-- BIND on EL7
+- BIND on Enterprise Linux
 - Main configuration
 - Zone files
 - Secondary servers
