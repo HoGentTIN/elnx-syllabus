@@ -16,9 +16,9 @@ IFS=$'\t\n'   # Split on newlines and tabs (but not on spaces)
 #}}}
 
 main() {
-  # install_packages
-  # enable_selinux
-  # start_basic_services
+  install_packages
+  enable_selinux
+  start_basic_services
 
   configure_fileserver
 }
