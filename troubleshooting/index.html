@@ -4,12 +4,13 @@
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
   <meta name="author" content="Enterprise Linux">
-  <title>Troubleshooting Network Services (on EL7)</title>
+  <title>Troubleshooting Network Services</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
-  <style type="text/css">
+  <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
@@ -33,7 +34,7 @@
     <div class="slides">
 
 <section id="title-slide">
-  <h1 class="title">Troubleshooting Network Services (on EL7)</h1>
+  <h1 class="title">Troubleshooting Network Services</h1>
   <p class="author">Enterprise Linux</p>
   <p class="date">HOGENT applied computer science</p>
 </section>
@@ -56,12 +57,6 @@ $ vagrant up web db
 <li>SELinux</li>
 </ul>
 <p><strong>Interrupt me if you have remarks/questions!</strong></p>
-</section><section id="terminology" class="slide level2">
-<h2>Terminology</h2>
-<ul>
-<li><em>host system</em> = the physical machine running virtualisation software (my laptop)</li>
-<li><em>network host</em> = any machine with an IP address</li>
-</ul>
 </section><section id="case-web-db-server" class="slide level2">
 <h2>Case: web + db server</h2>
 <p>Two VirtualBox VMs, set up with Vagrant</p>
@@ -93,7 +88,7 @@ $ vagrant up web db
 </section><section id="objective" class="slide level2">
 <h2>Objective</h2>
 <figure>
-<img data-src="img/result.png" alt="The PHP application" /><figcaption>The PHP application</figcaption>
+<img data-src="assets/result.png" alt="" /><figcaption>The PHP application</figcaption>
 </figure>
 </section><section id="test-the-database-server" class="slide level2">
 <h2>Test the database server</h2>
@@ -108,6 +103,11 @@ $ vagrant up web db
 | 2  | Bobby Tables      |
 +----+-------------------+
 + set +x</code></pre>
+<p>Should work from</p>
+<ul>
+<li>physical system (MacOS/Linux and if MySQL/MariaDB client is installed)</li>
+<li>from VMs (<code>/vagrant/query_db.sh</code>)</li>
+</ul>
 </section><section id="use-a-bottom-up-approach" class="slide level2">
 <h2>Use a bottom-up approach</h2>
 <p>TCP/IP protocol stack</p>
@@ -260,8 +260,8 @@ DEVICE=enp0s8
 </section><section id="lan-connectivity-ping" class="slide level2">
 <h2>LAN connectivity: <code>ping</code></h2>
 <ul>
-<li>host -&gt; VM: <code>ping 192.168.56.72</code></li>
-<li>VM -&gt; host: <code>ping 192.168.56.1</code></li>
+<li>physical -&gt; VM: <code>ping 192.168.56.72</code></li>
+<li>VM -&gt; physical: <code>ping 192.168.56.1</code></li>
 <li>VM -&gt; GW: <code>ping 10.0.2.2</code></li>
 <li>VM -&gt; DNS: <code>ping 10.0.2.3</code></li>
 </ul>
@@ -288,12 +288,12 @@ DEVICE=enp0s8
 <h2>Is the service running?</h2>
 <p><code>systemctl status httpd.service</code></p>
 <ul>
-<li><code>active (running)</code> vs. <code>inactive (dead)</code>
+<li><code>active (running)</code> vs. <code>inactive (dead)</code>
 <ul>
 <li><code>systemctl start httpd</code></li>
 <li>Fail? See below (Application layer)</li>
 </ul></li>
-<li>Start at boot: <code>enabled</code> vs. <code>disabled</code>
+<li>Start at boot: <code>enabled</code> vs. <code>disabled</code>
 <ul>
 <li><code>systemctl enable httpd</code></li>
 </ul></li>
@@ -341,7 +341,8 @@ $ sudo firewall-cmd --reload</code></pre>
 <li>Validate config file <em>syntax</em></li>
 <li>Use (command line) <em>client</em> tools
 <ul>
-<li>e.g. <code>curl</code>, <code>smbclient</code> (Samba), <code>dig</code> (DNS), etc.</li>
+<li>e.g. <code>curl</code>, <code>smbclient</code> (Samba), <code>dig</code> (DNS), etc.</li>
+<li>Netcat (<code>ncat</code>, <code>nc</code>)</li>
 </ul></li>
 <li>Other checks are application dependent
 <ul>
@@ -423,7 +424,7 @@ $ sudo firewall-cmd --reload</code></pre>
 </ul>
 </section><section id="creating-a-policy" class="slide level2">
 <h2>Creating a policy</h2>
-<p>Let’s try to set <code>DocumentRoot &quot;/vagrant/www&quot;</code></p>
+<p>Let’s try to set <code>DocumentRoot "/vagrant/www"</code></p>
 <pre><code>$ sudo vi /etc/httpd/conf/httpd.conf
 $ ls -Z /vagrant/www/
 -rw-rw-r--. vagrant vagrant system_u:object_r:vmblock_t:s0   test.php
@@ -467,7 +468,7 @@ $ semodule_package -o httpd-vboxsf.pp -m httpd-vboxsf.mod</code></pre></li>
 </section><section id="know-your-log-files" class="slide level2">
 <h2>Know your log files</h2>
 <figure>
-<img data-src="img/reading-errorlog-files-small.jpg" alt="Credit: @KrisBuytaert" /><figcaption>Credit: <span class="citation" data-cites="KrisBuytaert">@KrisBuytaert</span></figcaption>
+<img data-src="assets/reading-errorlog-files-small.jpg" alt="" /><figcaption>Credit: <span class="citation" data-cites="KrisBuytaert">@KrisBuytaert</span></figcaption>
 </figure>
 </section><section id="read-the-f-error-message" class="slide level2">
 <h2>Read The F*** Error Message!</h2>
@@ -488,11 +489,11 @@ $ semodule_package -o httpd-vboxsf.pp -m httpd-vboxsf.mod</code></pre></li>
 <h2>Use a configuration management system</h2>
 </section><section id="automate-tests" class="slide level2">
 <h2>Automate tests</h2>
-<p>E.g. <a href="https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu004/lamp.bats" class="uri">https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu004/lamp.bats</a></p>
+<p>E.g. <a href="https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu001/lamp.bats" class="uri">https://github.com/HoGentTIN/elnx-sme/blob/master/test/pu001/lamp.bats</a></p>
 </section><section id="never-ping-google" class="slide level2">
 <h2>Never ping Google!</h2>
 </section></section>
-<section><section id="thats-it" class="title-slide slide level1"><h1>That’s it!</h1></section></section>
+<section id="thats-it" class="title-slide slide level1"><h1>That’s it!</h1></section>
     </div>
   </div>
 
