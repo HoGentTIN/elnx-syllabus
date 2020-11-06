@@ -8,72 +8,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
-  <style type="text/css">
+  <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; position: absolute; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; }
-pre.numberSource a.sourceLine:empty
-  { position: absolute; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; } /* Alert */
-code span.an { color: #008000; } /* Annotation */
-code span.at { } /* Attribute */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #0000ff; } /* ControlFlow */
-code span.ch { color: #008080; } /* Char */
-code span.cn { } /* Constant */
-code span.co { color: #008000; } /* Comment */
-code span.cv { color: #008000; } /* CommentVar */
-code span.do { color: #008000; } /* Documentation */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.im { } /* Import */
-code span.in { color: #008000; } /* Information */
-code span.kw { color: #0000ff; } /* Keyword */
-code span.op { } /* Operator */
-code span.ot { color: #ff4000; } /* Other */
-code span.pp { color: #ff4000; } /* Preprocessor */
-code span.sc { color: #008080; } /* SpecialChar */
-code span.ss { color: #008080; } /* SpecialString */
-code span.st { color: #008080; } /* String */
-code span.va { } /* Variable */
-code span.vs { color: #008080; } /* VerbatimString */
-code span.wa { color: #008000; font-weight: bold; } /* Warning */
   </style>
   <link rel="stylesheet" href="reveal.js/css/theme/hogent.css" id="theme">
   <!-- Printing and PDF exports -->
@@ -108,7 +49,7 @@ $ vagrant up ns1 ns2
 <h2>Agenda</h2>
 <ul>
 <li>DNS</li>
-<li>BIND on EL7</li>
+<li>BIND on Enterprise Linux</li>
 <li>Main configuration</li>
 <li>Zone files</li>
 <li>Secondary servers</li>
@@ -126,7 +67,7 @@ $ vagrant up ns1 ns2
 </section><section id="poor-mans-dns" class="slide level2">
 <h2>Poor man’s DNS</h2>
 <p>Hosts file: <code>/etc/hosts</code></p>
-<pre><code># IP-address   hostname    aliases
+<pre class="text"><code># IP-address   hostname    aliases
 127.0.0.1      localhost   localhost.localdomain
 ::1            localhost6  localhost6.localdomain6
 
@@ -140,12 +81,12 @@ $ vagrant up ns1 ns2
 </section><section id="however" class="slide level2">
 <h2>However…</h2>
 <figure>
-<img data-src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Domain_name_space.svg" alt="Hierarchical domains" /><figcaption>Hierarchical domains</figcaption>
+<img data-src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Domain_name_space.svg" alt="" /><figcaption>Hierarchical domains</figcaption>
 </figure>
 </section><section class="slide level2">
 
 <figure>
-<img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_of_an_iterative_DNS_resolver.svg/800px-Example_of_an_iterative_DNS_resolver.svg.png" alt="Iterative resolver" /><figcaption>Iterative resolver</figcaption>
+<img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Example_of_an_iterative_DNS_resolver.svg/800px-Example_of_an_iterative_DNS_resolver.svg.png" alt="" /><figcaption>Iterative resolver</figcaption>
 </figure>
 </section><section id="root-dns-servers" class="slide level2">
 <h2>Root DNS servers</h2>
@@ -169,8 +110,8 @@ $ vagrant up ns1 ns2
 <li>Forwarding/caching: sends requests to other servers</li>
 <li>Primary/Secondary (master/slave)</li>
 </ul>
-</section><section id="best-practice" class="slide level2">
-<h2>Best practice</h2>
+</section><section id="best-practices-in-production" class="slide level2">
+<h2>Best practices in production</h2>
 <ul>
 <li>Authoritative-only
 <ul>
@@ -185,31 +126,38 @@ $ vagrant up ns1 ns2
 </section></section>
 <section><section id="interacting-with-dns" class="title-slide slide level1"><h1>Interacting with DNS</h1></section><section id="nslookup" class="slide level2">
 <h2>nslookup</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">$ <span class="ex">nslookup</span> www.hogent.be</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">$ <span class="ex">nslookup</span> www.hogent.be 193.190.172.1</a></code></pre></div>
-<ol type="1">
-<li>query the DNS server in <code>/etc/resolv.conf</code></li>
-<li>query the specified DNS server</li>
-</ol>
+<p>query the DNS server in <code>/etc/resolv.conf</code></p>
+<pre class="console"><code>nslookup www.hogent.be</code></pre>
+<p>query the specified DNS server</p>
+<pre class="console"><code>nslookup www.hogent.be 193.190.172.1</code></pre>
 </section><section id="dig-forward-lookups" class="slide level2">
 <h2>dig: forward lookups</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">$ <span class="ex">dig</span> www.hogent.be</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">$ <span class="ex">dig</span> www.hogent.be @193.190.172.1 +short</a></code></pre></div>
+<pre class="console"><code>$ dig www.hogent.be
+[...]
+$ dig www.hogent.be @ens1.hogent.be +short
+hogent.be.
+193.190.173.132</code></pre>
 </section><section id="dig-reverse-lookup" class="slide level2">
 <h2>dig: reverse lookup</h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1">$ <span class="ex">dig</span> -x 178.62.144.90</a></code></pre></div>
+<pre class="console"><code>$ dig -x 193.190.173.132 @ens1.hogent.be +short
+net-173-node-133.hogent.be.</code></pre>
 </section><section id="dig-ipv6" class="slide level2">
 <h2>dig: IPv6</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1">$ <span class="ex">dig</span> AAAA www.hogent.be +short</a></code></pre></div>
+<pre class="console"><code>$ dig AAAA www.google.com +short
+2a00:1450:400e:806::2004</code></pre>
 </section><section id="dig-domain-info" class="slide level2">
 <h2>dig: domain info</h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1">$ <span class="ex">dig</span> NS hogent.be</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">$ <span class="ex">dig</span> MX hogent.be</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">$ <span class="ex">dig</span> SOA hogent.be</a></code></pre></div>
+<pre class="console"><code>$ dig NS hogent.be
+$ dig MX hogent.be
+$ dig SOA hogent.be
+$ dig ANY hogent.be @ens1.hogent.be
+$ dig AXFR zonetransfer.me @nsztm1.digi.ninja</code></pre>
 <ol type="1">
 <li>Who is the authoritative name server for hogent.be?</li>
 <li>Who is the mail server for hogent.be?</li>
 <li>Start-of-Authority section for hogent.be</li>
+<li>Get any RR that contains the given name</li>
+<li>Request domain transfer</li>
 </ol>
 </section></section>
 <section><section id="bind" class="title-slide slide level1"><h1>BIND</h1></section><section id="berkeley-internet-name-domain" class="slide level2">
@@ -220,8 +168,8 @@ $ vagrant up ns1 ns2
 <li>De facto standard on Unix-like systems</li>
 </ul>
 <p>Read <em>DNS for rocket scientists</em>: <a href="http://www.zytrax.com/books/dns/" class="uri">http://www.zytrax.com/books/dns/</a></p>
-</section><section id="installation-on-el7" class="slide level2">
-<h2>Installation on EL7</h2>
+</section><section id="installation-on-enterprise-linux" class="slide level2">
+<h2>Installation on Enterprise Linux</h2>
 <ul>
 <li>Package: <code>named</code></li>
 <li>Service configuration: <code>/etc/named*</code></li>
@@ -229,7 +177,7 @@ $ vagrant up ns1 ns2
 </ul>
 </section><section id="main-config-file" class="slide level2">
 <h2>Main config file</h2>
-<pre><code>options {
+<pre class="text"><code>options {
   listen-on port 53 { any; };
   listen-on-v6 port 53 { any; };
   directory   &quot;/var/named&quot;;
@@ -245,8 +193,8 @@ $ vagrant up ns1 ns2
 
   // ...
 };</code></pre>
-</section><section id="main-config-file-1" class="slide level2">
-<h2>Main config file</h2>
+</section><section id="important-options" class="slide level2">
+<h2>Important options</h2>
 <ul>
 <li><code>listen-on</code>: port number + network interfaces
 <ul>
@@ -260,26 +208,26 @@ $ vagrant up ns1 ns2
 <li>should be <code>no</code> on authoritative name server</li>
 </ul></li>
 </ul>
-</section><section id="main-config-file-zone-definition" class="slide level2">
-<h2>Main config file: zone definition</h2>
+</section><section id="primary-server-forward-zone-definition" class="slide level2">
+<h2>Primary server forward zone definition</h2>
 <p>Forward lookup zone for <em>example.com</em></p>
-<pre><code>zone &quot;example.com&quot; IN {
+<pre class="text"><code>zone &quot;example.com&quot; IN {
   type master;
   file &quot;example.com&quot;;
   notify yes;
   allow-update { none; };
 };</code></pre>
-</section><section id="main-config-file-zone-definition-1" class="slide level2">
-<h2>Main config file: zone definition</h2>
+</section><section id="secondary-server-zone-definition" class="slide level2">
+<h2>Secondary server zone definition</h2>
 <p>On a secondary name server:</p>
-<pre><code>zone &quot;example.com&quot; IN {
+<pre class="text"><code>zone &quot;example.com&quot; IN {
   type slave;
   masters { 192.168.56.10; };
   file &quot;slaves/example.com&quot;;
 };</code></pre>
-</section><section id="reverse-lookup-zone" class="slide level2">
-<h2>Reverse lookup zone</h2>
-<pre><code>zone &quot;56.168.192.in-addr.arpa&quot; IN {
+</section><section id="primary-server-reverse-lookup-zone" class="slide level2">
+<h2>Primary server reverse lookup zone</h2>
+<pre class="text"><code>zone &quot;56.168.192.in-addr.arpa&quot; IN {
   type master;
   file &quot;56.168.192.in-addr.arpa&quot;;
   notify yes;
@@ -288,7 +236,7 @@ $ vagrant up ns1 ns2
 </section><section id="ip-to-reverse-lookup-zone" class="slide level2">
 <h2>IP to reverse lookup zone</h2>
 <ol type="1">
-<li>Take the “dotted quad”, e.g. <code>192.168.56.0/24</code></li>
+<li>Take the “dotted quad”, e.g. <code>192.168.56.0/24</code></li>
 <li>Drop the host part: <code>192.168.56</code></li>
 <li>Reverse the quads: <code>56.168.192</code></li>
 <li>Add <code>in-addr.arpa.</code>:
@@ -298,14 +246,14 @@ $ vagrant up ns1 ns2
 </ol>
 </section><section id="example-zone-file" class="slide level2">
 <h2>Example zone file</h2>
-<pre><code>$ORIGIN example.com
+<pre class="text"><code>$ORIGIN example.com.
 $TTL 1W
 
 @ IN SOA ns1.example.com. hostmaster.example.com. (
   18042020 1D 1H 1W 1D )
 
                      IN  NS     ns1
-                     IN  NS     ns1
+                     IN  NS     ns2
 
 ns1                  IN  A      192.168.56.10
 ns2                  IN  A      192.168.56.11
@@ -316,16 +264,16 @@ db                   IN  A      192.168.56.173
 
 priv0001             IN  A      172.16.0.10
 priv0002             IN  A      172.16.0.11</code></pre>
-</section><section id="resource-records" class="slide level2">
-<h2>Resource records</h2>
-<pre><code>web  IN  A      192.168.56.172
+</section><section id="resource-records-rrs" class="slide level2">
+<h2>Resource records (RRs)</h2>
+<pre class="text"><code>web  IN  A      192.168.56.172
 www  IN  CNAME  web</code></pre>
-</section><section id="resource-records-1" class="slide level2">
-<h2>Resource records</h2>
+</section><section id="types-of-resource-records" class="slide level2">
+<h2>Types of Resource Records</h2>
 <ul>
-<li><code>A</code>: name to IP</li>
-<li><code>AAAA</code>: name to IPv6</li>
-<li><code>PTR</code>: IP to name</li>
+<li><code>A</code>: name → IP</li>
+<li><code>AAAA</code>: name → IPv6</li>
+<li><code>PTR</code>: IP → name</li>
 <li><code>CNAME</code>: alias</li>
 <li><code>SOA</code>: start of authority, info about the domain</li>
 <li><code>NS</code>: authoritative name server(s)</li>
@@ -336,7 +284,7 @@ www  IN  CNAME  web</code></pre>
 </ul>
 </section><section id="start-of-authority" class="slide level2">
 <h2>Start of Authority</h2>
-<pre><code>@ IN SOA ns1.example.com. hostmaster.example.com. (
+<pre class="text"><code>@ IN SOA ns1.example.com. hostmaster.example.com. (
   18042020 1D 1H 1W 1D )</code></pre>
 <ul>
 <li><code>ns1.example.com.</code>: primary name server</li>
@@ -349,14 +297,14 @@ www  IN  CNAME  web</code></pre>
 <li><strong>REMARK</strong> Secondary name servers will <strong>only</strong> update if serial increments</li>
 </ul></li>
 </ul>
-</section><section id="start-of-authority-1" class="slide level2">
-<h2>Start of Authority</h2>
-<pre><code>@ IN SOA ns1.example.com hostmaster.example.com (
+</section><section id="start-of-authority-timeouts" class="slide level2">
+<h2>Start of Authority timeouts</h2>
+<pre class="text"><code>@ IN SOA ns1.example.com hostmaster.example.com (
   18042020 1D 1H 1W 1D )</code></pre>
 <ul>
 <li><code>1D</code>: when will secondary ns try to refresh the zone</li>
 <li><code>1H</code>: time between update retries</li>
-<li><code>1W</code>: when is zone data no longer authoritative (slave only)</li>
+<li><code>1W</code>: when is zone data no longer authoritative (only secondary)</li>
 <li><code>1D</code>: how long can NAME ERROR result be cached</li>
 </ul>
 </section><section id="shortcuts" class="slide level2">
@@ -382,7 +330,7 @@ www  IN  CNAME  web</code></pre>
 </ul></li>
 </ul>
 </section><section id="specifying-time" class="slide level2">
-<h2>Specifying time:</h2>
+<h2>Specifying time</h2>
 <ul>
 <li>default = seconds</li>
 <li>M = minutes</li>
@@ -390,10 +338,10 @@ www  IN  CNAME  web</code></pre>
 <li>D = days</li>
 <li>W = weeks</li>
 </ul>
-<p>Combinations are allowed, e.g. <code>2H30M</code></p>
+<p>Combinations are allowed, e.g. <code>2H30M</code></p>
 </section><section id="reverse-zone-file" class="slide level2">
 <h2>Reverse zone file</h2>
-<pre><code>$TTL 1W
+<pre class="text"><code>$TTL 1W
 $ORIGIN 16.172.in-addr.arpa.
 
 @ IN SOA ns1.example.com. hostmaster.example.com. (
@@ -408,21 +356,21 @@ $ORIGIN 16.172.in-addr.arpa.
 </section><section id="root-hint" class="slide level2">
 <h2>Root hint</h2>
 <p>Every (forwarding) name server should have list of root name servers</p>
-<pre><code>dig @a.root-servers.net</code></pre>
+<pre class="console"><code>dig @a.root-servers.net</code></pre>
 </section><section class="slide level2">
 
-<pre><code>.           518400  IN  NS  a.root-servers.net.
-.           518400  IN  NS  b.root-servers.net.
+<pre class="text"><code>.   518400 IN NS a.root-servers.net.
+.   518400 IN NS b.root-servers.net.
 
 [...]
 
-a.root-servers.net. 518400  IN  A   198.41.0.4
-b.root-servers.net. 518400  IN  A   199.9.14.201
+a.root-servers.net. 518400 IN A 198.41.0.4
+b.root-servers.net. 518400 IN A 199.9.14.201
 
 [...]
 
-a.root-servers.net. 518400  IN  AAAA    2001:503:ba3e::2:30
-b.root-servers.net. 518400  IN  AAAA    2001:500:200::b
+a.root-servers.net. 518400 IN AAAA 2001:503:ba3e::2:30
+b.root-servers.net. 518400 IN AAAA 2001:500:200::b
 
 [...]</code></pre>
 </section></section>
@@ -470,7 +418,7 @@ b.root-servers.net. 518400  IN  AAAA    2001:500:200::b
 <p>The host <code>web</code> has an alias, <code>www</code>.</p>
 </section><section id="goal-make-the-tests-succeed" class="slide level2">
 <h2>Goal: make the tests succeed!</h2>
-<pre class="console"><code>$ ./tests/runtests.sh 
+<pre class="console"><code>[vagrant@ns1]$ /vagrant/tests/runtests.sh
 Testing 192.168.56.10
  ✓ The dig command should be installed
  ✓ It should return the NS record(s)
@@ -492,16 +440,29 @@ Testing 192.168.56.11
 </section><section id="useful-commands" class="slide level2">
 <h2>Useful commands</h2>
 <ul>
-<li>Check the logs: <code>journalctl -u named</code></li>
+<li>Check the logs: <code>journalctl -f -l -u named</code></li>
 <li>Validate config files:
 <ul>
 <li>main: <code>named-checkconf /etc/named.conf</code></li>
 <li>zone files: <code>named-checkzone ZONE FILE</code></li>
 </ul></li>
 </ul>
-<pre><code>$ named-checkconf
-$ named-checkzone example.com /var/named/example.conf
+<pre class="console"><code>$ named-checkconf
+$ named-checkzone example.com /var/named/example.com
 $ named-checkzone 16.172.in-addr.arpa /var/named/16.172.in-addr.arpa</code></pre>
+</section><section id="tips" class="slide level2">
+<h2>Tips</h2>
+<p>Enable Query log:</p>
+<pre class="console"><code>[root@ns1 ~]# rndc querylog</code></pre>
+<p>Force zone update:</p>
+<pre class="console"><code>[root@ns2 ~]# rndc refresh example.com</code></pre>
+</section><section id="tips-vervolg" class="slide level2">
+<h2>Tips (vervolg)</h2>
+<p>Follow BIND logs:</p>
+<pre class="console"><code>[root@ns1 ~]# journalctl -f -u named.service</code></pre>
+<p>Capture network traffic:</p>
+<pre class="console"><code>[root@ns2 ~]# tcpdump -i eth1 -vvnnttt
+[root@ns2 ~]# tcpdump -i eth1 -U -w - | tee dns.pcap | tcpdump -vv -nn -ttttt -r -</code></pre>
 </section></section>
     </div>
   </div>
