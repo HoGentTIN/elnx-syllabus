@@ -6,3 +6,4 @@
     - [VirtualBox netwerkconfiguratie](vboxnet/)
     - [Troubleshooting](troubleshooting/)
     - [DNS en BIND](bind/)
+    - [Samba](samba/)

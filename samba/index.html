@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Enterprise Linux">
+  <title>The Samba file server</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="reveal.js/css/reset.css">
+  <link rel="stylesheet" href="reveal.js/css/reveal.css">
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style>
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="reveal.js/css/theme/hogent.css" id="theme">
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">The Samba file server</h1>
+  <p class="author">Enterprise Linux</p>
+  <p class="date">HOGENT applied computer science</p>
+</section>
+
+<section><section id="introduction" class="title-slide slide level1"><h1>Introduction</h1></section><section id="before-we-begin" class="slide level2">
+<h2>Before we begin</h2>
+<p>Set up the test environment</p>
+<pre class="console"><code>$ cd elnx-syllabus/demo
+$ vagrant up fs
+[...]</code></pre>
+<p>A working VM this time!</p>
+</section><section id="agenda" class="slide level2">
+<h2>Agenda</h2>
+<ul>
+<li>Origin</li>
+<li>Samba on Enterprise Linux</li>
+<li>Main configuration</li>
+<li>Shares</li>
+</ul>
+<p>Samba as AD DC is not discussed here</p>
+</section><section id="origin" class="slide level2">
+<h2>Origin</h2>
+<ul>
+<li>Server Message Block (SMB)
+<ul>
+<li>Originates with IBM (1980’s)</li>
+<li>Acquired by Microsoft</li>
+</ul></li>
+<li>Common Internet File System (CIFS)
+<ul>
+<li>Name for early version of SMB</li>
+</ul></li>
+<li>Samba: 1992, Andrew Tridgell
+<ul>
+<li>Reverse engineered through network sniffing!</li>
+<li>Had reputation of being more stable!</li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="samba-on-enterprise-linux" class="title-slide slide level1"><h1>Samba on Enterprise linux</h1></section><section id="installation" class="slide level2">
+<h2>Installation</h2>
+<pre class="console"><code>sudo dnf install samba samba-client
+sudo systemctl enable --now nmb
+sudo systemctl enable --now smb
+sudo firewall-cmd --add-service samba</code></pre>
+</section><section id="two-services" class="slide level2">
+<h2>Two services!</h2>
+<ul>
+<li><code>nmbd</code>: NetBIOS name server
+<ul>
+<li>Resolve host names <code>\\server\share</code></li>
+</ul></li>
+<li><code>smbd</code>
+<ul>
+<li>File server (Windows Network Neighbourhood)</li>
+<li>Network printer sharing</li>
+<li>Active Directory Domain Controller</li>
+</ul></li>
+</ul>
+</section><section id="ports" class="slide level2">
+<h2>Ports</h2>
+<p>Check with <code>ss</code>!</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Service</th>
+<th style="text-align: left;">Port</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NetBIOS</td>
+<td style="text-align: left;">137/udp</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">138/udp</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SMB</td>
+<td style="text-align: left;">139/tcp</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">445/tcp</td>
+</tr>
+</tbody>
+</table>
+</section><section id="getting-help" class="slide level2">
+<h2>Getting help</h2>
+<ul>
+<li>Man pages: samba(7), nmbd(8), smbd(8), <a href="https://www.samba.org/samba/docs/current/man-html/smb.conf.5.html">smb.conf(5)</a></li>
+<li><a href="https://wiki.samba.org/index.php/Main_Page">Samba Wiki</a>
+<ul>
+<li><a href="https://wiki.samba.org/index.php/Setting_up_Samba_as_a_Standalone_Server">Setting up Samba as a Standalone Server</a></li>
+<li><a href="https://wiki.samba.org/index.php/Samba_File_Serving">Samba File Serving</a></li>
+</ul></li>
+<li>RHEL documentation: <a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/index">Deploying Different types of servers</a>
+<ul>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/assembly_using-samba-as-a-server_deploying-different-types-of-servers">Chapter 3: Using Samba as a server</a></li>
+</ul></li>
+</ul>
+</section></section>
+<section><section id="configuration" class="title-slide slide level1"><h1>Configuration</h1></section><section id="main-configuration" class="slide level2">
+<h2>Main configuration</h2>
+<ul>
+<li>Location <code>/etc/samba/smb.conf</code></li>
+<li>= INI-file</li>
+</ul>
+</section><section id="default-global-settings" class="slide level2">
+<h2>Default global settings</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">[global]</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="dt">    workgroup </span><span class="ot">=</span><span class="st"> SAMBA</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="dt">    security </span><span class="ot">=</span><span class="st"> user</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">    passdb backend </span><span class="ot">=</span><span class="st"> tdbsam</span></span></code></pre></div>
+<ul>
+<li>Standard workgroup name</li>
+<li>User authentication with local database
+<ul>
+<li><code>/var/lib/samba/private/passdb.tdb</code></li>
+</ul></li>
+</ul>
+</section><section id="printer-sharing" class="slide level2">
+<h2>Printer sharing</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">[global]</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="dt">    printing </span><span class="ot">=</span><span class="st"> cups</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="dt">    printcap name </span><span class="ot">=</span><span class="st"> cups</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="dt">    load printers </span><span class="ot">=</span><span class="st"> </span><span class="kw">yes</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="dt">    cups options </span><span class="ot">=</span><span class="st"> raw</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">[printers]</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="dt">    comment </span><span class="ot">=</span><span class="st"> All Printers</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="dt">    path </span><span class="ot">=</span><span class="st"> /var/tmp</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="dt">    printable </span><span class="ot">=</span><span class="st"> </span><span class="kw">Yes</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="dt">    create mask </span><span class="ot">=</span><span class="st"> </span><span class="dv">0600</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="dt">    browseable </span><span class="ot">=</span><span class="st"> </span><span class="kw">No</span></span></code></pre></div>
+</section><section class="slide level2">
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">[print$]</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="dt">    comment </span><span class="ot">=</span><span class="st"> Printer Drivers</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="dt">    path </span><span class="ot">=</span><span class="st"> /var/lib/samba/drivers</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="dt">    write list </span><span class="ot">=</span><span class="st"> @printadmin root</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="dt">    force group </span><span class="ot">=</span><span class="st"> @printadmin</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="dt">    create mask </span><span class="ot">=</span><span class="st"> </span><span class="dv">0664</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a><span class="dt">    directory mask </span><span class="ot">=</span><span class="st"> </span><span class="dv">0775</span></span></code></pre></div>
+</section><section id="netbios-name-support" class="slide level2">
+<h2>NetBIOS name support</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">[global]</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="dt">  netbios name </span><span class="ot">=</span><span class="st"> files</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="dt">  workgroup </span><span class="ot">=</span><span class="st"> AVALON</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="dt">  server string </span><span class="ot">=</span><span class="st"> &quot;Avalon, Inc. file server&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="dt">  wins support </span><span class="ot">=</span><span class="st"> </span><span class="kw">yes</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="dt">  local master </span><span class="ot">=</span><span class="st"> </span><span class="kw">yes</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="dt">  domain master </span><span class="ot">=</span><span class="st"> </span><span class="kw">yes</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="dt">  preferred master </span><span class="ot">=</span><span class="st"> </span><span class="kw">yes</span></span></code></pre></div>
+<p>Test with</p>
+<ul>
+<li><code>nmblookup -U 192.168.56.12 files</code></li>
+<li><code>nmblookup files</code></li>
+</ul>
+</section></section>
+<section><section id="shares" class="title-slide slide level1"><h1>Shares</h1></section><section id="permissions" class="slide level2">
+<h2>Permissions</h2>
+<p>Managing (r/w) access to shares is hard!</p>
+<ul>
+<li>Filesystem permissions (users, groups)</li>
+<li>Samba configuration file</li>
+<li>SELinux context</li>
+</ul>
+</section><section id="recommendation" class="slide level2">
+<h2>Recommendation</h2>
+<ul>
+<li>Create group for each share</li>
+<li>Assign permissions on group level</li>
+</ul>
+</section><section id="setup" class="slide level2">
+<h2>Setup</h2>
+<p>2 groups, 2 users in each group:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">User</th>
+<th style="text-align: left;">Group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sparrow</td>
+<td style="text-align: left;">pirates</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">teach</td>
+<td style="text-align: left;">pirates</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">fuma</td>
+<td style="text-align: left;">ninjas</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">hattori</td>
+<td style="text-align: left;">ninjas</td>
+</tr>
+</tbody>
+</table>
+<p>Password = username</p>
+</section><section id="shared-directories" class="slide level2">
+<h2>Shared directories</h2>
+<pre class="console"><code># tree /srv/shares/
+/srv/shares/
+├── cove
+│   └── everyone.txt
+├── dojo
+│   └── ninjas.txt
+└── everyone
+    └── pirates.txt</code></pre>
+</section><section id="minimal-share-definition" class="slide level2">
+<h2>Minimal share definition</h2>
+<div class="sourceCode" id="cb8"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">[everyone]</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="dt">    path </span><span class="ot">=</span><span class="st"> /srv/shares/everyone</span></span></code></pre></div>
+<ul>
+<li>Read-only</li>
+<li>Access for all authenticated users</li>
+</ul>
+</section><section id="accessing-the-share-with-smbclient" class="slide level2">
+<h2>Accessing the share with smbclient</h2>
+<ul>
+<li>Show shares: <code>smbclient -L //server/</code></li>
+<li>Log in as alice with password letmein:
+<ul>
+<li><code>smbclient //server/share -Ualice%letmein</code></li>
+</ul></li>
+<li>Guest login:
+<ul>
+<li><code>smbclient //server/share -U%</code></li>
+</ul></li>
+</ul>
+</section><section id="changing-access-levels" class="slide level2">
+<h2>Changing access levels</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Setting</th>
+<th style="text-align: left;">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">browseable</td>
+<td style="text-align: left;">share is visible</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">valid users</td>
+<td style="text-align: left;">read access</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">read only/writeable</td>
+<td style="text-align: left;">write access</td>
+</tr>
+</tbody>
+</table>
+</section><section id="warning-file-permissions" class="slide level2">
+<h2>Warning! File permissions</h2>
+<ul>
+<li>Underlying file permissions must match!
+<ul>
+<li>UNIX ACLs</li>
+</ul></li>
+<li>SELinux context should be correct
+<ul>
+<li><code>samba_share_t</code></li>
+<li><code>public_content_t</code></li>
+</ul></li>
+</ul>
+</section><section id="share-for-ninjas" class="slide level2">
+<h2>Share for ninjas</h2>
+<div class="sourceCode" id="cb9"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb9-1"><a href="#cb9-1"></a><span class="kw">[dojo]</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="dt">    path </span><span class="ot">=</span><span class="st"> /srv/shares/dojo</span></span>
+<span id="cb9-3"><a href="#cb9-3"></a><span class="dt">    valid users </span><span class="ot">=</span><span class="st"> @ninjas</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a><span class="dt">    readonly </span><span class="ot">=</span><span class="st"> </span><span class="kw">no</span></span></code></pre></div>
+</section><section id="managing-permissions-of-new-files" class="slide level2">
+<h2>Managing permissions of new files</h2>
+<div class="sourceCode" id="cb10"><pre class="sourceCode ini"><code class="sourceCode ini"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">[cove]</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="dt">    path </span><span class="ot">=</span><span class="st"> /srv/shares/cove</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="dt">    read only </span><span class="ot">=</span><span class="st"> </span><span class="kw">No</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="dt">    valid users </span><span class="ot">=</span><span class="st"> @pirates</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="dt">    force create mode </span><span class="ot">=</span><span class="st"> </span><span class="dv">0660</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="dt">    force directory mode </span><span class="ot">=</span><span class="st"> </span><span class="dv">0770</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a><span class="dt">    force group </span><span class="ot">=</span><span class="st"> pirates</span></span></code></pre></div>
+</section></section>
+<section><section id="troubleshooting" class="title-slide slide level1"><h1>Troubleshooting</h1></section><section id="troubleshooting-tips" class="slide level2">
+<h2>Troubleshooting tips</h2>
+<ul>
+<li>Check logs:
+<ul>
+<li><code>journalctl -u nmb.service</code></li>
+<li><code>journalctl -u smb.service</code></li>
+<li><code>tail -f /var/log/audit/audit.log</code></li>
+</ul></li>
+<li>Check config file syntax: <code>testparm -s</code></li>
+<li>Use <code>smbclient</code> instead of Windows file manager
+<ul>
+<li>Much better error messages</li>
+</ul></li>
+</ul>
+</section></section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>
